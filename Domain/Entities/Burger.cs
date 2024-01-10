@@ -10,8 +10,9 @@ namespace Domain.Entities
     {
         
         public string? ImagePath { get; set; }
-        
-        
 
-    }
+		public Menu? Menu { get; set; }
+		public int? MenuId { get; set; }
+
+	}
 }

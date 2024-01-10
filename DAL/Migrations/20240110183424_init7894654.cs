@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class _44 : Migration
+    public partial class init7894654 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -205,12 +205,13 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<double>(type: "float", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Beverage_MenuId = table.Column<int>(type: "int", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Burger_MenuId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     Size = table.Column<int>(type: "int", nullable: true),
                     OrderId = table.Column<int>(type: "int", nullable: true),
-                    MenuId1 = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -232,16 +233,20 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Product_Product_Beverage_MenuId",
+                        column: x => x.Beverage_MenuId,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Product_Product_Burger_MenuId",
+                        column: x => x.Burger_MenuId,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Product_Product_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Product",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Product_Product_MenuId1",
-                        column: x => x.MenuId1,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -289,6 +294,16 @@ namespace DAL.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Product_Beverage_MenuId",
+                table: "Product",
+                column: "Beverage_MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_Burger_MenuId",
+                table: "Product",
+                column: "Burger_MenuId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",
                 table: "Product",
                 column: "CategoryId");
@@ -297,11 +312,6 @@ namespace DAL.Migrations
                 name: "IX_Product_MenuId",
                 table: "Product",
                 column: "MenuId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_MenuId1",
-                table: "Product",
-                column: "MenuId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_OrderId",

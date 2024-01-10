@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Product : BaseEntity
+    public abstract class Product : BaseEntity
     {
 
       
@@ -16,7 +16,6 @@ namespace Domain.Entities
         public Category Category { get; set; }
         public int CategoryId { get; set; }
 
-      public Menu Menu { get; set; }
-      public int? MenuId { get; set; }
+      
     }
 }
