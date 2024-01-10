@@ -19,5 +19,7 @@ namespace Domain.Entities
         public DateTime? ModifiedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
         public ICollection<Menu> Menus { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

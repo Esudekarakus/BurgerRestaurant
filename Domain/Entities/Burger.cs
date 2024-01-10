@@ -9,10 +9,11 @@ namespace Domain.Entities
     public class Burger:Product
     {
         
-        public string? ImagePath { get; set; }
+        public string ImagePath { get; set; }
 
-		public Menu? Menu { get; set; }
-		public int? MenuId { get; set; }
-
-	}
+		public Menu Menu { get; set; }
+		public int MenuId { get; set; }
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
+    }
 }
