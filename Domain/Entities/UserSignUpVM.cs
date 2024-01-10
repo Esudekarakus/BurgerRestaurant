@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-	internal class UserSignUpVM
+	public class UserSignUpVM
 	{
 		[Required]
 		public string UserName { get; set; }

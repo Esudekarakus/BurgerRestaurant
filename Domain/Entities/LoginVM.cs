@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-	internal class LoginVM
+	public class LoginVM
 	{
 		[Required]
 		public string UserName { get; set; }
