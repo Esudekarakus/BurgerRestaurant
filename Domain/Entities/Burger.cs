@@ -8,5 +8,7 @@ namespace Domain.Entities
 {
     public class Burger:Product_BaseEntity
     {
+        public int MenuId { get; set; }
+
     }
 }
