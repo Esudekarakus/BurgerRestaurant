@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities
+namespace WA_HamburgerProjesiMVC_100124.Models
 {
 	public class UserSignUpVM
 	{
@@ -13,7 +8,7 @@ namespace Domain.Entities
 		public string UserName { get; set; }
 		[Required]
 		public string FirstName { get; set; }
-		[Required] 
+		[Required]
 		public string LastName { get; set; }
 		[Required]
 		[EmailAddress]

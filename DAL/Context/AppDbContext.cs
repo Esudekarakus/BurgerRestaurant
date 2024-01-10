@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using DAL.Configurations;
+using System.Reflection.Emit;
 
 namespace DAL.Context
 {
@@ -25,11 +26,13 @@ namespace DAL.Context
 
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder
-            .ApplyConfiguration(new BeverageConfiguration())
-            .ApplyConfiguration(new BurgerConfiguration())
-            .ApplyConfiguration(new CondimentConfiguration());
+		{
+
+
+            //builder
+            //         .ApplyConfiguration(new BeverageConfiguration())
+            //         .ApplyConfiguration(new BurgerConfiguration())
+            //         .ApplyConfiguration(new CondimentConfiguration());
             base.OnModelCreating(builder);
         }
 

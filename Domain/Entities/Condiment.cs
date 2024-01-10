@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Condiment:Product_BaseEntity
+    public class Condiment:Product
     {
-        public int MenuId { get; set; }
-        public Menu Menu { get; set; }
+        
     }
 }

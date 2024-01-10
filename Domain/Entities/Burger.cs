@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Burger:Product_BaseEntity
+    public class Burger:Product
     {
-        public int MenuId { get; set; }
-        public Menu Menu { get; set; }
-        public string ImagePath { get; set; }
+        
+        public string? ImagePath { get; set; }
         
         
 
