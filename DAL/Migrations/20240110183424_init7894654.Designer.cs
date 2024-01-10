@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240110163458_44")]
-    partial class _44
+    [Migration("20240110183424_init7894654")]
+    partial class init7894654
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,9 +186,6 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -345,6 +342,10 @@ namespace DAL.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Product");
 
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int")
+                        .HasColumnName("Beverage_MenuId");
+
                     b.HasIndex("MenuId");
 
                     b.HasDiscriminator().HasValue("Beverage");
@@ -357,6 +358,10 @@ namespace DAL.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int")
+                        .HasColumnName("Burger_MenuId");
+
                     b.HasIndex("MenuId");
 
                     b.HasDiscriminator().HasValue("Burger");
@@ -365,6 +370,9 @@ namespace DAL.Migrations
             modelBuilder.Entity("Domain.Entities.Condiment", b =>
                 {
                     b.HasBaseType("Domain.Entities.Product");
+
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int");
 
                     b.HasIndex("MenuId");
 
@@ -375,16 +383,11 @@ namespace DAL.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Product");
 
-                    b.Property<int>("MenuId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
-
-                    b.HasIndex("MenuId1");
 
                     b.HasIndex("OrderId");
 
@@ -489,19 +492,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Domain.Entities.Menu", b =>
                 {
-                    b.HasOne("Domain.Entities.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Order", "Order")
                         .WithMany("Menus")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Menu");
 
                     b.Navigation("Order");
                 });

@@ -8,6 +8,7 @@ namespace Domain.Entities
 {
     public class Condiment:Product
     {
-        
-    }
+		public Menu? Menu { get; set; }
+		public int? MenuId { get; set; }
+	}
 }

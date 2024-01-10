@@ -28,7 +28,7 @@ namespace DAL.Context
         protected override void OnModelCreating(ModelBuilder builder)
 		{
 
-
+            
             //builder
             //         .ApplyConfiguration(new BeverageConfiguration())
             //         .ApplyConfiguration(new BurgerConfiguration())
