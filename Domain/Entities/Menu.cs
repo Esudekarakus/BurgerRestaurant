@@ -1,6 +1,8 @@
 ﻿
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Menu : Product_BaseEntity
+    public class Menu : Product
     {
         public Menu()
         {
@@ -16,10 +18,13 @@ namespace Domain.Entities
             Burgers= new List<Burger>();
             Beverages= new List<Beverage>();
         }
-        public Size Size { get; set; }
+
+        public Domain.Enums.Size Size {  get; set; }
         public ICollection<Condiment> Condiments { get; set; }
         public ICollection<Burger> Burgers { get; set;}
         public ICollection<Beverage> Beverages { get; set; }
+        public Order Order { get; set; }
+        public int OrderId { get; set; }
 
 
     }

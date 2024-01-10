@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    public enum Size 
-    {
-        Small=1,
-        Medium,
-        Large,
+	public enum Size
+	{
+		Small = 1,
+		Medium,
+		Large
 
-    }
+	}
 }
