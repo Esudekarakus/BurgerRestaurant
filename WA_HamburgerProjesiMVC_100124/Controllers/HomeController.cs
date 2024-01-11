@@ -28,7 +28,18 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 		{
 			return View();
 		}
-
+		public IActionResult About()
+		{
+			return View();
+		}
+		public IActionResult Contact()
+		{
+			return View();
+		}
+		public IActionResult Order()
+		{
+			return View();
+		}
 		
 	}
 }
