@@ -10,13 +10,13 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly ILogger<HomeController> logger;
 
         // Layout olacak 
-        // Navbar Profil  -  Burger Menu (Çizgi)  -  Search butonu  -  
-        // Profil (Bilgiler  -  Önceki siparişler  -  Sepetim  -  çıkış )
-        // Hamburger Menu (Ana sayfa  -  Hakkımızda  -  İletişim  -  Sipariş ver  )
-        // Uygulama açıldığında giriş ekranı karşılasın. Giriş yapmadan devam edilmesin.
+        // Navbar Profil  -  Burger Menu (ï¿½izgi)  -  Search butonu  -  
+        // Profil (Bilgiler  -  ï¿½nceki sipariï¿½ler  -  Sepetim  -  ï¿½ï¿½kï¿½ï¿½ )
+        // Hamburger Menu (Ana sayfa  -  Hakkï¿½mï¿½zda  -  ï¿½letiï¿½im  -  Sipariï¿½ ver  )
+        // Uygulama aï¿½ï¿½ldï¿½ï¿½ï¿½nda giriï¿½ ekranï¿½ karï¿½ï¿½lasï¿½n. Giriï¿½ yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger )
         {
             this.logger = logger;
         }
@@ -42,6 +42,51 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             return View();
         }
+
+
+
+
+
+
+
+         public async Task<IActionResult> Bilgiler( )
+         {
+            // KullanÄ±cÄ± bilgileri burada yer alacak. KullanÄ±cÄ±nÄ±n adÄ±nÄ± ,  mail adresini ,  ÅŸifresini gÃ¼ncelleyebildiÄŸi ekran olacak
+            // UserVM login yapÄ±lan kullanÄ±cÄ±ya eÅŸitlenecek.
+            UserVM user = new UserVM(){
+                Name = "Tarik",
+                SurName = "Kaya",
+                Address = "KarÄ±kÃ¶y",
+                Password = "123",
+                EMail = "asd@gmail.com"
+            };
+            
+            
+            return View(user);
+         }
+         public async Task<IActionResult> OncekiSiparisler( )
+         {
+            // Admin onayÄ±ndan geÃ§en sipariÅŸler teslim edildi olduktan sonra burada gÃ¶ster Liste ÅŸeklinde. Tarih ve sipariÅŸ bbilgisi lazÄ±m
+            return View();
+         }
+         public async Task<IActionResult> Sepetim( )
+         {
+
+            //GÃ¼ncel Sepet bilgileri gÃ¶sterilecek. OnaylanmamÄ±ÅŸ haliyle.
+
+
+            return View();
+         }
+
+         public async Task<IActionResult> CikisYap( )
+         {
+            //Logout KÄ±smÄ± burada Ã§aÄŸÄ±ralacak. Service de yaz.
+            return View();
+         }
+
+
+
+
 
     }
 }
