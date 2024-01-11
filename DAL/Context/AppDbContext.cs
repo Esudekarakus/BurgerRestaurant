@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
-using DAL.Configurations;
 using System.Reflection.Emit;
 
 namespace DAL.Context
@@ -16,11 +15,10 @@ namespace DAL.Context
         {
             
         }
-        public DbSet<Beverage> Beverages { get; set; }
-        public DbSet<Burger> Burgers { get; set; }
+    
+        public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Condiment> Condiments { get; set; }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Order> Orders { get; set; }
 
