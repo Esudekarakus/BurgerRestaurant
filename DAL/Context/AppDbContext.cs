@@ -19,7 +19,7 @@ namespace DAL.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         public DbSet<Order> Orders { get; set; }
 
 
