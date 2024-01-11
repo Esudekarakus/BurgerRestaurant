@@ -8,8 +8,11 @@ namespace Domain.Entities
 {
     public class Category : BaseEntity
     {
-        
+        public Category()
+        {
+            Products = new List<Product>();
 
+        }
         public IEnumerable<Product> Products { get; set; }
     }
 }

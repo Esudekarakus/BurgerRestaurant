@@ -15,9 +15,9 @@ namespace Domain.Entities
        
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
+ 
         public ICollection<Menu> Menus { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

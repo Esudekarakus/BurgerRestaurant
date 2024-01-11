@@ -111,16 +111,59 @@ namespace DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Menu");
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -132,6 +175,7 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AppUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -152,9 +196,6 @@ namespace DAL.Migrations
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -180,9 +221,14 @@ namespace DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -191,16 +237,13 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.HasIndex("MenuId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -336,67 +379,26 @@ namespace DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Beverage", b =>
-                {
-                    b.HasBaseType("Domain.Entities.Product");
-
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("int")
-                        .HasColumnName("Beverage_MenuId");
-
-                    b.HasIndex("MenuId");
-
-                    b.HasDiscriminator().HasValue("Beverage");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Burger", b =>
-                {
-                    b.HasBaseType("Domain.Entities.Product");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("int")
-                        .HasColumnName("Burger_MenuId");
-
-                    b.HasIndex("MenuId");
-
-                    b.HasDiscriminator().HasValue("Burger");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Condiment", b =>
-                {
-                    b.HasBaseType("Domain.Entities.Product");
-
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("MenuId");
-
-                    b.HasDiscriminator().HasValue("Condiment");
-                });
-
             modelBuilder.Entity("Domain.Entities.Menu", b =>
                 {
-                    b.HasBaseType("Domain.Entities.Product");
+                    b.HasOne("Domain.Entities.Order", "Order")
+                        .WithMany("Menus")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasDiscriminator().HasValue("Menu");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
-                    b.HasOne("Domain.Entities.AppUser", null)
+                    b.HasOne("Domain.Entities.AppUser", "AppUser")
                         .WithMany("Orders")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
@@ -407,7 +409,15 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Menu", "Menu")
+                        .WithMany("Products")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -461,44 +471,6 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Beverage", b =>
-                {
-                    b.HasOne("Domain.Entities.Menu", "Menu")
-                        .WithMany("Beverages")
-                        .HasForeignKey("MenuId");
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Burger", b =>
-                {
-                    b.HasOne("Domain.Entities.Menu", "Menu")
-                        .WithMany("Burgers")
-                        .HasForeignKey("MenuId");
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Condiment", b =>
-                {
-                    b.HasOne("Domain.Entities.Menu", "Menu")
-                        .WithMany("Condiments")
-                        .HasForeignKey("MenuId");
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Menu", b =>
-                {
-                    b.HasOne("Domain.Entities.Order", "Order")
-                        .WithMany("Menus")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Domain.Entities.AppUser", b =>
                 {
                     b.Navigation("Orders");
@@ -509,18 +481,14 @@ namespace DAL.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Menu", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.Navigation("Menus");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Menu", b =>
-                {
-                    b.Navigation("Beverages");
-
-                    b.Navigation("Burgers");
-
-                    b.Navigation("Condiments");
                 });
 #pragma warning restore 612, 618
         }
