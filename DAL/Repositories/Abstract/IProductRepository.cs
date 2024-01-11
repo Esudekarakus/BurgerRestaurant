@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories.Abstract
 {
-	internal interface IProductRepository : IRepository<Product>
+	public interface IProductRepository : IRepository<Product>
 	{
 		Product GetByIdIncludeCategory(int id);
 		IEnumerable<Product> GetAllIncludeCategory();

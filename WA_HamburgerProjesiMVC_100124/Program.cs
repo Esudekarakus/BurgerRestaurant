@@ -1,13 +1,25 @@
 using DAL.Context;
+using DAL.Repositories.Abstract;
+using DAL.Repositories.Concrete;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Repositories and services injected into the container
+
+builder.Services.AddTransient<ICategoryRepository , CategoryRepository>();
+builder.Services.AddTransient<IMenuRepository , MenuRepository>();
+builder.Services.AddTransient<IOrderRepository , OrderRepository>();
+builder.Services.AddTransient<IProductRepository , ProductRepository>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
+
+
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 
 
 
