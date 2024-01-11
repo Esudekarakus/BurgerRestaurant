@@ -1,13 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
+﻿<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GurmeBurger</title>
+    <title>Hakkımızda - GurmeBurger</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -26,18 +20,16 @@
             padding: 20px;
         }
 
-        img {
+        .profile-image {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
+            border-radius: 50%;
             margin-top: 20px;
         }
 
-        .special-offers {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 10px;
+        .about-text {
             margin-top: 20px;
+            text-align: justify;
         }
 
         footer {
@@ -59,20 +51,17 @@
 
     <main class="container">
         <section>
-            <h2 class="text-center">Hoş Geldiniz!</h2>
-            <p class="text-center">GurmeBurger, lezzetli burgerleriyle sizi ağırlamaktan mutluluk duyar.</p>
-            <img src="img/okuz-burger-slider-yeni-4-min.jpg" alt="GurmeBurger"  width=""/>
-        </section>
-
-        <section class="special-offers">
-            <h2 class="text-center">Özel Teklifler</h2>
-            <p class="text-center">Bu ay için özel indirimlerimizi kaçırmayın!</p>
-            <p class="text-center">Şimdi sipariş verin ve lezzetin tadını çıkarın.</p>
-            <p class="text-center"><a class="btn btn-outline-danger">Sipariş ver</a></p>
+            <h2 class="text-center">Hakkımızda</h2>
+            <img src="profile_image.jpg" alt="Profil Resmi" class="profile-image mx-auto d-block img-fluid" />
+            <p class="about-text">
+                Merhaba, biz SRHTS ekibi, GurmeBurger'ın kurucusu ve aşçısıyız ve sizinle lezzetli burgerleri seven bir ekip olarak ve bu sevgiyi paylaşmak için buradayız.
+                GurmeBurger olarak kurduğumuz bu mekan, benzersiz ve enfes lezzetlerle dolu bir burger deneyimi sunmayı amaçlamaktadır.
+                Sizleri GurmeBurger ailesine davet etmekten mutluluk duyarım. Umarım lezzet dolu bir deneyim yaşarsınız!
+            </p>
         </section>
     </main>
 
-
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
