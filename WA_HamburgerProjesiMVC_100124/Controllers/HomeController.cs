@@ -16,8 +16,21 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 			_logger = logger;
 		}
 
-		
-		public IActionResult Index()
+
+
+        // Layout olacak 
+        // Navbar Profil  -  Burger Menu (Çizgi)  -  Search butonu  -  
+        // Profil (Bilgiler  -  Önceki siparişler  -  Sepetim  -  çıkış )
+        // Hamburger Menu (Ana sayfa  -  Hakkımızda  -  İletişim  -  Sipariş ver  )
+        // Uygulama açıldığında giriş ekranı karşılasın. Giriş yapmadan devam edilmesin.
+
+
+
+
+
+
+
+        public IActionResult Index()
 		{
 			
 			
