@@ -10,12 +10,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly UserManager<AppUser> userManager;
+		
 
-		public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager)
+		public HomeController(ILogger<HomeController> logger)
 		{
 			_logger = logger;
-			this.userManager = userManager;
 		}
 
 		
