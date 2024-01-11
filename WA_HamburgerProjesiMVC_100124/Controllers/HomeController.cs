@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WA_HamburgerProjesiMVC_100124.Models;
 
@@ -7,14 +10,19 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly UserManager<AppUser> userManager;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager)
 		{
 			_logger = logger;
+			this.userManager = userManager;
 		}
 
+		
 		public IActionResult Index()
 		{
+			
+			
 			return View();
 		}
 

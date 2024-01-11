@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace WA_HamburgerProjesiMVC_100124.Models
 {
@@ -15,5 +16,7 @@ namespace WA_HamburgerProjesiMVC_100124.Models
 		public string Email { get; set; }
 		[Required]
 		public string Password { get; set; }
+
+		
 	}
 }
