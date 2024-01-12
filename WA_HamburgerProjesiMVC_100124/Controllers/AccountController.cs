@@ -6,7 +6,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-	[Authorize(Roles = "Standart User")]
+	[Authorize]
 	public class AccountController : Controller
 	{
 		private readonly UserManager<AppUser> userManager;
@@ -121,7 +121,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 			
 			return View(user);
 		}
-
+		
 		public async Task<IActionResult> Index()
 		{
 			AppUser user = await userManager.GetUserAsync(HttpContext.User);

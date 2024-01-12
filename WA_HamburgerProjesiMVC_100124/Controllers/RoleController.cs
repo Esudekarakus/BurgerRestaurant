@@ -7,7 +7,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-	[Authorize(Roles ="Admin")]
+	[Authorize(Roles ="admin")]
 	public class RoleController : Controller
 	{
 		private readonly RoleManager<IdentityRole> roleManager;
