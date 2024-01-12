@@ -76,6 +76,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(UserSignUpVM user)
 		{
+			if (user.Password != user.RepeatPassword)
+			{
+				ModelState.AddModelError(nameof(user.Password), "Sign Up Failed : Paswords does not match.");
+			}
+
 			if (ModelState.IsValid)
 			{
 				AppUser appUser = new AppUser()
@@ -86,6 +91,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 					LastName = user.LastName,
 
 				};
+
 
 				IdentityResult result = await userManager.CreateAsync(appUser, user.Password);
 
