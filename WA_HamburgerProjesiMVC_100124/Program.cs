@@ -16,7 +16,7 @@ builder.Services.AddTransient<IOrderRepository , OrderRepository>();
 builder.Services.AddTransient<IProductRepository , ProductRepository>();
 builder.Services.AddTransient<AdminService>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
-
+builder.Services.AddTransient<MenuService>();
 
 
 
@@ -26,7 +26,7 @@ builder.Services.AddControllersWithViews();
 
 
 //ConStr adını herkes kendi adıyla değiştirmesi yeterli
-builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Shohzod")));
+builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Sude")));
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
@@ -62,6 +62,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Account}/{action=Index}/{id?}");
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

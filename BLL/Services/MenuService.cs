@@ -20,7 +20,6 @@ namespace BLL.Services
 
         }
 
-
         public List<Menu>GetMenusIncludeProducts()
         {
             return menuRepository.GetAllIncludeProducts().ToList();
