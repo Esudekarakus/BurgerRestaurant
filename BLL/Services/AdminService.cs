@@ -87,17 +87,17 @@ namespace BLL.Services
         {
             return productRepository.GetById(id);
         }
-        public void AddProduct(Product product)
+        public bool AddProduct(Product product)
         {
-            productRepository.Add(product);
+            return productRepository.Add(product);
         }
-        public void UpdateProduct(Product product)
+        public bool UpdateProduct(Product product)
         {
-            productRepository.Update(product);
+            return productRepository.Update(product);
         }
-        public void DeleteProduct(Product product)
+        public bool DeleteProduct(Product product)
         {
-            productRepository.Delete(product);
+            return productRepository.Delete(product);
         }
 
         public IEnumerable<Category> GetAllCategories()

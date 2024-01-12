@@ -5,6 +5,7 @@ using DAL.Repositories.Concrete;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,10 @@ builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>)
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 //ConStr adını herkes kendi adıyla değiştirmesi yeterli
-builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Shohzod")));
+builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Harun")));
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 

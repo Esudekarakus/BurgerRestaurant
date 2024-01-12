@@ -1,19 +1,23 @@
-﻿using BLL.Services;
+﻿using AutoMapper;
+using BLL.Services;
 using DAL.Context;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-	public class AdminController : Controller
-	{
+    public class AdminController : Controller
+    {
         private readonly AdminService adminService;
+        private readonly IMapper mapper;
 
-        public AdminController(AdminService adminService)
+        public AdminController(AdminService adminService,IMapper mapper)
         {
             this.adminService = adminService;
+            this.mapper = mapper;
         }
 
         // Layout olusturulacak ( Side bar + header + footer)
@@ -22,9 +26,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // SideBar'da Restorana ait istatistikler + Menu crud + Urun crud + Kategori crud + Kullanicilari goruntuleme + Siparisleri goruntuleme + Mesajlari goruntuleme 
 
         public IActionResult Index()
-		{
-			return View();
-		}
+        {
+            return View();
+        }
         public IActionResult Dashboard()
         {
             // Toplam kullanici sayisi
@@ -90,7 +94,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult UpdateMenu(Menu menu)
         {
             // Servisten metot cagirip databaseden gelen menu guncellenip tekrar databaseye gonderilecek.
-            
+
             adminService.UpdateMenu(menu);
 
             return View();
@@ -123,18 +127,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Urune ait bilgilerin girildigi form
             // Urune ait fotografin eklenebildigi + goruntulendigi alan
             // Ekle butonu
+            List<Category> categories = adminService.GetAllCategories().ToList();
+            CreateProductVM createProductVM = new CreateProductVM();
+            createProductVM.Categories = new SelectList(categories, "Id", "Name");
 
-            return View();
+            return View(createProductVM);
         }
 
         [HttpPost]
-        public IActionResult CreateProduct(Product product)
+        public IActionResult CreateProduct(CreateProductVM productVM)
         {
             // Servisten metot cagirip product databaseye eklenecek. 
 
-            adminService.AddProduct(product);
-
-            return View();
+            bool isAdded = adminService.AddProduct(mapper.Map<Product>(productVM));
+            if (isAdded)
+            {
+                return RedirectToAction("Products");
+            }
+            else return View();
         }
         public IActionResult UpdateProduct(int id)
         {
@@ -153,18 +163,27 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen urun guncellenip tekrar databaseye gonderilecek.
 
-            adminService.UpdateProduct(product);
+            bool isUpdated = adminService.UpdateProduct(product);
 
-            return View();
+            if (isUpdated)
+            {
+                return RedirectToAction("Products");
+            }
+            else return View();
+
         }
         public IActionResult DeleteProduct(int id)
         {
             // Servisten metot cagirip databaseden gelen product silinecek.
 
             Product product = adminService.GetProductById(id);
-            adminService.DeleteProduct(product);
+            bool isDeleted = adminService.DeleteProduct(product);
+            if (isDeleted)
+            {
+                return RedirectToAction("Products");
+            }
 
-            return View();
+            return RedirectToAction("Products");
         }
         public IActionResult Categories()
         {
@@ -242,7 +261,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Siparis id + siparis tarihi + siparis edilen urunler + kullanici ismi + fiyat + siparis durumu
             // Siparisin iptal edilebilecegi bir iptal butonu (opsiyonel)
 
-            List<Order> orderList = adminService.GetAllOrdersWithUsers().ToList();  
+            List<Order> orderList = adminService.GetAllOrdersWithUsers().ToList();
 
             return View(orderList);
         }
