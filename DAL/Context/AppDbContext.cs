@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using System.Reflection.Emit;
 using Microsoft.AspNetCore.Identity;
+using DAL.Configurations;
 
 namespace DAL.Context
 {
@@ -60,6 +61,9 @@ namespace DAL.Context
 				UserId = adminId,
 				RoleId = roleId,
 			});
+			new CategoryConfiguration().Configure(builder.Entity<Category>());
+			new ProductConfiguration().Configure(builder.Entity<Product>());
+			new MenuConfiguration().Configure(builder.Entity<Menu>());
 
 			base.OnModelCreating(builder);
 
