@@ -12,25 +12,22 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
     public class AdminController : Controller
     {
         private readonly AdminService adminService;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IMapper mapper;
 
-
-
-        private readonly IMapper mapper; 
-
-        public AdminController(AdminService adminService,IMapper mapper)
+        public AdminController(AdminService adminService, IWebHostEnvironment webHostEnvironment,IMapper mapper)
         {
             this.adminService = adminService;
-
-
+            this.webHostEnvironment = webHostEnvironment;
             this.mapper = mapper;
         }
 
-        // Layout olusturulacak ( Side bar + header + footer)
-        // Viewlar layoutun icinde main kismina RenderBody ile gelecek.
-        // Header kisminda giris yapan adminin ismi + logout + bildirim butonu + mesaj butonu  olacak.
-        // SideBar'da Restorana ait istatistikler + Menu crud + Urun crud + Kategori crud + Kullanicilari goruntuleme + Siparisleri goruntuleme + Mesajlari goruntuleme 
+            // Layout olusturulacak ( Side bar + header + footer)
+            // Viewlar layoutun icinde main kismina RenderBody ile gelecek.
+            // Header kisminda giris yapan adminin ismi + logout + bildirim butonu + mesaj butonu  olacak.
+            // SideBar'da Restorana ait istatistikler + Menu crud + Urun crud + Kategori crud + Kullanicilari goruntuleme + Siparisleri goruntuleme + Mesajlari goruntuleme 
 
-        public IActionResult Index()
+            public IActionResult Index()
         {
             return View();
         }
