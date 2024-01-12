@@ -68,5 +68,10 @@ namespace DAL.Repositories.Concrete
 		{
 			return dbContext.Products.Include(a => a.Menu).ThenInclude(a => a.Order).ThenInclude(a => a.AppUser).FirstOrDefault(a => a.Id == id);
 		}
-	}
+
+        public int GetTotalProductCount()
+        {
+			return dbContext.Products.Count();
+        }
+    }
 }

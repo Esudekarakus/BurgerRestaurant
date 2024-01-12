@@ -12,10 +12,12 @@ namespace DAL.Repositories.Abstract
         IEnumerable<Order> GetAllByUserId(string id);
         Order GetByIdIncludeMenus(int id);
         Order GetByUserIdIncludeMenus(string id);
-
+        IEnumerable<Order> GetAllIncludeMenusIncludeUsers();
         IEnumerable<Order> GetAllOrderByCreatedDate();
         IEnumerable<Order> GetByUserIdOrderByCreatedDate(string id);
         IEnumerable<Order> GetByUserIdIncludeMenusOrderByCreatedDate(string id);
-
+        decimal GetTotalPaymentFromProducts();
+        int GetTotalOrderCount();
+        decimal GetTotalPayment();
     }
 }

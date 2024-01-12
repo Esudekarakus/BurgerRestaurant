@@ -18,6 +18,7 @@ namespace DAL.Repositories.Abstract
         IEnumerable<Menu> GetAllIncludeProductsAndOrder();
         IEnumerable<Menu> GetAllIncludeOrder();
         IEnumerable<Menu> GetAllIncludeProductsAndOrderThenCustomer();
+        int GetTotalMenuCount();
 
     }
 }
