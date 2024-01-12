@@ -28,6 +28,8 @@ builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configurat
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account/Login");
+
 builder.Services.Configure<IdentityOptions>(opt =>
 {
 	opt.User.RequireUniqueEmail = true;
