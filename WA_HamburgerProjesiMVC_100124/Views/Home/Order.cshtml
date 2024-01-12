@@ -45,18 +45,21 @@
     <main class="container">
         @foreach(Menu menu in Model)
         {
-         <div class="container-fluid">
-          <div class="card-group">
-            <div class="card">
-                <img src="@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important">
-                <div class="card-body">
-                    <h5 class="card-title">@menu.Name</h5>
-                    <p class="card-text">@menu.Description</p>
-                    <a href="https://en.wikipedia.org/wiki/Watermelon" class="btn btn-dark">Sepete Ekle</a>
+            <html>
+            <div class="container-fluid">
+                <div class="card-group">
+                    <div class="card">
+                        <img src="@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important">
+                        <div class="card-body">
+                            <h5 class="card-title">@menu.Name</h5>
+                            <p class="card-text">@menu.Description</p>
+                            <a href="" class="btn btn-dark">Sepete Ekle</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-            </div>
+            </html>
+         
         }
 
 
