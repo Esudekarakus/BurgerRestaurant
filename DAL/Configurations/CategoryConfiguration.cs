@@ -13,7 +13,16 @@ namespace DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("Categories");
+
+            builder.HasData(
+                new Category { Id = 1, Name = "Burger" },
+                new Category { Id = 2, Name = "Beverages" },
+                new Category { Id = 3, Name = "Condiments" },
+                new Category { Id = 4, Name = "Snacks" },
+                new Category { Id = 5, Name = "Desserts" }
+
+                );
         }
     }
 }
