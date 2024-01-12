@@ -42,29 +42,30 @@
 
     </header>
 
-    <main class="container-fluid">
+    <main class="container-fluid" id="mainContainer">
         <div class="card-group">
         @foreach(Menu menu in Model)
         {
-            
-                
-                    <div class="card">
-                    <img src= class="card-img-top vw-25" style="width:auto !important" ; alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">@menu.Name</h5>
-                            <p class="card-text">@menu.Description</p>
-                        <div class="quantity-container">
-                            <button class="quantity-btn" onclick="decrementQuantity('@menu.Id')">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn" onclick="incrementQuantity('@menu.Id')">+</button>
-                        </div>
-                            <a href="" class="btn btn-dark">Sepete Ekle</a>
-                        </div>
+                <div class="card">
+                    <div class="image-container">
+                       @*  <img src="img/desserts/donut.png" class="card-img-top vw-25" style="width:auto !important" ; alt="..."> *@
+                        
                     </div>
-                    
-               
-           
-            
+                    <div class="card-body">
+                        <h5 class="card-title">@menu.Name</h5>
+                        <p class="card-text">@menu.Description</p>
+                        <div class="quantity-container">
+                            <button class="quantity-btn" onclick="updateQuantity('@menu.Id', -1)">-</button>
+                            <span class="quantity" id="quantity-@menu.Id">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('@menu.Id', 1)">+</button>
+                        </div>
+                        <br />
+                        <div class="overlay">
+                            <button class="btn btn-dark" onclick="addToCart('@menu.Id')">Sepete Ekle</button>
+                        </div>
+                        
+                    </div>
+                </div>
          
         }
     </main>

@@ -11,6 +11,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly MenuService menuService;
+        private readonly ProductService productService;
 
 
 
@@ -21,10 +22,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService )
+        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService )
         {
             this.logger = logger;
             this.menuService = menuService;
+            this.productService = productService;
         }
 
         public IActionResult Index()
