@@ -23,6 +23,7 @@ namespace DAL.Configurations
                 new Category { Id = 5, Name = "Desserts" }
 
                 );
+            
         }
     }
 }
