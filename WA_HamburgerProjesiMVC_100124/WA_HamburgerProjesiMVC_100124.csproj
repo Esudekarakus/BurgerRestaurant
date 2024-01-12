@@ -26,4 +26,11 @@
     <ProjectReference Include="..\BLL\BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\burgers\" />
+    <Folder Include="wwwroot\img\beverages\" />
+    <Folder Include="wwwroot\img\desserts\" />
+    <Folder Include="wwwroot\img\snacks\" />
+  </ItemGroup>
+
 </Project>
