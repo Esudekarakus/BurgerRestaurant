@@ -1,3 +1,5 @@
+using BLL.Services;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WA_HamburgerProjesiMVC_100124.Models;
@@ -8,6 +10,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
+        private readonly MenuService menuService;
+
+
 
         // Layout olacak 
         // Navbar Profil  -  Burger Menu (�izgi)  -  Search butonu  -  
@@ -16,9 +21,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger )
+        public HomeController(ILogger<HomeController> logger,MenuService menuService )
         {
             this.logger = logger;
+            this.menuService = menuService;
         }
 
         public IActionResult Index()
@@ -40,8 +46,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
         public IActionResult Order()
         {
-            return View();
+            List<Menu> menus = menuService.GetMenusIncludeProducts();
+            return View(menus);
         }
+
+        
 
 
 
