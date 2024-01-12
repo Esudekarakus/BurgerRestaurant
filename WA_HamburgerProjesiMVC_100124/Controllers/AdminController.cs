@@ -10,10 +10,12 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 	public class AdminController : Controller
 	{
         private readonly AdminService adminService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public AdminController(AdminService adminService)
+        public AdminController(AdminService adminService, IWebHostEnvironment webHostEnvironment)
         {
             this.adminService = adminService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // Layout olusturulacak ( Side bar + header + footer)
@@ -62,17 +64,59 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Menuye ait bilgilerin girildigi form
             // Menuye ait fotografin eklenebildigi + goruntulendigi alan
             // Ekle butonu
+            MenuCreateVM menuCreateVM = new MenuCreateVM();
 
-            return View();
+            return View(menuCreateVM);
         }
         [HttpPost]
-        public IActionResult CreateMenu(Menu menu)
+        public IActionResult CreateMenu(MenuCreateVM model)
         {
-            // Servisten metot cagirip menu databaseye eklenecek. 
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    if (!model.ImageFile.ContentType.StartsWith("image"))
+                    {
+                        ModelState.AddModelError("ImageFile", "The selected file is not an image file.");
+                        return View(model);
+                    }
 
-            adminService.AddMenu(menu);
+                    string relativePath = "img/";
+                    string absolutePath = Path.Combine(webHostEnvironment.WebRootPath, relativePath);
+                    Directory.CreateDirectory(absolutePath);
 
-            return View();
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+
+                    string filePath = Path.Combine(absolutePath, uniqueFileName);
+
+                    using(var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ImageFile.CopyTo(stream);
+                    }
+
+                    model.ImagePath = Path.Combine(relativePath, uniqueFileName);
+                }
+
+                Menu menu = new Menu()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    ImagePath = model.ImagePath,
+                    Size = model.Size == "Small" ? Domain.Enums.Size.Small : model.Size == "Medium" ? Domain.Enums.Size.Medium : Domain.Enums.Size.Large
+                     
+                };
+
+                // Servisten metot cagirip menu databaseye eklenecek. 
+
+                adminService.AddMenu(menu);
+
+                return RedirectToAction("Menus");
+            }
+
+
+
+
+            return View(model);
         }
         public IActionResult UpdateMenu(int id)
         {
