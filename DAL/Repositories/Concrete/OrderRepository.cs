@@ -33,6 +33,10 @@ namespace DAL.Repositories.Concrete
         {
            return dbContext.Orders.Include(x => x.Menus).FirstOrDefault(x => x.Id == id);
         }
+        public IEnumerable<Order> GetAllIncludeMenusIncludeUsers()
+        {
+            return dbContext.Orders.Include(x => x.Menus).Include(x => x.AppUser);
+        }
 
         public Order GetByUserIdIncludeMenus(string id)
         {
@@ -47,6 +51,25 @@ namespace DAL.Repositories.Concrete
         public IEnumerable<Order> GetByUserIdOrderByCreatedDate(string id)
         {
             return dbContext.Orders.Where(x => x.AppUser.Id == id).OrderBy(o => o.CreatedDate);
+        }
+
+        public decimal GetTotalPaymentFromProducts()
+        {
+            var total = dbContext.Orders.SelectMany(o => o.Menus.SelectMany(x => x.Products)).Sum(p => p.Price);
+
+            return (decimal)total;
+        }
+
+        public int GetTotalOrderCount()
+        {
+            return dbContext.Orders.Count();
+        }
+
+        public decimal GetTotalPayment()
+        {
+            var total = dbContext.Orders.SelectMany(o => o.Menus).Sum(x => x.Price);
+
+            return (decimal)total;
         }
     }
 }

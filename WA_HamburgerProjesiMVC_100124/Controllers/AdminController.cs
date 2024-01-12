@@ -1,10 +1,21 @@
-﻿using Domain.Entities;
+﻿using BLL.Services;
+using DAL.Context;
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
 	public class AdminController : Controller
 	{
+        private readonly AdminService adminService;
+
+        public AdminController(AdminService adminService)
+        {
+            this.adminService = adminService;
+        }
+
         // Layout olusturulacak ( Side bar + header + footer)
         // Viewlar layoutun icinde main kismina RenderBody ile gelecek.
         // Header kisminda giris yapan adminin ismi + logout + bildirim butonu + mesaj butonu  olacak.
@@ -25,7 +36,13 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Toplam menu miktari
             // Toplam urun miktari
 
-            return View();
+            DashboardVM dashboardVM = new DashboardVM();
+            dashboardVM.UserCount = adminService.GetAllUsers().Count;
+            dashboardVM.TotalProductsPayment = adminService.GetTotalPaymentFromProducts();
+            dashboardVM.TotalPayment = adminService.GetTotalPayment();
+            dashboardVM.MenuCount = adminService.GetTotalMenuCount();
+            dashboardVM.ProductCount = adminService.GetTotalProductCount();
+            return View(dashboardVM);
         }
         public IActionResult Menus()
         {
@@ -34,7 +51,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Update butonu 
             // Delete butonu
 
-            return View();
+            List<Menu> menuList = new List<Menu>();
+            menuList = adminService.GetAllMenus().ToList();
+
+            return View(menuList);
         }
         public IActionResult CreateMenu()
         {
@@ -50,6 +70,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip menu databaseye eklenecek. 
 
+            adminService.AddMenu(menu);
+
             return View();
         }
         public IActionResult UpdateMenu(int id)
@@ -59,7 +81,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Menuye ait fotografin  goruntulendigi + degistirilebildigi alan
             // Guncelle butonu
 
-            return View();
+            Menu menu = adminService.GetMenuById(id);
+
+            return View(menu);
         }
 
         [HttpPost]
@@ -67,11 +91,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen menu guncellenip tekrar databaseye gonderilecek.
             
+            adminService.UpdateMenu(menu);
+
             return View();
         }
         public IActionResult DeleteMenu(int id)
         {
             // Servisten metot cagirip databaseden gelen menu silinecek.
+
+            Menu menu = adminService.GetMenuById(id);
+            adminService.DeleteMenu(menu);
 
             return View();
         }
@@ -83,7 +112,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Update butonu 
             // Delete butonu
 
-            return View();
+            List<Product> productList = new List<Product>();
+            productList = adminService.GetAllProducts().ToList();
+
+            return View(productList);
         }
         public IActionResult CreateProduct()
         {
@@ -100,6 +132,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip product databaseye eklenecek. 
 
+            adminService.AddProduct(product);
+
             return View();
         }
         public IActionResult UpdateProduct(int id)
@@ -109,7 +143,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Urune ait fotografin  goruntulendigi + degistirilebildigi alan
             // Guncelle butonu
 
-            return View();
+            Product product = adminService.GetProductById(id);
+
+            return View(product);
         }
 
         [HttpPost]
@@ -117,11 +153,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen urun guncellenip tekrar databaseye gonderilecek.
 
+            adminService.UpdateProduct(product);
+
             return View();
         }
         public IActionResult DeleteProduct(int id)
         {
             // Servisten metot cagirip databaseden gelen product silinecek.
+
+            Product product = adminService.GetProductById(id);
+            adminService.DeleteProduct(product);
 
             return View();
         }
@@ -132,7 +173,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Update butonu 
             // Delete butonu
 
-            return View();
+            List<Category> categoryList = new List<Category>();
+            categoryList = adminService.GetAllCategories().ToList();
+
+            return View(categoryList);
         }
         public IActionResult CreateCategory()
         {
@@ -147,6 +191,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip kategori databaseye eklenecek. 
 
+            adminService.AddCategory(category);
+
             return View();
         }
         public IActionResult UpdateCategory(int id)
@@ -155,12 +201,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Kategoriye ait bilgilerin geldigi ve degisikligin yapilacagi form
             // Guncelle butonu
 
-            return View();
+            Category category = adminService.GetCategoryById(id);
+
+            return View(category);
         }
         [HttpPost]
         public IActionResult UpdateCategory(Category category)
         {
             // Servisten metot cagirip databaseden gelen kategori guncellenip tekrar databaseye gonderilecek.
+
+            adminService.UpdateCategory(category);
 
             return View();
         }
@@ -168,24 +218,33 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen product silinecek.
 
+            Category category = adminService.GetCategoryById(id);
+            adminService.DeleteCategory(category);
+
             return View();
         }
         public IActionResult Users()
         {
+
             // Butun kullanicilarin listesi
             // Kullanicilarin durumu -- aktif/pasif e cekilebilecek
             // Kullanicinin kayit olusturma tarihi 
             // Her bir kullanicinin toplam siparis miktari + toplam yaptigi odeme 
             // Toplam kullanici sayisi
 
-            return View();
+            List<AppUser> userList = adminService.GetAllUsers().ToList();
+
+            return View(userList);
         }
         public IActionResult Orders()
         {
             // Butun siparislerin goruntulendigi liste 
             // Siparis id + siparis tarihi + siparis edilen urunler + kullanici ismi + fiyat + siparis durumu
             // Siparisin iptal edilebilecegi bir iptal butonu (opsiyonel)
-            return View();
+
+            List<Order> orderList = adminService.GetAllOrdersWithUsers().ToList();  
+
+            return View(orderList);
         }
         public IActionResult Messages()
         {

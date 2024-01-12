@@ -19,5 +19,6 @@ namespace DAL.Repositories.Abstract
 		IEnumerable<Product> GetAllIncludeMenuThenIncludeOrder();
 		Product GetByIdIncludeMenuThenIncludeOrderThenIncludeUser(int id);
 		IEnumerable<Product> GetAllIncludeMenuThenIncludeOrderThenIncludeUser();
-	}
+        int GetTotalProductCount();
+    }
 }

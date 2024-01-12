@@ -1,3 +1,4 @@
+using BLL.Services;
 using DAL.Context;
 using DAL.Repositories.Abstract;
 using DAL.Repositories.Concrete;
@@ -13,6 +14,7 @@ builder.Services.AddTransient<ICategoryRepository , CategoryRepository>();
 builder.Services.AddTransient<IMenuRepository , MenuRepository>();
 builder.Services.AddTransient<IOrderRepository , OrderRepository>();
 builder.Services.AddTransient<IProductRepository , ProductRepository>();
+builder.Services.AddTransient<AdminService>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
 
 

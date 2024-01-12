@@ -58,5 +58,13 @@ namespace DAL.Repositories.Concrete
         {
             return dbContext.Menus.Include(p => p.Products).Include(o => o.Order).ThenInclude(o => o.AppUser).FirstOrDefault(m=>m.Id==id);
         }
+
+        public int GetTotalMenuCount()
+        {
+            return dbContext.Menus.Count();
+        }
+
+      
+      
     }
 }
