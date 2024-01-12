@@ -28,6 +28,11 @@ builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configurat
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.Configure<IdentityOptions>(opt =>
+{
+	opt.User.RequireUniqueEmail = true;
+});
+
 var app = builder.Build();
 
 
