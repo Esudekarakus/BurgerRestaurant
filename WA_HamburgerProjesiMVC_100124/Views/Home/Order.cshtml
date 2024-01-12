@@ -33,12 +33,44 @@
             bottom: 0;
             width: 100%;
         }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+            .menu-list li {
+                margin-right: 20px; /* Menü öğeleri arasındaki boşluğu belirler */
+            }
+
+                .menu-list li:last-child {
+                    margin-right: 0; /* Son menü öğesi için boşluk olmasın */
+                }
+
+            .menu-list a {
+                text-decoration: none;
+                color: black; /* Link rengini belirler */
+            }
+
+                .menu-list a:hover {
+                    text-decoration: underline; /* Mouse hover olduğunda altı çizili olmasını sağlar */
+                }
     </style>
 </head>
 <body>
 
     <header>
-        <h2>Title</h2>
+        @* <h2>Title</h2> *@
+        <nav>
+            <ul class="menu-list">
+                <li><a href="#" class="text-light" onclick="ListMenus()">Menüler</a></li>
+                <li><a href="#" class="text-light" onclick="ListDesserts()">Tatlılar</a></li>
+                <li><a href="#" class="text-light" onclick="ListSnacks()">Atıştırmalıklar</a></li>
+                <li><a href="#" class="text-light" onclick="ListDrinks()">İçecekler</a></li>
+            </ul>
+        </nav>
 
     </header>
 
@@ -48,16 +80,16 @@
         {
                 <div class="card">
                     <div class="image-container">
-                       @*  <img src="img/desserts/donut.png" class="card-img-top vw-25" style="width:auto !important" ; alt="..."> *@
+                        @* <img src="img/desserts/donut.png" class="card-img-top vw-25" style="width:auto !important" ; alt="..."> *@
                         
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">@menu.Name</h5>
                         <p class="card-text">@menu.Description</p>
                         <div class="quantity-container">
-                            <button class="quantity-btn" onclick="updateQuantity('@menu.Id', -1)">-</button>
+                            <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@menu.Id',-1)">-</button>
                             <span class="quantity" id="quantity-@menu.Id">1</span>
-                            <button class="quantity-btn" onclick="updateQuantity('@menu.Id', 1)">+</button>
+                            <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@menu.Id',1)">+</button>
                         </div>
                         <br />
                         <div class="overlay">
