@@ -16,8 +16,8 @@ namespace Domain.Entities
 
         public string? ImagePath { get; set; }
 
-        public Menu Menu { get; set; }
-        public int MenuId { get; set; }
+        public Menu? Menu { get; set; }
+        public int? MenuId { get; set; }
         public int Quantity { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
