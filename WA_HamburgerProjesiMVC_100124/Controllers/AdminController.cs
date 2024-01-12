@@ -12,11 +12,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
     public class AdminController : Controller
     {
         private readonly AdminService adminService;
-        private readonly IMapper mapper;
+
+
+
+        private readonly IMapper mapper; 
 
         public AdminController(AdminService adminService,IMapper mapper)
         {
             this.adminService = adminService;
+
+
             this.mapper = mapper;
         }
 
