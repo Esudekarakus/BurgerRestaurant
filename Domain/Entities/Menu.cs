@@ -17,7 +17,7 @@ namespace Domain.Entities
             Products = new List<Product>();
 
         }
-        public double Price { get; set; }
+        public double? Price { get; set; }
         public string? Description { get; set; }
         public string? ImagePath { get; set; }
         public Domain.Enums.Size Size {  get; set; }
