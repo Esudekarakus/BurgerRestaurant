@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boş Şablon - GurmeBurger</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="site.css" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
     <style>
         body {
             background-color: #f8f9fa;
@@ -42,27 +42,31 @@
 
     </header>
 
-    <main class="container">
+    <main class="container-fluid">
+        <div class="card-group">
         @foreach(Menu menu in Model)
         {
-            <html>
-            <div class="container-fluid">
-                <div class="card-group">
+            
+                
                     <div class="card">
-                        <img src="@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important">
+                    <img src= class="card-img-top vw-25" style="width:auto !important" ; alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@menu.Name</h5>
                             <p class="card-text">@menu.Description</p>
+                        <div class="quantity-container">
+                            <button class="quantity-btn" onclick="decrementQuantity('@menu.Id')">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn" onclick="incrementQuantity('@menu.Id')">+</button>
+                        </div>
                             <a href="" class="btn btn-dark">Sepete Ekle</a>
                         </div>
                     </div>
-                </div>
-            </div>
-            </html>
+                    
+               
+           
+            
          
         }
-
-
     </main>
 
 

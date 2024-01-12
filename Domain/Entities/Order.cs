@@ -11,6 +11,7 @@ namespace Domain.Entities
         public Order()
         {
             Menus = new List<Menu>();
+            Quantity = 1;
         }
        
         public int Quantity { get; set; }
