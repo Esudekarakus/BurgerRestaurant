@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,21 @@ namespace BLL.Services
         public List<AppUser> GetAllUsers()
         {
             return userManager.Users.ToList();
+        }
+
+        public async Task<IList<AppUser>> GetAllStandartUsers()
+        {
+            return await userManager.GetUsersInRoleAsync("Standard User");
+        }
+
+        public async Task<AppUser> GetUserByEmail(string email)
+        {
+            return await userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<IdentityResult> UpdateUser(AppUser user)
+        {
+             return await userManager.UpdateAsync(user);
         }
 
         public decimal GetTotalPaymentFromProducts()

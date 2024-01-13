@@ -9,6 +9,8 @@ namespace WA_HamburgerProjesiMVC_100124.Mapping
         public ViewModelMapping()
         {
             CreateMap<Product, CreateProductVM>().ReverseMap();
+            CreateMap<AppUser, UserListVM>().ReverseMap();
+            
         }
     }
 }

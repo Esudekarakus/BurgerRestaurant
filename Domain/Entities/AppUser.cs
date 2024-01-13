@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace Domain.Entities
 		public string LastName { get; set; }
 		//public string Email {  get; set; }
 		public IEnumerable<Order> Orders { get; set; }
-
+		public UserStatus Status { get; set; } = UserStatus.Active;
 	}
 }
