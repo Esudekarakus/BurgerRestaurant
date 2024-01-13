@@ -73,5 +73,10 @@ namespace DAL.Repositories.Concrete
         {
 			return dbContext.Products.Count();
         }
+        public IEnumerable<Product> GetByMenuId(int menuId)
+        {
+            return dbContext.Products.Where(p => p.MenuId == menuId);
+        }
+
     }
 }

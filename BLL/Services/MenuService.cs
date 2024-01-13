@@ -1,4 +1,5 @@
 ﻿using DAL.Repositories.Abstract;
+using DAL.Repositories.Concrete;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,28 @@ namespace BLL.Services
     public class MenuService
     {
         private readonly IMenuRepository menuRepository;
+        private readonly IProductRepository productRepository;
 
-        public MenuService(IMenuRepository menuRepository)
+        public MenuService(IMenuRepository menuRepository,IProductRepository productRepository)
         {
             this.menuRepository = menuRepository;
-
-
-
+            this.productRepository = productRepository;
         }
 
         public List<Menu>GetMenusIncludeProducts()
         {
             return menuRepository.GetAllIncludeProducts().ToList();
+        }
+        public double TotalPriceOfMenu(Menu menu)
+        {
+            double totalPrice = 0;
+            List<Product> productsOfTheMenu = productRepository.GetByMenuId(menu.Id).ToList();
+            foreach (Product product in productsOfTheMenu)
+            {
+                totalPrice += product.Price * product.Quantity;
+            }
+            menu.Price = totalPrice;
+            return totalPrice * menu.Quantity;
         }
     }
 }
