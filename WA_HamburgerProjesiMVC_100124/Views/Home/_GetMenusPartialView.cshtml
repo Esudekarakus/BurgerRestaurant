@@ -12,11 +12,11 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">@menu.Name</h5>
-                    <p class="card-text">@menu.Description</p>
+                    <p class="card-text"></p>
                     <div class="quantity-container">
-                        <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@menu.Id',-1)">-</button>
+                        <a class="quantity-left-minus btn btn-danger btn-number">-</a>
                         <span class="quantity" id="quantity-@menu.Id">1</span>
-                        <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@menu.Id',1)">+</button>
+                        <a class="quantity-right-plus btn btn-success btn-number">+</a>
                     </div>
                     <br />
                     <div class="overlay">
