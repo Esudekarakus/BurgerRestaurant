@@ -83,6 +83,11 @@ namespace BLL.Services
         {
            return menuRepository.GetById(id);
         }
+
+        public Menu GetMenuByIdIncludeProducts(int id)
+        {
+            return menuRepository.GetByIdIncludeProducts(id);
+        }
         public void AddMenu(Menu menu)
         {
             menuRepository.Add(menu);
@@ -98,6 +103,31 @@ namespace BLL.Services
         public IEnumerable<Product> GetAllProducts()
         {
             return productRepository.GetAll();
+        }
+
+        public IEnumerable<Product> GetAllBurgers()
+        {
+            return productRepository.GetWhereList(a => a.Category.Name == "Burger");
+        }
+
+        public IEnumerable<Product> GetAllBeverages()
+        {
+            return productRepository.GetWhereList(a => a.Category.Name == "Beverages");
+        }
+
+        public IEnumerable<Product> GetAllCondiments()
+        {
+            return productRepository.GetWhereList(a => a.Category.Name == "Condiments");
+        }
+
+        public IEnumerable<Product> GetAllSnacks()
+        {
+            return productRepository.GetWhereList(a => a.Category.Name == "Snacks");
+        }
+
+        public IEnumerable<Product> GetAllDesserts()
+        {
+            return productRepository.GetWhereList(a => a.Category.Name == "Desserts");
         }
         public Product GetProductById(int id)
         {

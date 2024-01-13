@@ -15,9 +15,12 @@ builder.Services.AddTransient<ICategoryRepository , CategoryRepository>();
 builder.Services.AddTransient<IMenuRepository , MenuRepository>();
 builder.Services.AddTransient<IOrderRepository , OrderRepository>();
 builder.Services.AddTransient<IProductRepository , ProductRepository>();
-builder.Services.AddTransient<AdminService>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddTransient<AdminService>();
+builder.Services.AddTransient<MenuService>();
+builder.Services.AddTransient<ProductService>();
+builder.Services.AddTransient<UserService>();
 
 
 
@@ -62,6 +65,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Account}/{action=Index}/{id?}");
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

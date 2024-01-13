@@ -69,17 +69,100 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Menuye ait bilgilerin girildigi form
             // Menuye ait fotografin eklenebildigi + goruntulendigi alan
             // Ekle butonu
+            
+            MenuCreateVM menuCreateVM = new MenuCreateVM();
 
-            return View();
+            menuCreateVM.Burgers = adminService.GetAllBurgers().ToList();
+            menuCreateVM.Desserts = adminService.GetAllDesserts().ToList();
+            menuCreateVM.Snacks = adminService.GetAllSnacks().ToList();
+            menuCreateVM.Beverages = adminService.GetAllBeverages().ToList();
+            menuCreateVM.Condiments = adminService.GetAllCondiments().ToList();
+
+            return View(menuCreateVM);
         }
         [HttpPost]
-        public IActionResult CreateMenu(Menu menu)
+        public IActionResult CreateMenu(MenuCreateVM model)
         {
-            // Servisten metot cagirip menu databaseye eklenecek. 
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    if (!model.ImageFile.ContentType.StartsWith("image"))
+                    {
+                        ModelState.AddModelError("ImageFile", "The selected file is not an image file.");
+                        return View(model);
+                    }
 
-            adminService.AddMenu(menu);
+                    string relativePath = "img/";
+                    string absolutePath = Path.Combine(webHostEnvironment.WebRootPath, relativePath);
+                    Directory.CreateDirectory(absolutePath);
 
-            return View();
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+
+                    string filePath = Path.Combine(absolutePath, uniqueFileName);
+
+                    using(var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ImageFile.CopyTo(stream);
+                    }
+
+                    model.ImagePath = Path.Combine(relativePath, uniqueFileName);
+                }
+
+                Menu menu = new Menu()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    ImagePath = model.ImagePath,
+                    //Size = model.Size == "Small" ? Domain.Enums.Size.Small : model.Size == "Medium" ? Domain.Enums.Size.Medium : Domain.Enums.Size.Large // user menü ekleme ekranına taşınacak
+                     
+                };
+
+                List<List<int>> modelProducts = new List<List<int>>();
+
+                modelProducts.Add(model.BurgerIds.ToList());
+                modelProducts.Add(model.BeverageIds.ToList());
+                modelProducts.Add(model.CondimentIds.ToList());
+                modelProducts.Add(model.SnackIds.ToList());
+                modelProducts.Add(model.DessertIds.ToList());
+
+                List<Product> menuProducts = new List<Product>();
+
+                foreach (var list in  modelProducts)
+                {
+                    foreach (int item in list)
+                    {
+                        Product product = adminService.GetProductById(item);
+
+                        if (product != null)
+                        {
+                            menuProducts.Add(product);
+                        }
+                    }
+                }
+
+                menu.Products = menuProducts;
+
+                double totalPrice = 0;
+
+                foreach (var item in menu.Products)
+                {
+                    totalPrice += item.Price;
+                }
+
+                menu.Price = totalPrice;
+
+                // Servisten metot cagirip menu databaseye eklenecek. 
+
+                adminService.AddMenu(menu);
+
+                return RedirectToAction("Menus");
+            }
+
+
+
+
+            return View(model);
         }
         public IActionResult UpdateMenu(int id)
         {
@@ -88,20 +171,141 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Menuye ait fotografin  goruntulendigi + degistirilebildigi alan
             // Guncelle butonu
 
-            Menu menu = adminService.GetMenuById(id);
+            Menu menu = adminService.GetMenuByIdIncludeProducts(id);
 
-            return View(menu);
+            MenuCreateVM model = new MenuCreateVM()
+            {
+                Id = menu.Id,
+                Name = menu.Name,
+                Description = menu.Description,
+                ImagePath = menu.ImagePath,
+                CurrentProducts = menu.Products
+            };
+
+            model.Burgers = adminService.GetAllBurgers().ToList();
+            model.Desserts = adminService.GetAllDesserts().ToList();
+            model.Snacks = adminService.GetAllSnacks().ToList();
+            model.Beverages = adminService.GetAllBeverages().ToList();
+            model.Condiments = adminService.GetAllCondiments().ToList();
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult UpdateMenu(Menu menu)
+        public IActionResult UpdateMenu(MenuCreateVM model)
         {
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    if (!model.ImageFile.ContentType.StartsWith("image"))
+                    {
+                        ModelState.AddModelError("ImageFile", "The selected file is not an image file.");
+                        return View(model);
+                    }
+
+                    string relativePath = "img/";
+                    string absolutePath = Path.Combine(webHostEnvironment.WebRootPath, relativePath);
+                    Directory.CreateDirectory(absolutePath);
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+
+                    string filePath = Path.Combine(absolutePath, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ImageFile.CopyTo(stream);
+                    }
+
+                    model.ImagePath = Path.Combine(relativePath, uniqueFileName);
+                }
+
+
+                Menu menu = adminService.GetMenuByIdIncludeProducts((int)model.Id);
+
+                menu.Name = model.Name;
+                menu.Description = model.Description;
+                menu.ImagePath = model.ImagePath;
+                
+
+                List<Product> menuCurrentProducts = menu.Products.ToList();
+
+                foreach (int id in model.DeleteIds ?? new List<int>() { })
+                {
+                    Product product = menu.Products.FirstOrDefault(p => p.Id == id);
+                    if (product != null)
+                    {
+                        menuCurrentProducts.Remove(product);
+                    }
+                }
+
+                menu.Products = menuCurrentProducts;
+
+                List<List<int>> modelProducts = new List<List<int>>();
+
+                modelProducts.Add(model.BurgerIds.ToList());
+                modelProducts.Add(model.BeverageIds.ToList());
+                modelProducts.Add(model.CondimentIds.ToList());
+                modelProducts.Add(model.SnackIds.ToList());
+                modelProducts.Add(model.DessertIds.ToList());
+                
+
+                List<Product> menuProducts = menuCurrentProducts;
+
+                foreach (var list in modelProducts)
+                {
+                    foreach (int item in list)
+                    {
+                        Product product = adminService.GetProductById(item);
+
+                        if (product != null)
+                        {
+                            menuProducts.Add(product);
+                        }
+                    }
+                }
+
+                menu.Products = menuProducts;
+
+                double totalPrice = 0;
+
+                foreach (var item in menu.Products)
+                {
+                    totalPrice += item.Price;
+                }
+
+                menu.Price = totalPrice;
+
+                 
+
+                adminService.UpdateMenu(menu);
+
+                return RedirectToAction("Menus");
+            }
+
             // Servisten metot cagirip databaseden gelen menu guncellenip tekrar databaseye gonderilecek.
 
-            adminService.UpdateMenu(menu);
+            
 
-            return View();
+            return View(model);
         }
+
+        public IActionResult MenuDetails(int id)
+        {
+            Menu menu = adminService.GetMenuByIdIncludeProducts(id);
+
+            MenuDetailsVM vm = new MenuDetailsVM()
+            {
+                Id = menu.Id,
+                Name = menu.Name,
+                Description = menu.Description,
+                ImagePath = menu.ImagePath,
+                Products = menu.Products
+            };
+
+            return View(vm);
+        }
+
         public IActionResult DeleteMenu(int id)
         {
             // Servisten metot cagirip databaseden gelen menu silinecek.

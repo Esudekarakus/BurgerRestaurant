@@ -1,0 +1,75 @@
+﻿@model WA_HamburgerProjesiMVC_100124.Models.MenuCreateVM
+
+@{
+    ViewData["Title"] = "CreateMenu";
+}
+
+<h1>CreateMenu</h1>
+
+<h4>MenuCreateVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMenu" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="BurgerIds" class="control-label">Burgers</label>
+                @Html.DropDownListFor(model => model.BurgerIds, new MultiSelectList(Model.Burgers, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="BurgerIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BeverageIds" class="control-label">Beverages</label>
+                @Html.DropDownListFor(model => model.BeverageIds, new MultiSelectList(Model.Beverages, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="BeverageIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CondimentIds" class="control-label">Condiments</label>
+                @Html.DropDownListFor(model => model.BeverageIds, new MultiSelectList(Model.Beverages, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="CondimentIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SnackIds" class="control-label">Snacks</label>
+                @Html.DropDownListFor(model => model.SnackIds, new MultiSelectList(Model.Snacks, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="SnackIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DessertIds" class="control-label">Desserts</label>
+                @Html.DropDownListFor(model => model.DessertIds, new MultiSelectList(Model.Desserts, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="DessertIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" asp-for="ImageFile" accept="image/*" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Menus">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

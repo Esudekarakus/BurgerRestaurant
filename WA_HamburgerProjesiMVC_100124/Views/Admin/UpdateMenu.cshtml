@@ -1,0 +1,105 @@
+﻿@using Domain.Entities;
+@model WA_HamburgerProjesiMVC_100124.Models.MenuCreateVM
+
+@{
+    ViewData["Title"] = "Update Menu";
+}
+
+<h1>Update Menu</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateMenu" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" value="@Model.Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" value="@Model.Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Existing Products</label>
+                <table class="table table-bordered ">
+                    @if (Model.CurrentProducts.Count() == 0)
+                    {
+                        <tr colspan="2">There are no products inside the menu.</tr>
+                    }
+                    else
+                    {
+                        @foreach (Product product in Model.CurrentProducts)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                <td>
+                                    <input type="checkbox" name="DeleteIds" value="@product.Id">
+                                </td>
+                                
+                                <span asp-validation-for="DeleteIds" class="text-danger"></span>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+            
+            
+
+            <div class="form-group">
+                <label asp-for="BurgerIds" class="control-label">Burgers</label>
+                @Html.DropDownListFor(model => model.BurgerIds, new MultiSelectList(Model.Burgers, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="BurgerIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BeverageIds" class="control-label">Beverages</label>
+                @Html.DropDownListFor(model => model.BeverageIds, new MultiSelectList(Model.Beverages, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="BeverageIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CondimentIds" class="control-label">Condiments</label>
+                @Html.DropDownListFor(model => model.BeverageIds, new MultiSelectList(Model.Beverages, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="CondimentIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SnackIds" class="control-label">Snacks</label>
+                @Html.DropDownListFor(model => model.SnackIds, new MultiSelectList(Model.Snacks, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="SnackIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DessertIds" class="control-label">Desserts</label>
+                @Html.DropDownListFor(model => model.DessertIds, new MultiSelectList(Model.Desserts, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                <span asp-validation-for="DessertIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <img src="/@Model.ImagePath" alt="Current Image" class="img-thumbnail" width="150" height="150" />
+                <input type="file" asp-for="ImageFile" accept="image/*" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Menus">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
