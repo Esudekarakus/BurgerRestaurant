@@ -15,9 +15,9 @@
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">@product.Price</p>
                     <div class="quantity-container">
-                        <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@product.Id',-1)">-</button>
+                        <a class="quantity-left-minus btn btn-danger btn-number">-</a>
                         <span class="quantity" id="quantity-@product.Id">1</span>
-                        <button class="quantity-btn btn-outline-success" onclick="updateQuantity('@product.Id',1)">+</button>
+                        <a class="quantity-right-plus btn btn-success btn-number">+</a>
                     </div>
                     <br />
                     <div class="overlay">
