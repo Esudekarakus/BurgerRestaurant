@@ -284,6 +284,23 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             return View(model);
         }
+
+        public IActionResult MenuDetails(int id)
+        {
+            Menu menu = adminService.GetMenuByIdIncludeProducts(id);
+
+            MenuDetailsVM vm = new MenuDetailsVM()
+            {
+                Id = menu.Id,
+                Name = menu.Name,
+                Description = menu.Description,
+                ImagePath = menu.ImagePath,
+                Products = menu.Products
+            };
+
+            return View(vm);
+        }
+
         public IActionResult DeleteMenu(int id)
         {
             // Servisten metot cagirip databaseden gelen menu silinecek.

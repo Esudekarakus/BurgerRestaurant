@@ -37,7 +37,10 @@
                         {
                             <tr>
                                 <td>@product.Name</td>
-                                <input type="checkbox" name="DeleteIds" value="@product.Id">
+                                <td>
+                                    <input type="checkbox" name="DeleteIds" value="@product.Id">
+                                </td>
+                                
                                 <span asp-validation-for="DeleteIds" class="text-danger"></span>
                             </tr>
                         }
@@ -79,7 +82,7 @@
 
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
-                <img src="@Model.ImagePath" alt="Current Image" class="img-thumbnail" width="150" height="150" />
+                <img src="/@Model.ImagePath" alt="Current Image" class="img-thumbnail" width="150" height="150" />
                 <input type="file" asp-for="ImageFile" accept="image/*" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
