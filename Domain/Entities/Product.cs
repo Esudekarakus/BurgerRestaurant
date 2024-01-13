@@ -13,7 +13,6 @@ namespace Domain.Entities
             Quantity = 1;
         }
         public double Price { get; set; }
-
         public string? ImagePath { get; set; }
 
         public Menu? Menu { get; set; }

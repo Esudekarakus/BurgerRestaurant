@@ -4,6 +4,7 @@ using DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240113092128_AppUserStatusPropertyAdded")]
+    partial class AppUserStatusPropertyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace DAL.Migrations
                         {
                             Id = "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab88ed84-feb2-4021-9c59-2d35ec9b4e74",
+                            ConcurrencyStamp = "b367b4e6-4b05-48f2-aad2-4d929266bf2b",
                             Email = "admin@contoso.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -110,7 +112,7 @@ namespace DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CONTOSO.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOtBhc/ZrGy39bPU5asCC92dONVOLVXA/6+bX3F0HJlxQ5mz+NFbL/bBrZd4Y/Cgeg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKEsPCWUDvKWXr/MrAcXpX4VFLH7jeIRFs5bwf6TE/3T5erb7GY2qb0jvPy2jM7raA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 1,
@@ -148,31 +150,31 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1548),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(477),
                             Name = "Burger"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1556),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(491),
                             Name = "Beverages"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1557),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(492),
                             Name = "Condiments"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1558),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(493),
                             Name = "Snacks"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1558),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(494),
                             Name = "Desserts"
                         });
                 });
@@ -207,11 +209,8 @@ namespace DAL.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
@@ -226,31 +225,28 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(2033),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1771),
                             ImagePath = "img/burgers/hamburger1kofte.png",
                             Name = "Meat Burger",
                             Price = 100.0,
-                            Quantity = 1,
                             Size = 0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(2036),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1775),
                             ImagePath = "img/burgers/chickenburger.png",
                             Name = "Chicken Burger",
                             Price = 85.0,
-                            Quantity = 1,
                             Size = 0
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(2037),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1776),
                             ImagePath = "img/beverages/milkshake.jpg",
                             Name = "Çilekli Milkshake",
                             Price = 30.0,
-                            Quantity = 1,
                             Size = 0
                         });
                 });
@@ -326,9 +322,6 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -342,31 +335,28 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1945),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1292),
                             MenuId = 1,
                             Name = "Meat Burger",
-                            Price = 100.0,
-                            Quantity = 1
+                            Price = 100.0
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1947),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1296),
                             MenuId = 2,
                             Name = "Chicken Burger",
-                            Price = 85.0,
-                            Quantity = 1
+                            Price = 85.0
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 1, 13, 16, 19, 49, 585, DateTimeKind.Local).AddTicks(1948),
+                            CreatedDate = new DateTime(2024, 1, 13, 12, 21, 27, 535, DateTimeKind.Local).AddTicks(1297),
                             MenuId = 3,
                             Name = "Çilekli Milkshake",
-                            Price = 30.0,
-                            Quantity = 1
+                            Price = 30.0
                         });
                 });
 
@@ -400,7 +390,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = "f6040633-db1b-4a48-be54-9f214e77ac9d",
-                            ConcurrencyStamp = "1ee5c57f-16f0-4e26-aab3-c79ea6bc3cce",
+                            ConcurrencyStamp = "bdb2a875-02fc-4590-a638-0143578ed6aa",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });

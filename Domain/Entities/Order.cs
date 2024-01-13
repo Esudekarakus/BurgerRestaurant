@@ -20,5 +20,6 @@ namespace Domain.Entities
         public ICollection<Menu> Menus { get; set; }
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
     }
 }
