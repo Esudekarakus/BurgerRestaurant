@@ -56,7 +56,23 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             List<Product> desserts = productService.GetDesserts();
             return PartialView("_GetProducts", desserts);
         }
-        
+        public IActionResult GetMenus()
+        {
+            List<Menu> menus = menuService.GetMenusIncludeProducts();
+            return PartialView("_GetMenusPartialView", menus);
+
+        }
+        public IActionResult GetSnacks()
+        {
+            List<Product> snacks = productService.GetSnacks();
+            
+            return PartialView("_GetProducts", snacks);
+        }
+        public IActionResult GetDrinks()
+        {
+            List<Product> drinks= productService.GetBeverages();
+            return PartialView("_GetProducts", drinks);
+        }
 
 
 
