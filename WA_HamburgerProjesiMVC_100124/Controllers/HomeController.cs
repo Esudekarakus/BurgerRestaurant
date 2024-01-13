@@ -1,5 +1,6 @@
 using BLL.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WA_HamburgerProjesiMVC_100124.Models;
@@ -9,9 +10,12 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
     // authorize
     public class HomeController : Controller
     {
+        static public List<Menu> onaysizMenu = new List<Menu>();
+        static public List<Menu> onayliMenu = new List<Menu>();
         private readonly ILogger<HomeController> logger;
         private readonly MenuService menuService;
         private readonly ProductService productService;
+        private readonly UserManager<AppUser> userManager;
 
 
 
@@ -22,8 +26,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService )
+        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager )
         {
+            this.userManager = userManager;
             this.logger = logger;
             this.menuService = menuService;
             this.productService = productService;
@@ -68,19 +73,23 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
          {
             // Kullanıcı bilgileri burada yer alacak. Kullanıcının adını ,  mail adresini ,  şifresini güncelleyebildiği ekran olacak
             // UserVM login yapılan kullanıcıya eşitlenecek.
-            UserVM user = new UserVM(){
-                Name = "Tarik",
-                SurName = "Kaya",
-                Address = "Karıköy",
-                Password = "123",
-                EMail = "asd@gmail.com"
+            AppUser user = await userManager.GetUserAsync(HttpContext.User);
+            UserVM userVM = new UserVM(){
+                EMail = user.Email,
+                Name= user.FirstName,
+                SurName = user.LastName,
+                Password = user.PasswordHash
+                
             };
+
+            // Password farklı şekilde yazdırılabilir. Ona sonra bak.
             
             
-            return View(user);
+            return View(userVM);
          }
          public async Task<IActionResult> OncekiSiparisler( )
          {
+            
             // Admin onayından geçen siparişler teslim edildi olduktan sonra burada göster Liste şeklinde. Tarih ve sipariş bbilgisi lazım
             return View();
          }
@@ -89,8 +98,15 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             //Güncel Sepet bilgileri gösterilecek. Onaylanmamış haliyle.
 
-
-            return View();
+            if (onaysizMenu.Count > 0)
+            {
+                return View(onaysizMenu);
+            }
+            else
+            {
+                //boş liste sayfası yazılacak.
+                return View();
+            }
          }
 
          public async Task<IActionResult> CikisYap( )
