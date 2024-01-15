@@ -89,10 +89,12 @@
                     <div class="card-body">
                         <h5 class="card-title">@menu.Name</h5>
                         <p class="card-text">@menu.Description</p>
-                        <div class="quantity-container">
-                            <a class="quantity-left-minus btn btn-danger btn-number" >-</a>
-                            <span class="quantity" id="quantity-@menu.Id">1</span>
-                            <a class="quantity-right-plus btn btn-success btn-number">+</a>
+                        <div id="button">
+                            <div class="wrapper">
+                                <span class="minus">-</span>
+                                <span class="num">1</span>
+                                <span class="plus">+</span>
+                            </div>
                         </div>
                         <br />
                         <div class="overlay">
