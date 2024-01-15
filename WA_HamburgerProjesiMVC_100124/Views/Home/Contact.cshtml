@@ -1,5 +1,5 @@
 ﻿@using Domain.Entities
-@model Message
+@model ContactVm
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,16 +39,35 @@
         <h2>Bizimle İletişime Geç</h2>
         
     </header>
-
+    
     <main class="container">
-        <form class="form-group" asp-action="Contact" method="post">
-            <label asp-for="Name">Başlık</label>
-            <input type="text" class="form-control" asp-for="Name" />
-            <label asp-for="Content">İçerik</label>
-            <textarea class="form-control" placeholder="Yazınız..." asp-for="Content"></textarea>
-            <br />
-            <input class="btn btn-dark" type="submit" value="Gonder" />
-        </form>
+        @if(Model.User==null)
+        {
+            <form class="form-group" asp-action="Contact" method="post">
+                <label asp-for="User.Email"></label>
+                <input type="text" class="form-control" asp-for="User.Email" />
+                <label asp-for="Message.Name">Başlık</label>
+                <input type="text" class="form-control" asp-for="Message.Name" />
+                <label asp-for="Message.Content">İçerik</label>
+                <textarea class="form-control" placeholder="Yazınız..." asp-for="Message.Content"></textarea>
+                <br />
+                <input class="btn btn-dark" type="submit" value="Gonder" />
+            </form>
+        }
+        else
+        {
+            <form class="form-group" asp-action="Contact" method="post">
+                <label asp-for="User.Email"></label>
+                <input class="form-control" asp-for="User.Email" value="@Model.User.Email" readonly />
+                <label asp-for="Message.Name">Başlık</label>
+                <input type="text" class="form-control" asp-for="Message.Name" />
+                <label asp-for="Message.Content">İçerik</label>
+                <textarea class="form-control" placeholder="Yazınız..." asp-for="Message.Content"></textarea>
+                <br />
+                <input class="btn btn-dark" type="submit" value="Gonder" />
+            </form>
+        }
+
         <hr />
 
     

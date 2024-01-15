@@ -9,6 +9,6 @@ namespace Domain.Entities
     public class Message:BaseEntity
     {
         public string Content { get; set; }
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }

@@ -1,3 +1,18 @@
-@{
-    ViewData["Title"] = "Sepetim";
+@model SiparisVM
+
+@if(Model.menus.Count>0 && Model.products.Count>0)
+{
+
+}
+else if (Model.menus.Count > 0 && Model.products.Count==0)
+{
+    
+}
+else if (Model.products.Count > 0 && Model.menus.Count == 0)
+{
+    
+}
+else
+{
+    
 }
