@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class init3553 : Migration
+    public partial class InitBurgerDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace DAL.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -178,7 +179,7 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -203,11 +204,12 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    OrderId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -220,8 +222,7 @@ namespace DAL.Migrations
                         name: "FK_Menus_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -232,7 +233,8 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<double>(type: "float", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -252,24 +254,55 @@ namespace DAL.Migrations
                         name: "FK_Products_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f6040633-db1b-4a48-be54-9f214e77ac9d", "a3ab55ac-5763-4481-b233-1ec2e176f6ba", "admin", "ADMIN" });
+                values: new object[] { "f6040633-db1b-4a48-be54-9f214e77ac9d", "a3b16eb9-c0a0-4d50-a959-cfcddaed0273", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e", 0, "31b7d665-16da-4cc9-b255-1b33ccaff52c", "admin@contoso.com", false, "Admin", "Admin", false, null, "ADMIN@CONTOSO.COM", "ADMIN", "AQAAAAEAACcQAAAAEJTX7WfiIkVoYSBe76/gYClVcenfxkvWvSbapDEXTBq2TWEquFIzDM8TJDx32F7Sgw==", null, false, "", false, "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e", 0, "aeb60fc2-3b4e-429c-b890-123165f5da82", "admin@contoso.com", false, "Admin", "Admin", false, null, "ADMIN@CONTOSO.COM", "ADMIN", "AQAAAAEAACcQAAAAEGafYexVW9UEx8h28nJI68GUOP8I3ahDYkVgsOuhOXOw6WoZFcAhdllkMAxwcZVfZw==", null, false, "", 1, false, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(8204), null, null, "Burger" },
+                    { 2, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(8224), null, null, "Beverages" },
+                    { 3, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(8228), null, null, "Condiments" },
+                    { 4, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(8231), null, null, "Snacks" },
+                    { 5, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(8234), null, null, "Desserts" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Menus",
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "ImagePath", "ModifiedDate", "Name", "OrderId", "Price", "Quantity", "Size" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 13, 20, 43, 14, 637, DateTimeKind.Local).AddTicks(92), null, null, "img/burgers/hamburger1kofte.png", null, "Meat Burger", null, 100.0, 1, 0 },
+                    { 2, new DateTime(2024, 1, 13, 20, 43, 14, 637, DateTimeKind.Local).AddTicks(99), null, null, "img/burgers/chickenburger.png", null, "Chicken Burger", null, 85.0, 1, 0 },
+                    { 3, new DateTime(2024, 1, 13, 20, 43, 14, 637, DateTimeKind.Local).AddTicks(101), null, null, "img/beverages/milkshake.jpg", null, "Çilekli Milkshake", null, 30.0, 1, 0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "f6040633-db1b-4a48-be54-9f214e77ac9d", "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CreatedDate", "DeletedDate", "ImagePath", "MenuId", "ModifiedDate", "Name", "Price", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(9751), null, null, 1, null, "Meat Burger", 100.0, 1 },
+                    { 2, 1, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(9756), null, null, 2, null, "Chicken Burger", 85.0, 1 },
+                    { 3, 5, new DateTime(2024, 1, 13, 20, 43, 14, 636, DateTimeKind.Local).AddTicks(9758), null, null, 3, null, "Çilekli Milkshake", 30.0, 1 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

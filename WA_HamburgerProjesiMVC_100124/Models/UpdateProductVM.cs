@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 
 namespace WA_HamburgerProjesiMVC_100124.Models
 {
@@ -7,8 +8,12 @@ namespace WA_HamburgerProjesiMVC_100124.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public SelectList Categories { get; set; }
+        public SelectList? Categories { get; set; }
         public int CategoryId { get; set; }
-        public IFormFile ImageFile { get; set; }
+
+        [DisplayName("Image File")]
+        public IFormFile? ImageFile { get; set; }
+        public string? ImagePath { get; set; }
+
     }
 }
