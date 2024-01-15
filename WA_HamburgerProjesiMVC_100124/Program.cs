@@ -11,17 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Repositories and services injected into the container
 
+builder.Services.AddTransient<IMessageRepository, MessageRepository>();
 builder.Services.AddTransient<ICategoryRepository , CategoryRepository>();
 builder.Services.AddTransient<IMenuRepository , MenuRepository>();
 builder.Services.AddTransient<IOrderRepository , OrderRepository>();
 builder.Services.AddTransient<IProductRepository , ProductRepository>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
 
+
 builder.Services.AddTransient<AdminService>();
 builder.Services.AddTransient<MenuService>();
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<PasswordHasher<AppUser>>();
+builder.Services.AddTransient<MessageService>();
 
 
 // Add services to the container.
@@ -29,7 +32,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 //ConStr adını herkes kendi adıyla değiştirmesi yeterli
-builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Shohzod")));
+builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Sude")));
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
