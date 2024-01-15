@@ -19,10 +19,14 @@ namespace BLL.Services
             this.menuRepository = menuRepository;
             this.productRepository = productRepository;
         }
-
+        //orderid si null olanlar
         public List<Menu>GetMenusIncludeProducts()
         {
-            return menuRepository.GetAllIncludeProducts().ToList();
+            return menuRepository.GetAllIncludeProducts().Where(o=>o.OrderId==null).ToList();
+        }
+        public void SaveMenu(Menu menu)
+        {
+            menuRepository.Add(menu);
         }
         public double TotalPriceOfMenu(Menu menu)
         {
@@ -34,6 +38,10 @@ namespace BLL.Services
             }
             menu.Price = totalPrice;
             return totalPrice * menu.Quantity;
+        }
+        public Menu GetMenuById(int id)
+        {
+           return menuRepository.GetById(id);
         }
     }
 }
