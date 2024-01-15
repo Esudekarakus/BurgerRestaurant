@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL.Repositories.Abstract;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +10,17 @@ namespace BLL.Services
 {
     public class MessageService
     {
-        private readonly MessageService messageService;
+        
+        private readonly IMessageRepository messageRepository;
 
-        public MessageService(MessageService messageService)
+        public MessageService(IMessageRepository messageRepository)
         {
-            this.messageService = messageService;
+            
+            this.messageRepository = messageRepository;
+        }
+        public void Save(Message message)
+        {
+            messageRepository.Add(message);
         }
     }
 }

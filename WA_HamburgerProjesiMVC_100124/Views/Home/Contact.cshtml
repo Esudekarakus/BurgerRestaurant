@@ -1,4 +1,5 @@
-﻿
+﻿@using Domain.Entities
+@model Message
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,17 +41,17 @@
     </header>
 
     <main class="container">
-        <form class="form-group">
-            <label for="Baslik">Konu</label>
-            <input type="text" class="form-control" />
-            <label for="Icerik">İçerik</label>
-            <textarea class="form-control" placeholder="Yazınız..."></textarea>
+        <form class="form-group" asp-action="Contact" method="post">
+            <label asp-for="Name">Başlık</label>
+            <input type="text" class="form-control" asp-for="Name" />
+            <label asp-for="Content">İçerik</label>
+            <textarea class="form-control" placeholder="Yazınız..." asp-for="Content"></textarea>
             <br />
-            <a class="btn btn-outline-primary">Gönder</a>
-        
+            <input class="btn btn-dark" type="submit" value="Gonder" />
         </form>
         <hr />
 
+    
     </main>
 
 
