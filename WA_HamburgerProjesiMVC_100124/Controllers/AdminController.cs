@@ -347,7 +347,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult CreateProduct(CreateProductVM productVM)
         {
             // Servisten metot cagirip product databaseye eklenecek. 
-            Product product = new Product();
+          
 
             if (ModelState.IsValid)
             {
@@ -372,13 +372,15 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                         productVM.ImageFile.CopyTo(stream);
                     }
 
-                    product.ImagePath = Path.Combine(relativePath, uniqueFileName);
+                    productVM.ImagePath = Path.Combine(relativePath, uniqueFileName);
                 }
             }
 
+            Product product = new Product();
             product.Name = productVM.Name;
             product.Price = productVM.Price;
             product.CategoryId = productVM.CategoryId;
+            product.ImagePath = productVM.ImagePath;
             adminService.AddProduct(product);
             return RedirectToAction("Products");
             
@@ -396,6 +398,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             UpdateProductVM productVM = new UpdateProductVM();  
             productVM.Name = product.Name;
             productVM.Price = product.Price;
+            productVM.ImagePath = product.ImagePath;
             productVM.CategoryId = product.CategoryId;  
             productVM.Categories = new SelectList(categories, "Id", "Name");
 
@@ -406,10 +409,38 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult UpdateProduct(UpdateProductVM productVM)
         {
             // Servisten metot cagirip databaseden gelen urun guncellenip tekrar databaseye gonderilecek.
+
+            if (ModelState.IsValid)
+            {
+                if (productVM.ImageFile != null && productVM.ImageFile.Length > 0)
+                {
+                    if (!productVM.ImageFile.ContentType.StartsWith("image"))
+                    {
+                        ModelState.AddModelError("ImageFile", "The selected file is not an image file.");
+                        return View(productVM);
+                    }
+
+                    string relativePath = "img/";
+                    string absolutePath = Path.Combine(webHostEnvironment.WebRootPath, relativePath);
+                    Directory.CreateDirectory(absolutePath);
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + productVM.ImageFile.FileName;
+
+                    string filePath = Path.Combine(absolutePath, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        productVM.ImageFile.CopyTo(stream);
+                    }
+
+                    productVM.ImagePath = Path.Combine(relativePath, uniqueFileName);
+                }
+            }
             Product product = adminService.GetProductById(productVM.Id);
             product.Name = productVM.Name;
             product.Price = productVM.Price;
             product.CategoryId = productVM.CategoryId;
+            product.ImagePath = productVM.ImagePath;
             bool isUpdated = adminService.UpdateProduct(product);
 
             if (isUpdated)
