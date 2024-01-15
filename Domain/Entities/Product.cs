@@ -20,5 +20,7 @@ namespace Domain.Entities
         public int Quantity { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+        public Order? Order { get; set; }
+        public int? OrderId { get; set; }
     }
 }
