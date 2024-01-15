@@ -17,6 +17,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly MenuService menuService;
         private readonly ProductService productService;
         private readonly UserManager<AppUser> userManager;
+        private readonly MessageService messageService;
 
 
 
@@ -27,9 +28,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager )
+        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService)
         {
             this.userManager = userManager;
+            this.messageService = messageService;
             this.logger = logger;
             this.menuService = menuService;
             this.productService = productService;
@@ -50,6 +52,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
         public IActionResult Contact()
         {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Contact(Message message)
+        {
+           messageService.Save(message);
+
             return View();
         }
         public IActionResult Order()
