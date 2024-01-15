@@ -23,6 +23,7 @@ namespace DAL.Context
 
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Order> Orders { get; set; }
+		public DbSet<Message> Messages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
