@@ -14,7 +14,7 @@ namespace Domain.Entities
             Quantity = 1;
         }
        
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } 
         public decimal TotalPrice { get; set; }
  
         public ICollection<Menu> Menus { get; set; }

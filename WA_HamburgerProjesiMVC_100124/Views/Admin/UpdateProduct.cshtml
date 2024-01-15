@@ -34,6 +34,9 @@
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+            <div class="col-sm-10">
+                <img src="/@Model.ImagePath" alt="Menu Image" class="img-thumbnail" />
+            </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label">Image File</label>
                 <input asp-for="ImageFile" type="file" accept="image/*" class="form-control" />
