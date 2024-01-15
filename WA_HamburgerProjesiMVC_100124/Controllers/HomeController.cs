@@ -19,7 +19,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly MessageService messageService;
 
-
+        public static List<Menu>onaylanmayanSiparisler = new List<Menu>();
 
         // Layout olacak 
         // Navbar Profil  -  Burger Menu (�izgi)  -  Search butonu  -  
@@ -61,6 +61,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult Contact(Message message)
         {
            messageService.Save(message);
+           
 
             return View();
         }
@@ -76,6 +77,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
         public IActionResult GetMenus()
         {
+
             List<Menu> menus = menuService.GetMenusIncludeProducts();
             return PartialView("_GetMenusPartialView", menus);
 
@@ -91,7 +93,29 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             List<Product> drinks= productService.GetBeverages();
             return PartialView("_GetProducts", drinks);
         }
+        public IActionResult AddMenuToCard(int id)
+        {
+            Menu addMenu=menuService.GetMenuById(id);
+            onaylanmayanSiparisler.Add(addMenu);
+            return RedirectToAction("Order");
 
+        }
+        public IActionResult AddProductToCard(int id)
+        {
+            
+            Menu menu = new Menu();
+            menuService.SaveMenu(menu);
+
+            Product product = productService.GetProductById(id);
+            product.Menu = menu;
+            product.MenuId=menu.Id;
+            
+            productService.UpdateChanges(product);
+            onaylanmayanSiparisler.Add(menu);
+            return RedirectToAction("Order");
+
+
+        }
 
 
 
