@@ -19,7 +19,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly MessageService messageService;
 
-        public static List<Menu>onaylanmayanSiparisler = new List<Menu>();
+        //sipariş oluşturmadan önce
+        public static List<Menu>onaylanmayanMenuler = new List<Menu>();
+        public static List<Product>onaylanmayanUrunler=new List<Product>();
 
         // Layout olacak 
         // Navbar Profil  -  Burger Menu (�izgi)  -  Search butonu  -  
@@ -96,22 +98,15 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult AddMenuToCard(int id)
         {
             Menu addMenu=menuService.GetMenuById(id);
-            onaylanmayanSiparisler.Add(addMenu);
+            onaylanmayanMenuler.Add(addMenu);
             return RedirectToAction("Order");
 
         }
         public IActionResult AddProductToCard(int id)
         {
             
-            Menu menu = new Menu();
-            menuService.SaveMenu(menu);
-
             Product product = productService.GetProductById(id);
-            product.Menu = menu;
-            product.MenuId=menu.Id;
-            
-            productService.UpdateChanges(product);
-            onaylanmayanSiparisler.Add(menu);
+            onaylanmayanUrunler.Add(product);
             return RedirectToAction("Order");
 
 
@@ -146,6 +141,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Admin onayından geçen siparişler teslim edildi olduktan sonra burada göster Liste şeklinde. Tarih ve sipariş bbilgisi lazım
             return View();
          }
+
          public async Task<IActionResult> Sepetim( )
          {
 
