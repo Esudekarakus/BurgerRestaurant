@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240112083219_init3553")]
-    partial class init3553
+    [Migration("20240115100726_init342")]
+    partial class init342
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,9 @@ namespace DAL.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -101,7 +104,7 @@ namespace DAL.Migrations
                         {
                             Id = "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "31b7d665-16da-4cc9-b255-1b33ccaff52c",
+                            ConcurrencyStamp = "d00e1f1f-72a5-4d5e-a3e9-c10a5c88858d",
                             Email = "admin@contoso.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -109,9 +112,10 @@ namespace DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CONTOSO.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJTX7WfiIkVoYSBe76/gYClVcenfxkvWvSbapDEXTBq2TWEquFIzDM8TJDx32F7Sgw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDukc5GwUcK+yA92zgrHz6fOs2NgrhxQ8myfJyQzoO88gnIvtptqwvfbQWkj42kZ9g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
+                            Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -140,7 +144,39 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7075),
+                            Name = "Burger"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7085),
+                            Name = "Beverages"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7086),
+                            Name = "Condiments"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7086),
+                            Name = "Snacks"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7087),
+                            Name = "Desserts"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Menu", b =>
@@ -170,11 +206,14 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
@@ -183,7 +222,39 @@ namespace DAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Menus");
+                    b.ToTable("Menus", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7653),
+                            ImagePath = "img/burgers/hamburger1kofte.png",
+                            Name = "Meat Burger",
+                            Price = 100.0,
+                            Quantity = 1,
+                            Size = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7657),
+                            ImagePath = "img/burgers/chickenburger.png",
+                            Name = "Chicken Burger",
+                            Price = 85.0,
+                            Quantity = 1,
+                            Size = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7658),
+                            ImagePath = "img/beverages/milkshake.jpg",
+                            Name = "Çilekli Milkshake",
+                            Price = 30.0,
+                            Quantity = 1,
+                            Size = 0
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -244,7 +315,7 @@ namespace DAL.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MenuId")
+                    b.Property<int?>("MenuId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedDate")
@@ -257,13 +328,48 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("MenuId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7513),
+                            MenuId = 1,
+                            Name = "Meat Burger",
+                            Price = 100.0,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7515),
+                            MenuId = 2,
+                            Name = "Chicken Burger",
+                            Price = 85.0,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7516),
+                            MenuId = 3,
+                            Name = "Çilekli Milkshake",
+                            Price = 30.0,
+                            Quantity = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -296,9 +402,16 @@ namespace DAL.Migrations
                         new
                         {
                             Id = "f6040633-db1b-4a48-be54-9f214e77ac9d",
-                            ConcurrencyStamp = "a3ab55ac-5763-4481-b233-1ec2e176f6ba",
+                            ConcurrencyStamp = "c437833b-33cb-4ef3-bd90-42c8e0c2a5d2",
                             Name = "admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "35cb4a57-24fd-4f97-82cf-0f5966a0c1b9",
+                            ConcurrencyStamp = "59ec8dc8-f7c8-46ec-874a-c57ede8e0fd2",
+                            Name = "Standard User",
+                            NormalizedName = "STANDARD USER"
                         });
                 });
 
@@ -419,9 +532,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("Domain.Entities.Order", "Order")
                         .WithMany("Menus")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });
@@ -447,9 +558,7 @@ namespace DAL.Migrations
 
                     b.HasOne("Domain.Entities.Menu", "Menu")
                         .WithMany("Products")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MenuId");
 
                     b.Navigation("Category");
 

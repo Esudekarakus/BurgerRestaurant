@@ -5,235 +5,204 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class menuIdNull : Migration
+    public partial class init342 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_Menus_MenuId",
-                table: "Products");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "MenuId",
-                table: "Products",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
-
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "f6040633-db1b-4a48-be54-9f214e77ac9d",
                 column: "ConcurrencyStamp",
-                value: "c84f87bb-3ed9-4ccc-bc84-65ee6108545e");
+                value: "c437833b-33cb-4ef3-bd90-42c8e0c2a5d2");
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "35cb4a57-24fd-4f97-82cf-0f5966a0c1b9", "59ec8dc8-f7c8-46ec-874a-c57ede8e0fd2", "Standard User", "STANDARD USER" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "3f702560-70ec-4677-bd99-8b10d7d15677", "AQAAAAEAACcQAAAAEOg0ZdzcAA05Meh/W8L1R2vYRu5+SBQ52ZTQAynV5e1zb5Fz731zu0+ebxlcNrbkrA==" });
+                values: new object[] { "d00e1f1f-72a5-4d5e-a3e9-c10a5c88858d", "AQAAAAEAACcQAAAAEDukc5GwUcK+yA92zgrHz6fOs2NgrhxQ8myfJyQzoO88gnIvtptqwvfbQWkj42kZ9g==" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(675));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7075));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(691));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7085));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(691));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7086));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(692));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7086));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(694));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7087));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(2177));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7653));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(2180));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7657));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(2182));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7658));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(1737));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7513));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(1742));
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7515));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 20, 44, 58, 685, DateTimeKind.Local).AddTicks(1743));
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Menus_MenuId",
-                table: "Products",
-                column: "MenuId",
-                principalTable: "Menus",
-                principalColumn: "Id");
+                value: new DateTime(2024, 1, 15, 13, 7, 26, 42, DateTimeKind.Local).AddTicks(7516));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_Menus_MenuId",
-                table: "Products");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "MenuId",
-                table: "Products",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "35cb4a57-24fd-4f97-82cf-0f5966a0c1b9");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "f6040633-db1b-4a48-be54-9f214e77ac9d",
                 column: "ConcurrencyStamp",
-                value: "1f7fa480-e88b-4019-9f9e-2d89d9d1dec5");
+                value: "d877623d-ac2a-4114-8914-9baa689b2aa5");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "9fd9568c-984f-455b-aa43-9e1dc27996a9", "AQAAAAEAACcQAAAAEFBxbIm7CGeNnOU1dNH2JjQXsW8uJPGDgYigiv2PEmBtXts32u8I8/bK/GwoeUdQ8Q==" });
+                values: new object[] { "e8945664-4362-4016-9fce-85eb99cffff2", "AQAAAAEAACcQAAAAECRqsBvHjx0pUH6AMncCzfB9SOaOh+vJa18LWhQ7U4CmzxrKV06GyHxMf1Fi/+fjvQ==" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 862, DateTimeKind.Local).AddTicks(7022));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(7956));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 862, DateTimeKind.Local).AddTicks(7038));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(7967));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 862, DateTimeKind.Local).AddTicks(7041));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(7968));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 862, DateTimeKind.Local).AddTicks(7044));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(7969));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 862, DateTimeKind.Local).AddTicks(7047));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(7970));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(7528));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8533));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(7534));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8537));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(7537));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8538));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(6862));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8415));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(6873));
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8418));
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 1, 12, 19, 36, 7, 867, DateTimeKind.Local).AddTicks(6876));
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Menus_MenuId",
-                table: "Products",
-                column: "MenuId",
-                principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                value: new DateTime(2024, 1, 15, 11, 47, 37, 147, DateTimeKind.Local).AddTicks(8419));
         }
     }
 }

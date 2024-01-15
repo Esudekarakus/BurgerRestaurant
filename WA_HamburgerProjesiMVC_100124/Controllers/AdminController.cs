@@ -2,6 +2,7 @@
 using BLL.Services;
 using DAL.Context;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private readonly AdminService adminService;

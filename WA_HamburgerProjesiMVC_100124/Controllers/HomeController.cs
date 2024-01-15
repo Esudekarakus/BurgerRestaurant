@@ -1,5 +1,6 @@
 using BLL.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,7 +8,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-    // authorize
+    [Authorize(Roles ="Standard User")]
     public class HomeController : Controller
     {
         static public List<Menu> onaysizMenu = new List<Menu>();
