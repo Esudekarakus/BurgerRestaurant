@@ -8,11 +8,11 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-    [Authorize(Roles ="Standard User")]
+    [Authorize(Roles = "Standard User")]
+    
     public class HomeController : Controller
     {
-        static public List<Menu> onaysizMenu = new List<Menu>();
-        static public List<Menu> onayliMenu = new List<Menu>();
+      
         private readonly ILogger<HomeController> logger;
         private readonly MenuService menuService;
         private readonly ProductService productService;
@@ -52,20 +52,40 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             return View();
         }
-        public IActionResult Contact()
-        {
-            return View();
+        public async Task<IActionResult> Contact()
+        { 
+            AppUser user = await userManager.GetUserAsync(HttpContext.User);
+            ContactVm contactVm = new ContactVm();
+           if (user!=null)
+            {
+                contactVm.User = user;
+            }
+             
+           return View(contactVm);  
         }
 
 
 
         [HttpPost]
-        public IActionResult Contact(Message message)
+        public async Task<IActionResult> Contact(ContactVm contactVm)
         {
-           messageService.Save(message);
-           
+            Message message = new Message()
+            {
+               
+                Name = contactVm.Message.Name,
+                Content = contactVm.Message.Content
 
-            return View();
+            };
+
+            if(contactVm.User != null)
+            {
+                message.UserId= contactVm.User.Id.ToString();
+            }
+
+           messageService.Save(message);
+
+
+            return RedirectToAction("Contact");
         }
         public IActionResult Order()
         {
@@ -144,18 +164,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
          public async Task<IActionResult> Sepetim( )
          {
-
-            //Güncel Sepet bilgileri gösterilecek. Onaylanmamış haliyle.
-
-            if (onaysizMenu.Count > 0)
+            if(onaylanmayanMenuler.Count>0 || onaylanmayanUrunler.Count > 0)
             {
-                return View(onaysizMenu);
+                SiparisVM siparisVM = new SiparisVM()
+                {
+                    menus = onaylanmayanMenuler,
+                    products = onaylanmayanUrunler,
+                };
+                return View(siparisVM);
             }
-            else
-            {
-                //boş liste sayfası yazılacak.
-                return View();
-            }
+            else { return View(); }
          }
 
          public async Task<IActionResult> CikisYap( )
