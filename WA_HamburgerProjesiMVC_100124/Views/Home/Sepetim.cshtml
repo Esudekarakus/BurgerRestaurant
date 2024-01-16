@@ -27,19 +27,20 @@ else if (Model.menus.Count == 0 && Model.products.Count > 0)
             {
                 <td>@product.ImagePath</td>
                 <td>@product.Name</td>
-                <td>
-                    <span id="quantity_@product.Id">@product.Quantity</span>
-                    <button class="btn btn-success" onclick="increaseQuantity('@product.Id')">+</button>
-                    <button class="btn btn-warning" onclick="decreaseQuantity('@product.Id')">-</button>
-                </td>
+                <td>@product.Quantity</td>
+                <td>@product.Price</td>
                 <td>@(product.Price * product.Quantity)</td>
-            
+                <td>
+                    <button class="btn btn-danger" onclick="removeFromCart()">Remove</button>
+                </td>
                
             }
 
         </tbody>
 
     </table>
+    <br />
+    <a class="btn btn-outline-success">Sepeti Onayla</a>
 }
 else if (Model.products.Count==0 && Model.menus.Count> 0)
 {
