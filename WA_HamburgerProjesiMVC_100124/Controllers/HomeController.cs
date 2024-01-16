@@ -134,12 +134,22 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
 
+        public IActionResult GetShoppingCard()
+        {
+
+            SiparisVM siparisVM = new SiparisVM()
+            {
+                menus = onaylanmayanMenuler,
+                products = onaylanmayanUrunler,
+            };
+            return PartialView("_ShoppingCardPartialView", siparisVM);
+
+        }
 
 
 
 
-
-         public async Task<IActionResult> Bilgiler( )
+        public async Task<IActionResult> Bilgiler( )
          {
             // Kullanıcı bilgileri burada yer alacak. Kullanıcının adını ,  mail adresini ,  şifresini güncelleyebildiği ekran olacak
             // UserVM login yapılan kullanıcıya eşitlenecek.

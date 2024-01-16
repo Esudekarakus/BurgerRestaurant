@@ -1,69 +1,142 @@
 @using Domain.Entities
 @model SiparisVM
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="@Url.Content("~/js/sepetJs.js")"></script>
 
-@if (Model == null || (Model.menus.Count == 0 && Model.products.Count == 0))
-{
-    <h2>Sepetinizde ürün bulunmamaktadýr</h2>
-}
-else if (Model.menus.Count == 0 && Model.products.Count > 0)
-{
-    <h2>Sepetinizde product var </h2>
-    <hr />
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th> </th>
-                <th> Ürün Adý</th>
-                <th> Ürün Adedi</th>
-                <th> Ürün Fiyatý</th>
-                <th> Toplam Fiyat</th>
-                <th> Sepetten Çýkar</th>
+<div id="error"></div>
+<div id="container">
+    @if (Model == null || (Model.menus.Count == 0 && Model.products.Count == 0))
+    {
+        <h2>Sepetinizde ürün bulunmamaktadýr</h2>
+    }
+    else if (Model.menus.Count == 0 && Model.products.Count > 0)
+    {
+        <h2>Sepetinizde product var </h2>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th> Ürün Adý</th>
+                    <th> Ürün Adedi</th>
+                    <th> Ürün Fiyatý</th>
+                    <th> Toplam Fiyat</th>
+                    <th> Sepetten Çýkar</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(Product product in Model.products)
-            {
-                <td>@product.ImagePath</td>
-                <td>@product.Name</td>
-                <td>@product.Quantity</td>
-                <td>@product.Price</td>
-                <td>@(product.Price * product.Quantity)</td>
-                <td>
-                    <button class="btn btn-danger" onclick="removeFromCart()">Remove</button>
-                </td>
-               
-            }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Product product in Model.products)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@product.Name</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.Price</td>
+                        <td>@(product.Price * product.Quantity)</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="GetShoppingCard()">Remove</button>
+                        </td>
+                    </tr>
 
-        </tbody>
 
-    </table>
-    <br />
-    <a class="btn btn-outline-success">Sepeti Onayla</a>
-}
-else if (Model.products.Count==0 && Model.menus.Count> 0)
-{
-    <h2>Sepetinizde menü var</h2>
-    <hr />
-    <table class="table table-bordered">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
+                }
 
-    </table>
-    
-}
-else
-{
-   <h2>Sepetinizde hem menü hem product var</h2>
-    <hr />
-    <table class="table table-bordered">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
+            </tbody>
 
-    </table>
-}
+        </table>
+        <br />
+        <a class="btn btn-outline-success">Sepeti Onayla</a>
+    }
+    else if (Model.products.Count == 0 && Model.menus.Count > 0)
+    {
+        <h2>Sepetinizde menü var</h2>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th> Ürün Adý</th>
+                    <th> Ürün Adedi</th>
+                    <th> Ürün Fiyatý</th>
+                    <th> Toplam Fiyat</th>
+                    <th> Sepetten Çýkar</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (Menu menu in Model.menus)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@menu.Name</td>
+                        <td>@menu.Quantity</td>
+                        <td>@menu.Price</td>
+                        <td>@(menu.Price * menu.Quantity)</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="removeFromCart(@menu.Id)">Remove</button>
+                        </td>
+                    </tr>
+
+
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+    else
+    {
+        <h2>Sepetinizde hem menü hem product var</h2>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+            <th> </th>
+            <th> Ürün Adý</th>
+            <th> Ürün Adedi</th>
+            <th> Ürün Fiyatý</th>
+            <th> Toplam Fiyat</th>
+            <th> Sepetten Çýkar</th>
+            </thead>
+            <tbody>
+                @foreach (Menu menu in Model.menus)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@menu.Name</td>
+                        <td>@menu.Quantity</td>
+                        <td>@menu.Price</td>
+                        <td>@(menu.Price * menu.Quantity)</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="removeFromCart(@menu.Id)">Remove</button>
+                        </td>
+                    </tr>
+
+
+                }
+                @foreach (Product product in Model.products)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@product.Name</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.Price</td>
+                        <td>@(product.Price * product.Quantity)</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="removeFromCart(@product.Id)">Remove</button>
+                        </td>
+                    </tr>
+
+
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+
+</div>
+
