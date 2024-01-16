@@ -1,4 +1,6 @@
+@using Domain.Entities
 @model SiparisVM
+
 
 @if (Model == null || (Model.menus.Count == 0 && Model.products.Count == 0))
 {
@@ -7,13 +9,60 @@
 else if (Model.menus.Count == 0 && Model.products.Count > 0)
 {
     <h2>Sepetinizde product var </h2>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th> </th>
+                <th> Ürün Adý</th>
+                <th> Ürün Adedi</th>
+                <th> Ürün Fiyatý</th>
+                <th> Toplam Fiyat</th>
+                <th> Sepetten Çýkar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Product product in Model.products)
+            {
+                <td>@product.ImagePath</td>
+                <td>@product.Name</td>
+                <td>
+                    <span id="quantity_@product.Id">@product.Quantity</span>
+                    <button class="btn btn-success" onclick="increaseQuantity('@product.Id')">+</button>
+                    <button class="btn btn-warning" onclick="decreaseQuantity('@product.Id')">-</button>
+                </td>
+                <td>@(product.Price * product.Quantity)</td>
+            
+               
+            }
+
+        </tbody>
+
+    </table>
 }
 else if (Model.products.Count==0 && Model.menus.Count> 0)
 {
     <h2>Sepetinizde menü var</h2>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
     
 }
 else
 {
    <h2>Sepetinizde hem menü hem product var</h2>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
 }
