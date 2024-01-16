@@ -5,7 +5,7 @@
     <div class="card-group">
         @foreach (Menu menu in Model)
         {
-            <div class="card">
+            <div class="card" data-search="@menu.Name.ToLower()">
                 <div class="image-container">
                     @* <img src="@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important" ; alt="..."> *@
 
@@ -23,5 +23,27 @@
 
         }
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#searchButton').click(function () {
+                var searchTerm = $('#searchInput').val().toLowerCase();
+
+                // Log the search term to the console
+                console.log('Search Term: ' + searchTerm);
+
+                // Hide or show cards based on the case-insensitive search term
+                $('.card').each(function () {
+                    var cardSearchTerm = $(this).data('search');
+                    console.log('Card Search Term: ' + cardSearchTerm);
+                    if (cardSearchTerm && cardSearchTerm.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
 
 </main>
