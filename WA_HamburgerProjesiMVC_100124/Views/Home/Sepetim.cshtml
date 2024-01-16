@@ -1,18 +1,19 @@
 @model SiparisVM
 
-@if(Model.menus.Count>0 && Model.products.Count>0)
+@if (Model == null || (Model.menus.Count == 0 && Model.products.Count == 0))
 {
-
+    <h2>Sepetinizde ürün bulunmamaktadýr</h2>
 }
-else if (Model.menus.Count > 0 && Model.products.Count==0)
+else if (Model.menus.Count == 0 && Model.products.Count > 0)
 {
-    
+    <h2>Sepetinizde product var </h2>
 }
-else if (Model.products.Count > 0 && Model.menus.Count == 0)
+else if (Model.products.Count==0 && Model.menus.Count> 0)
 {
+    <h2>Sepetinizde menü var</h2>
     
 }
 else
 {
-    
+   <h2>Sepetinizde hem menü hem product var</h2>
 }
