@@ -18,9 +18,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly ProductService productService;
         private readonly UserManager<AppUser> userManager;
         private readonly MessageService messageService;
+		private readonly SignInManager<AppUser> signInManager;
 
-        //sipariş oluşturmadan önce
-        public static List<Menu>onaylanmayanMenuler = new List<Menu>();
+		//sipariş oluşturmadan önce
+		public static List<Menu>onaylanmayanMenuler = new List<Menu>();
         public static List<Product>onaylanmayanUrunler=new List<Product>();
 
         // Layout olacak 
@@ -30,11 +31,12 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService)
+        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService, SignInManager<AppUser> signInManager)
         {
             this.userManager = userManager;
             this.messageService = messageService;
-            this.logger = logger;
+			this.signInManager = signInManager;
+			this.logger = logger;
             this.menuService = menuService;
             this.productService = productService;
         }
@@ -178,8 +180,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
          public async Task<IActionResult> CikisYap( )
          {
-            //Logout Kısmı burada çağıralacak. Service de yaz.
-            return View();
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index");
          }
 
 
