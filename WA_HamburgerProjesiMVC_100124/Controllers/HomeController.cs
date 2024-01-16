@@ -164,16 +164,16 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
          public async Task<IActionResult> Sepetim( )
          {
-            if(onaylanmayanMenuler.Count>0 || onaylanmayanUrunler.Count > 0)
-            {
+            
+            
                 SiparisVM siparisVM = new SiparisVM()
                 {
                     menus = onaylanmayanMenuler,
                     products = onaylanmayanUrunler,
                 };
                 return View(siparisVM);
-            }
-            else { return View(); }
+       
+           
          }
 
          public async Task<IActionResult> CikisYap( )
