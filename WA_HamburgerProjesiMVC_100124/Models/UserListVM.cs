@@ -8,6 +8,6 @@ namespace WA_HamburgerProjesiMVC_100124.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public UserStatus Status { get; set; }
+        public Status Status { get; set; }
     }
 }

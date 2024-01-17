@@ -23,7 +23,7 @@ namespace Domain.Entities
         public string? ImagePath { get; set; }
         public Domain.Enums.Size Size {  get; set; }
         public int Quantity { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product>? Products { get; set; }
         public Order? Order { get; set; }
         public int? OrderId { get; set; }
 

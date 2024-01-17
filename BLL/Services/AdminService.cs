@@ -36,7 +36,7 @@ namespace BLL.Services
 
         public async Task<IList<AppUser>> GetAllStandartUsers()
         {
-            return await userManager.GetUsersInRoleAsync("Standard User");
+            return await userManager.GetUsersInRoleAsync("Standart User");
         }
 
         public async Task<AppUser> GetUserByEmail(string email)
@@ -64,14 +64,14 @@ namespace BLL.Services
             return orderRepository.GetTotalOrderCount();
         }
 
-        public int GetTotalMenuCount()
+        public int GetTotalActiveMenuCount()
         {
-            return menuRepository.GetTotalMenuCount();
+            return menuRepository.GetTotalActiveMenuCount();
         }
 
-        public int GetTotalProductCount()
+        public int GetTotalActiveProductCount()
         {
-            return productRepository.GetTotalProductCount();
+            return productRepository.GetTotalActiveProductCount();
         }
 
         public IEnumerable<Menu> GetAllMenus() 
@@ -96,13 +96,17 @@ namespace BLL.Services
         {
             menuRepository.Update(menu);
         }
-        public void DeleteMenu(Menu menu)
+        public bool DeleteMenu(Menu menu)
         {
-            menuRepository.Delete(menu);
+            return menuRepository.Delete(menu);
         }
         public IEnumerable<Product> GetAllProducts()
         {
             return productRepository.GetAll();
+        }
+        public IEnumerable<Product> GetAllProductsCategories()
+        {
+            return productRepository.GetAllIncludeCategory();
         }
 
         public IEnumerable<Product> GetAllBurgers()
@@ -170,6 +174,10 @@ namespace BLL.Services
         public IEnumerable<Order> GetAllOrdersWithUsers()
         {
             return orderRepository.GetAllIncludeMenusIncludeUsers();
+        }
+       public IEnumerable<Order> GetAllOrdersByUserId(string id)
+        {
+            return orderRepository.GetAllByUserId(id);
         }
 
     }

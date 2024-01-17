@@ -69,9 +69,9 @@ namespace DAL.Repositories.Concrete
 			return dbContext.Products.Include(a => a.Menu).ThenInclude(a => a.Order).ThenInclude(a => a.AppUser).FirstOrDefault(a => a.Id == id);
 		}
 
-        public int GetTotalProductCount()
+        public int GetTotalActiveProductCount()
         {
-			return dbContext.Products.Count();
+			return dbContext.Products.Where(x=>x.Status == Domain.Enums.Status.Active).Count();
         }
         public IEnumerable<Product> GetByMenuId(int menuId)
         {
