@@ -39,26 +39,35 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 				AppUser appuser = await userManager.FindByNameAsync(login.UserName);
 				if (appuser != null)
 				{
-					await signInManager.SignOutAsync();
-					Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appuser, login.Password, false, false);
-					if (result.Succeeded)
+					if (appuser.isDeleted == false)
 					{
-						bool isUser = await userManager.IsInRoleAsync(appuser, "Standard User");
-						bool isAdmin = await userManager.IsInRoleAsync(appuser, "admin");
+                        await signInManager.SignOutAsync();
+                        Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appuser, login.Password, false, false);
+                        if (result.Succeeded)
+                        {
+                            bool isUser = await userManager.IsInRoleAsync(appuser, "Standard User");
+                            bool isAdmin = await userManager.IsInRoleAsync(appuser, "admin");
 
-						if (isUser)
-						{
-							return RedirectToAction("Index", "Home");
-						}
+                            if (isUser)
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
 
-						if (isAdmin)
-						{
-                            return RedirectToAction("Dashboard", "Admin");
+                            if (isAdmin)
+                            {
+                                return RedirectToAction("Dashboard", "Admin");
+                            }
+
+
                         }
+                    }
+					else
+					{
+                        ModelState.AddModelError(("Deleted"), "Login failed : User is deleted.");
+                    }
 
-						
-					}
-				}
+                    return View(login);
+                }
 
 				ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
             }
@@ -211,6 +220,33 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 		{
 			AppUser user = await userManager.GetUserAsync(HttpContext.User);
 			
+			return View(user);
+		}
+
+		public async Task<IActionResult> Delete(string id)
+		{
+			AppUser user = await userManager.FindByIdAsync(id);
+
+			if (user != null)
+			{
+				user.isDeleted = true;
+				IdentityResult result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Logout");
+                }
+                else
+                {
+                    Errors(result);
+
+                }
+            }
+			else
+			{
+                ModelState.AddModelError("User", "User Not Found");
+            }
+
 			return View(user);
 		}
 
