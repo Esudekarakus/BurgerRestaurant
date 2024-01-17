@@ -104,6 +104,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 					Email = user.Email,
 					FirstName = user.FirstName,
 					LastName = user.LastName,
+					isDeleted = false
 
 				};
 
