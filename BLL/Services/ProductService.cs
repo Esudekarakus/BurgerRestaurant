@@ -20,8 +20,16 @@ namespace BLL.Services
         {
             return productRepository.GetAll().ToList();
         }
+        public Product GetProductById(int id)
+        {
+            return productRepository.GetById(id);
+        }
+        public void UpdateChanges(Product product)
+        {
+            productRepository.Update(product);
+        }
 
-
+        
         //get burgers
 
         public List<Product>GetBurgers()

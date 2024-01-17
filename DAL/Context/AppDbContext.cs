@@ -23,6 +23,7 @@ namespace DAL.Context
 
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Order> Orders { get; set; }
+		public DbSet<Message> Messages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,7 +41,14 @@ namespace DAL.Context
 				Id = roleId,
 				Name = "admin",
 				NormalizedName = "ADMIN"
-			});
+			},
+			new IdentityRole
+			{
+				Id = Guid.NewGuid().ToString(),
+				Name = "Standard User",
+				NormalizedName = "STANDARD USER"
+			}
+			);
 
 			var hasher = new PasswordHasher<AppUser>();
 			builder.Entity<AppUser>().HasData(new AppUser

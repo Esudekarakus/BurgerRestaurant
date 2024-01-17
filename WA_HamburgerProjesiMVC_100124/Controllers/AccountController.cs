@@ -12,13 +12,15 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 		private readonly UserManager<AppUser> userManager;
 		private readonly SignInManager<AppUser> signInManager;
 		private readonly RoleManager<IdentityRole> roleManager;
+        private readonly PasswordHasher<AppUser> passwordHasher;
 
-		public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, PasswordHasher<AppUser> passwordHasher)
         {
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.roleManager = roleManager;
-		}
+            this.passwordHasher = passwordHasher;
+        }
 
 		[AllowAnonymous]
 		public IActionResult Login(string returnUrl)
@@ -41,7 +43,20 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 					Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appuser, login.Password, false, false);
 					if (result.Succeeded)
 					{
-						return RedirectToAction("Index");
+						bool isUser = await userManager.IsInRoleAsync(appuser, "Standard User");
+						bool isAdmin = await userManager.IsInRoleAsync(appuser, "admin");
+
+						if (isUser)
+						{
+							return RedirectToAction("Index", "Home");
+						}
+
+						if (isAdmin)
+						{
+                            return RedirectToAction("Dashboard", "Admin");
+                        }
+
+						
 					}
 				}
 
@@ -97,7 +112,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
 				if (result.Succeeded)
 				{
-					string roleName = "Standart User";
+					string roleName = "Standard User";
 
 					result = await userManager.AddToRoleAsync(appUser, roleName);
 
@@ -121,12 +136,81 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 			
 			return View(user);
 		}
+
+		public async Task<IActionResult> Update(string id)
+		{
+			AppUser user = await userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                return View(user);
+            }
+			else
+			{
+				return RedirectToAction("Index");
+			}
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Update(string id, string userName, string email, string password)
+		{
+			AppUser user = await userManager.FindByIdAsync(id);
+			if (user != null)
+			{
+				if (!string.IsNullOrEmpty(userName))
+				{
+					user.UserName = userName;
+				}
+				else
+				{
+					ModelState.AddModelError("UpdateUser", "Username cannot be empty.");
+				}
+
+				if (!string.IsNullOrEmpty(email)) 
+				{
+					user.Email = email;
+				}
+				else
+				{
+                    ModelState.AddModelError("UpdateUser", "Email cannot be empty");
+                }
+
+				if (!string.IsNullOrEmpty (password))
+				{
+					user.PasswordHash = passwordHasher.HashPassword(user, password);
+				}
+				else
+				{
+					ModelState.AddModelError("UpdateUser", "Password cannot be empty");
+				}
+
+				if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password)) 
+				{
+					IdentityResult result = await userManager.UpdateAsync(user);
+					if (result.Succeeded)
+					{
+						return RedirectToAction("Index");
+					}
+					else
+					{
+						Errors(result);
+
+					}
+				}
+			}
+			else
+			{
+				ModelState.AddModelError("UpdateUser", "User Not Found");
+			}
+
+			return View(user);
+		}
 		
 		public async Task<IActionResult> Index()
 		{
 			AppUser user = await userManager.GetUserAsync(HttpContext.User);
-			string message = "Hello" + " " + user.UserName;
-			return View((object)message);
+			
+			return View(user);
 		}
 
 		private void Errors(IdentityResult result)
