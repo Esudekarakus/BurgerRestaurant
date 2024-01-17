@@ -26,12 +26,17 @@
             <tbody>
                 @foreach (Product product in Model.products)
                 {
-                    <tr>
+                    <tr class="product-row">
                         <td></td>
                         <td>@product.Name</td>
-                        <td>@product.Quantity</td>
-                        <td>@product.Price</td>
-                        <td>@(product.Price * product.Quantity)</td>
+
+                        <td>
+                            <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, -1)">-</button>
+                            <span id="quantity_@product.Id">@product.Quantity</span>
+                            <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, 1)">+</button>
+                        </td>
+                        <td class="price">@product.Price</td>
+                        <td class="total"><span id="totalAmount"></span></td>
                         <td>
                             <button class="btn btn-danger" onclick="DeleteProduct(@product.Id)">Remove</button>
                         </td>
@@ -39,6 +44,7 @@
 
 
                 }
+
 
             </tbody>
 
@@ -68,7 +74,11 @@
                     <tr>
                         <td></td>
                         <td>@menu.Name</td>
-                        <td>@menu.Quantity</td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="ChangeQuantityMenu(@menu.Id, -1)">-</button>
+                            <span id="quantity_@menu.Id">@menu.Quantity</span>
+                            <button class="btn btn-secondary" onclick="ChangeQuantityMenu(@menu.Id, 1)">+</button>
+                        </td>
                         <td>@menu.Price</td>
                         <td>@(menu.Price * menu.Quantity)</td>
                         <td>
@@ -103,7 +113,11 @@
                     <tr>
                         <td></td>
                         <td>@menu.Name</td>
-                        <td>@menu.Quantity</td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="ChangeQuantityMenu(@menu.Id, -1)">-</button>
+                            <span id="quantity_@menu.Id">@menu.Quantity</span>
+                            <button class="btn btn-secondary" onclick="ChangeQuantity(@menu.Id, 1)">+</button>
+                        </td>
                         <td>@menu.Price</td>
                         <td>@(menu.Price * menu.Quantity)</td>
                         <td>
@@ -118,7 +132,11 @@
                     <tr>
                         <td></td>
                         <td>@product.Name</td>
-                        <td>@product.Quantity</td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, -1)">-</button>
+                            <span id="quantity_@product.Id">@product.Quantity</span>
+                            <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, 1)">+</button>
+                        </td>
                         <td>@product.Price</td>
                         <td>@(product.Price * product.Quantity)</td>
                         <td>
@@ -136,4 +154,6 @@
 
 
 </div>
+
+
 
