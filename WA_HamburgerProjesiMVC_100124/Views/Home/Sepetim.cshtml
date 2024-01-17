@@ -36,7 +36,7 @@
                         <td>@product.Price</td>
                         <td>@(product.Price * product.Quantity)</td>
                         <td>
-                            <button class="btn btn-danger" onclick="GetShoppingCard()">Remove</button>
+                            <button class="btn btn-danger" onclick="DeleteProduct(@product.Id)">Remove</button>
                         </td>
                     </tr>
 
@@ -75,7 +75,7 @@
                         <td>@menu.Price</td>
                         <td>@(menu.Price * menu.Quantity)</td>
                         <td>
-                            <button class="btn btn-danger" onclick="removeFromCart(@menu.Id)">Remove</button>
+                            <button class="btn btn-danger" onclick="DeleteMenu()">Remove</button>
                         </td>
                     </tr>
 
@@ -110,7 +110,7 @@
                         <td>@menu.Price</td>
                         <td>@(menu.Price * menu.Quantity)</td>
                         <td>
-                            <button class="btn btn-danger" onclick="removeFromCart(@menu.Id)">Remove</button>
+                            <button class="btn btn-danger" onclick="DeleteMenu()">Remove</button>
                         </td>
                     </tr>
 
@@ -125,7 +125,7 @@
                         <td>@product.Price</td>
                         <td>@(product.Price * product.Quantity)</td>
                         <td>
-                            <button class="btn btn-danger" onclick="removeFromCart(@product.Id)">Remove</button>
+                            <button class="btn btn-danger" onclick="DeleteProduct()">Remove</button>
                         </td>
                     </tr>
 

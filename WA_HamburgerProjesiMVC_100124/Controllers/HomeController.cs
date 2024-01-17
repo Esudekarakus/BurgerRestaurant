@@ -145,7 +145,21 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             return PartialView("_ShoppingCardPartialView", siparisVM);
 
         }
+        [HttpPost]
+        public IActionResult DeleteProduct(int id)
+        {
+            Product product = onaylanmayanUrunler.FirstOrDefault(p => p.Id == id);
+            if (product != null)
+            {
+                onaylanmayanUrunler.Remove(product);
+                return Json("ok");
 
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
 
 
 
