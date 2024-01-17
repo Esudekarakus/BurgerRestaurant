@@ -53,3 +53,43 @@ function DeleteMenu(sid) {
     });
 
 }
+
+function ChangeQuantity(productId, changeAmount) {
+    // İlgili ürünün quantity değerini güncelle
+    var quantityElement = $("#quantity_" + productId);
+    var currentQuantity = parseInt(quantityElement.text());
+    var newQuantity = currentQuantity + changeAmount;
+
+    if (newQuantity >= 0) {
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Home/ChangeQuantity",
+            type: "post",
+            data: { productId: productId, newQuantity: newQuantity },
+
+            success: function (response) {
+                if (response == "ok") {
+                    // AJAX başarılı ise sayfayı güncelle
+                    quantityElement.text(newQuantity);
+                    UpdateTotalAmount();
+                } else {
+                    // Hata durumunda kullanıcıya bilgi ver
+                    console.error("Quantity change failed.");
+                }
+            }
+        });
+    }
+}
+
+function UpdateTotalAmount() {
+    // Tüm ürünlerin fiyatlarını ve adetlerini toplamak için döngü
+    var totalAmount = 0;
+    $(".product-row").each(function () {
+        var quantity = parseInt($(this).find(".quantity").text());
+        var price = parseFloat($(this).find(".price").text());
+        totalAmount += quantity * price;
+    });
+
+    // Toplam ücreti ekrana yazdır
+    $("#totalAmount").text(totalAmount.toFixed(2));
+}
