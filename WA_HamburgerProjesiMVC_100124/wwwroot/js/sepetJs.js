@@ -32,3 +32,24 @@ function DeleteProduct(sid) {
     });
 
 }
+function DeleteMenu(sid) {
+    let menu = {
+        id: sid
+    };
+    $.ajax({
+        url: "/Home/DeleteMenu",
+        type: "post",
+        data: { id: sid },
+
+        success: function (response) {
+            if (response == "ok") {
+                GetShoppingCard();
+            }
+            else {
+                $("#error").html("<h3>Something went wrong</h3>");
+            }
+        }
+
+    });
+
+}

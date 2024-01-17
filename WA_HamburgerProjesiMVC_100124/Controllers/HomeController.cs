@@ -160,6 +160,20 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 return Json("failed");
             }
         }
+        public IActionResult DeleteMenu(int id)
+        {
+            Menu menu = onaylanmayanMenuler.FirstOrDefault(p => p.Id == id);
+            if (menu != null)
+            {
+                onaylanmayanMenuler.Remove(menu);
+                return Json("ok");
+
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
 
 
 
