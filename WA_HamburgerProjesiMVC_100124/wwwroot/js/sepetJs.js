@@ -54,9 +54,35 @@ function DeleteMenu(sid) {
 
 }
 
-function ChangeQuantity(productId, changeAmount) {
+function ChangeQuantityMenu(id, changeAmount) {
     // İlgili ürünün quantity değerini güncelle
-    var quantityElement = $("#quantity_" + productId);
+    var quantityElement = $("#quantity_" + id);
+    var currentQuantity = parseInt(quantityElement.text());
+    var newQuantity = currentQuantity + changeAmount;
+
+    if (newQuantity >= 0) {
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Home/ChangeQuantityMenu",
+            type: "post",
+            data: { id: id, newQuantity: newQuantity },
+
+            success: function (response) {
+                if (response == "ok") {
+                    // AJAX başarılı ise sayfayı güncelle
+                    quantityElement.text(newQuantity);
+                    UpdateTotalAmount();
+                } else {
+                    // Hata durumunda kullanıcıya bilgi ver
+                    console.error("Quantity change failed.");
+                }
+            }
+        });
+    }
+}
+function ChangeQuantity(id, changeAmount) {
+    // İlgili ürünün quantity değerini güncelle
+    var quantityElement = $("#quantity_" + id);
     var currentQuantity = parseInt(quantityElement.text());
     var newQuantity = currentQuantity + changeAmount;
 
@@ -65,7 +91,7 @@ function ChangeQuantity(productId, changeAmount) {
         $.ajax({
             url: "/Home/ChangeQuantity",
             type: "post",
-            data: { productId: productId, newQuantity: newQuantity },
+            data: { id: id, newQuantity: newQuantity },
 
             success: function (response) {
                 if (response == "ok") {

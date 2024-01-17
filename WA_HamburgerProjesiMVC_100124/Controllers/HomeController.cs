@@ -167,6 +167,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             Menu menu = onaylanmayanMenuler.FirstOrDefault(p => p.Id == id);
             if (menu != null)
             {
+                menu.Quantity = 1;
+                menuService.UpdateChanges(menu);
                 onaylanmayanMenuler.Remove(menu);
                 return Json("ok");
 
@@ -176,15 +178,30 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 return Json("failed");
             }
         }
-        public IActionResult ChangeQuantity(int productId, int newQuantity)
+        public IActionResult ChangeQuantity(int id, int newQuantity)
         {
-            Product product = productService.GetProductById(productId);
+            
+            Product product = productService.GetProductById(id);
+           
 
             if (product != null)
             {
                 product.Quantity = newQuantity;
-                // Quantity değişikliğini işleme ekle, örneğin veritabanına kaydet
                 productService.UpdateChanges(product);
+                return Json("ok");
+            }
+           
+
+            return Json("error");
+        }
+        public IActionResult ChangeQuantityMenu(int id, int newQuantity)
+        {
+            Menu menu = menuService.GetMenuById(id);
+
+             if (menu != null)
+            {
+                menu.Quantity = newQuantity;
+                menuService.UpdateChanges(menu);
                 return Json("ok");
             }
 
