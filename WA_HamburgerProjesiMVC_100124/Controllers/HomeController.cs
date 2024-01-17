@@ -151,6 +151,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             Product product = onaylanmayanUrunler.FirstOrDefault(p => p.Id == id);
             if (product != null)
             {
+                product.Quantity = 1;
+                productService.UpdateChanges(product);
                 onaylanmayanUrunler.Remove(product);
                 return Json("ok");
 
@@ -174,7 +176,20 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 return Json("failed");
             }
         }
+        public IActionResult ChangeQuantity(int productId, int newQuantity)
+        {
+            Product product = productService.GetProductById(productId);
 
+            if (product != null)
+            {
+                product.Quantity = newQuantity;
+                // Quantity değişikliğini işleme ekle, örneğin veritabanına kaydet
+                productService.UpdateChanges(product);
+                return Json("ok");
+            }
+
+            return Json("error");
+        }
 
 
         public async Task<IActionResult> Bilgiler( )

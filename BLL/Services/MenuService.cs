@@ -24,6 +24,10 @@ namespace BLL.Services
         {
             return menuRepository.GetAllIncludeProducts().Where(o=>o.OrderId==null).ToList();
         }
+        public void UpdateChanges(Menu menu)
+        {
+            menuRepository.Update(menu);
+        }
         public void SaveMenu(Menu menu)
         {
             menuRepository.Add(menu);
