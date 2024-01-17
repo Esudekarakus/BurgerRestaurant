@@ -186,13 +186,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             if (product != null)
             {
+
                 product.Quantity = newQuantity;
                 productService.UpdateChanges(product);
+                UpdateProductInList( id, newQuantity);
                 return Json("ok");
             }
            
 
             return Json("error");
+        }
+        private void UpdateProductInList( int productId, int newQuantity)
+        {
+            Product productInList = onaylanmayanUrunler.FirstOrDefault(p => p.Id == productId);
+
+            if (productInList != null)
+            {
+                productInList.Quantity = newQuantity;
+            }
         }
         public IActionResult ChangeQuantityMenu(int id, int newQuantity)
         {
@@ -202,10 +213,20 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             {
                 menu.Quantity = newQuantity;
                 menuService.UpdateChanges(menu);
+                UpdateMenuInList(id, newQuantity);
                 return Json("ok");
             }
 
             return Json("error");
+        }
+        private void UpdateMenuInList(int menuId, int newQuantity)
+        {
+            Menu menuInList = onaylanmayanMenuler.FirstOrDefault(m=>m.Id==menuId);
+
+            if (menuInList != null)
+            {
+                menuInList.Quantity = newQuantity;
+            }
         }
 
 
