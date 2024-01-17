@@ -15,6 +15,8 @@ namespace Domain.Entities
 		public string LastName { get; set; }
 		//public string Email {  get; set; }
 		public IEnumerable<Order> Orders { get; set; }
-		public UserStatus Status { get; set; } = UserStatus.Active;
-	}
+		public bool isDeleted { get; set; }
+        public Status Status { get; set; } = Status.Active;
+
+    }
 }

@@ -2,88 +2,134 @@
 
 @{
     ViewData["Title"] = "Menus";
+    Layout = "AdminLayout_";
 }
 
 <h1>Menus</h1>
 
 <p>
-    <a asp-action="CreateMenu">Create New</a>
+    <a class="btn btn-light btn-rounded btn-fw" asp-action="CreateMenu">Create New Menu</a>
 </p>
-<table class="table">
+<table class="table table-dark">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
+                #
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            @*      <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+            </th> *@
+            @*           <th>
+            @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+            </th> *@
+            @*             <th>
+            @Html.DisplayNameFor(model => model.Id)
+            </th> *@
+
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            @*        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeletedDate)
-            </th>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+            </th> *@
             <th></th>
+            <th class="text-center"> Process </th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
+
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @i </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) &#x20BA;
+                </td>
+
+
+                @*     <td>
+            @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
+            @Html.DisplayFor(modelItem => item.OrderId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Size)
+            @Html.DisplayFor(modelItem => item.Id)
+            </td> *@
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @{
+                        if (item.Status == Domain.Enums.Status.Active)
+                        {
+                            <span class="text-success">@item.Status</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">@item.Status</span>
+                        }
+                    }
+                </td>
+                @*          <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletedDate)
-            </td>
-            <td>
-                @Html.ActionLink("Update", "UpdateMenu", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "MenuDetails", new { id = item.Id  }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id  })
-            </td>
-        </tr>
-}
+            @Html.DisplayFor(modelItem => item.DeletedDate)
+            </td> *@
+                <td>
+                </td>
+                <td>
+                    @* @Html.ActionLink("Update", "UpdateMenu", new { id = item.Id }, new { @class = "btn btn-sm btn-outline-warning" }) |
+                    @Html.ActionLink("Details", "MenuDetails", new { id = item.Id  }, new { @class = "btn btn-sm btn-outline-success"}) |
+                    @Html.ActionLink("Active / Passive", "MenuChangeStatus", new { id = item.Id  }, new { @class = "btn btn-sm btn-outline-info"}) &nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ActionLink("Delete", "DeleteMenu", new { id = item.Id  }, new { @class = "btn btn-sm btn-outline-danger"}) *@
+
+                    <span class="d-flex justify-content-center align-items-center">
+                        @Html.ActionLink("Active / Passive", "MenuChangeStatus", new { id = item.Id  }, new { @class = "btn btn-sm btn-outline-info"}) &nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;
+                        @* @Html.ActionLink("Delete", "DeleteProduct", new {  id=item.Id  }, new { @class = "btn btn-sm btn-outline-danger"}) *@
+                        <a asp-action="MenuDetails" asp-route-id="@item.Id"> <i class="mdi mdi-information-outline icon-md text-success"></i></a>
+                        &nbsp;&nbsp;&nbsp
+                        <a asp-action="UpdateMenu" asp-route-id="@item.Id"> <i class="mdi mdi-table-edit icon-md text-warning"></i></a>
+                        &nbsp;&nbsp;&nbsp
+                        <a asp-action="DeleteMenu" asp-route-id="@item.Id"> <i class="mdi mdi-delete-forever icon-md text-danger"></i></a>
+                        <span>
+                </td>
+            </tr>
+            i++;
+        }
     </tbody>
 </table>

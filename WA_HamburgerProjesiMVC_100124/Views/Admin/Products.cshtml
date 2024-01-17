@@ -1,74 +1,117 @@
 ﻿@model IEnumerable<Domain.Entities.Product>
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Products</title>
-</head>
-<body>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "AdminLayout_";
+}
+
+<h1> Products </h1>
 <p>
-    <a asp-action="CreateProduct">Create New</a>
+    <a class="btn btn-light btn-rounded btn-fw" asp-action="CreateProduct">Create New Product</a>
 </p>
-<table class="table">
+<table class="table table-dark">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MenuId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+            <th> # </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            @*  <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+            </th> *@
+            @*   <th>
+            @Html.DisplayNameFor(model => model.MenuId)
+            </th> *@
+            <th>
+                Category Name
+            </th>
+            @*  <th>
+            @Html.DisplayNameFor(model => model.Id)
+            </th> *@
+
+            <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
             <th></th>
+            <th class="text-center"> Process </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @i </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) &#x20BA;
+                </td>
+                @*   <td>
+            @Html.DisplayFor(modelItem => item.ImagePath)
+            </td> *@
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.MenuId)
+            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MenuId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.ActionLink("Update", "UpdateProduct", new {  id=item.Id  }) |
-                @Html.ActionLink("Delete", "DeleteProduct", new {  id=item.Id  })
-            </td>
-        </tr>
-}
+            *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @{
+                        if (item.Status == Domain.Enums.Status.Active)
+                        {
+                            <span class="text-success">@item.Status</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">@item.Status</span>
+                        }
+                    }
+                </td>
+                <td>
+
+
+
+                </td>
+                <td >
+                    @* @Html.ActionLink("Update", "UpdateProduct", new {  id=item.Id  }, new { @class = "btn btn-sm btn-outline-warning" }) | *@
+                    <span class="d-flex justify-content-center align-items-center">
+                        @Html.ActionLink("Active / Passive", "ProductChangeStatus", new { id = item.Id  }, new { @class = "btn btn-sm btn-outline-info"}) &nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;
+                        @* @Html.ActionLink("Delete", "DeleteProduct", new {  id=item.Id  }, new { @class = "btn btn-sm btn-outline-danger"}) *@
+                        <a asp-action="UpdateProduct" asp-route-id="@item.Id"> <i class="mdi mdi-table-edit icon-md text-warning"></i></a>
+                         &nbsp;&nbsp;&nbsp
+                        <a asp-action="DeleteProduct" asp-route-id="@item.Id"> <i class="mdi mdi-delete-forever icon-md text-danger"></i></a>
+                        <span>
+                        @*  
+
+                   </span>
+                    
+                 
+                    
+                    </span>
+                    <span>
+
+                    </span> *@
+                </td>
+            </tr>
+            i++;
+        }
     </tbody>
 </table>
-</body>
-</html>

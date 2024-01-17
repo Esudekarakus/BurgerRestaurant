@@ -47,8 +47,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             dashboardVM.UserCount = ((List<AppUser>)await adminService.GetAllStandartUsers()).Count;
             dashboardVM.TotalProductsPayment = adminService.GetTotalPaymentFromProducts();
             dashboardVM.TotalPayment = adminService.GetTotalPayment();
-            dashboardVM.MenuCount = adminService.GetTotalMenuCount();
-            dashboardVM.ProductCount = adminService.GetTotalProductCount();
+            dashboardVM.MenuCount = adminService.GetTotalActiveMenuCount();
+            dashboardVM.ProductCount = adminService.GetTotalActiveProductCount();
             return View(dashboardVM);
         }
         public IActionResult Menus()
@@ -80,6 +80,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             return View(menuCreateVM);
         }
+
         [HttpPost]
         public IActionResult CreateMenu(MenuCreateVM model)
         {
@@ -311,9 +312,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Servisten metot cagirip databaseden gelen menu silinecek.
 
             Menu menu = adminService.GetMenuById(id);
-            adminService.DeleteMenu(menu);
+            bool isDeleted = adminService.DeleteMenu(menu);
+            if (isDeleted)
+                return RedirectToAction("Menus");
 
-            return View();
+            return RedirectToAction("Menus");
+        }
+        public IActionResult MenuChangeStatus(int id)
+        {
+
+            Menu menu = adminService.GetMenuById(id);
+
+            if (menu.Status == Domain.Enums.Status.Active)
+                menu.Status = Domain.Enums.Status.Passive;
+            else
+                menu.Status = Domain.Enums.Status.Active;
+
+            adminService.UpdateMenu(menu);
+            return RedirectToAction("Menus");
         }
         public IActionResult Products()
         {
@@ -324,7 +340,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Delete butonu
 
             List<Product> productList = new List<Product>();
-            productList = adminService.GetAllProducts().ToList();
+            productList = adminService.GetAllProductsCategories().ToList();
 
             return View(productList);
         }
@@ -461,6 +477,19 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             return RedirectToAction("Products");
         }
+        public IActionResult ProductChangeStatus(int id)
+        {
+
+            Product product = adminService.GetProductById(id);
+
+            if (product.Status == Domain.Enums.Status.Active)
+                product.Status = Domain.Enums.Status.Passive;
+            else
+                product.Status = Domain.Enums.Status.Active;
+
+            adminService.UpdateProduct(product);
+            return RedirectToAction("Products");
+        }
         public IActionResult Categories()
         {
             // Butun kategorilerin listesi 
@@ -536,14 +565,25 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             return View(mapper.Map<List<UserListVM>>(userList));
         }
+        public async Task<IActionResult> UserDetails(string email)
+        {
+            AppUser user = await adminService.GetUserByEmail(email);
+
+            IEnumerable<Order> orders = adminService.GetAllOrdersByUserId(user.Id);
+            UserDetailsVM userDetailsVM = new UserDetailsVM();
+            userDetailsVM.FirstName = user.FirstName;
+            userDetailsVM.LastName = user.LastName;
+            userDetailsVM.Orders = orders;
+            return View(userDetailsVM);
+        }
 
         public async Task<IActionResult> UserChangeStatus(string email)
         {
             AppUser user = await adminService.GetUserByEmail(email);
-            if (user.Status == Domain.Enums.UserStatus.Active)
-                user.Status = Domain.Enums.UserStatus.Passive;
+            if (user.Status == Domain.Enums.Status.Active)
+                user.Status = Domain.Enums.Status.Passive;
             else
-                user.Status = Domain.Enums.UserStatus.Active;
+                user.Status = Domain.Enums.Status.Active;
             IdentityResult result = await adminService.UpdateUser(user);
 
             return RedirectToAction("Users");
@@ -556,7 +596,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             List<Order> orderList = adminService.GetAllOrdersWithUsers().ToList();
 
-            return View(orderList);
+            return View(mapper.Map<List<OrderListVM>>(orderList));
         }
         public IActionResult Messages()
         {

@@ -1,0 +1,68 @@
+﻿@model WA_HamburgerProjesiMVC_100124.Models.UserDetailsVM
+
+@{
+    ViewData["Title"] = "UserDetails";
+    Layout = "~/Views/Shared/AdminLayout_.cshtml";
+}
+
+<h1>Orders</h1>
+
+<div>
+    <h4>Order Details</h4>
+    <hr />
+ @*    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+    </dl> *@
+
+    <h3> @Model.FirstName @Model.LastName 's Orders</h3>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+           
+            <th>
+                Quantity
+            </th>
+            <th>
+                TotalPrice
+            </th>
+            <th>
+                CreatedDate
+            </th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+@* <div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div> *@
