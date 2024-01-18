@@ -20,5 +20,9 @@ namespace BLL.Services
         {
             return (List<Order>)order.GetByUserIdIncludeMenusOrderByCreatedDate(id);
         }
+        public void SaveOrders(Order orders)
+        {
+            order.Add(orders);
+        }
     }
 }
