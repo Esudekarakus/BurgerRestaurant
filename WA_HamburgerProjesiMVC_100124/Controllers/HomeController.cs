@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging;
 using System.Diagnostics;
 using WA_HamburgerProjesiMVC_100124.Models;
 
@@ -277,12 +278,20 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
        
            
          }
+         [HttpPost]
+         public async Task<IActionResult> Sepetim(List<Menu> menus )
+         {
+            Order order = new Order();
+            order.Menus.AddRange(menus);
+            orderService.SaveOrders(order);
+            return RedirectToAction("Index");        
+         }
+
 
          public async Task<IActionResult> CikisYap( )
          {
-            await signInManager.SignOutAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Logout" , "Account");
          }
 
 
