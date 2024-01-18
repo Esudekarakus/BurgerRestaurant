@@ -8,22 +8,21 @@
 <div id="container">
     @if (Model == null || (Model.menus.Count == 0 && Model.products.Count == 0))
     {
-        <h2>Sepetinizde ürün bulunmamaktadýr</h2>
+        <h2>Sepetinizde Ã¼rÃ¼n bulunmamaktadÄ±r</h2>
     }
     else if (Model.menus.Count == 0 && Model.products.Count > 0)
     {
-        <h2>Sepetinizde product var </h2>
+        <h2>Sepetinizde Ã¼rÃ¼n var </h2>
         <hr />
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th> </th>
-                    <th> Ürün Adý</th>
-                    <th> Ürün Adedi</th>
-                    <th> Ürün Fiyatý</th>
+                    <th> ÃœrÃ¼n AdÄ±</th>
+                    <th> ÃœrÃ¼n Adedi</th>
+                    <th> ÃœrÃ¼n FiyatÄ±</th>
                     <th> Toplam Fiyat</th>
-                    <th> Sepetten Çýkar</th>
-
+                    <th> Sepetten Ã‡Ä±kar</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,44 +31,37 @@
                     <tr class="product-row">
                         <td></td>
                         <td>@product.Name</td>
-
                         <td>
                             <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, -1)">-</button>
                             <span id="quantity_@product.Id">@product.Quantity</span>
                             <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, 1)">+</button>
                         </td>
                         <td class="price">@product.Price</td>
-                        <td class="total"><span id="totalAmount"></span></td>
+                        <td class="total"><span id="totalAmount_@product.Id">@product.Price * product.Quantity</span></td>
                         <td>
                             <button class="btn btn-danger" onclick="DeleteProduct(@product.Id)">Remove</button>
                         </td>
                     </tr>
-
-
                 }
-
-
             </tbody>
-
         </table>
         <br />
-        <a class="btn btn-outline-success">Sepeti Onayla</a>
+        <a class="btn btn-outline-success" onclick="ApproveCart()">Sepeti Onayla</a>
     }
     else if (Model.products.Count == 0 && Model.menus.Count > 0)
     {
-        <h2>Sepetinizde menü var</h2>
+        <h2>Sepetinizde menÃ¼ var</h2>
         <hr />
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th> </th>
-                    <th> Ürün Adý</th>
-                    <th> Ürün Adedi</th>
-                    <th> Ürün Fiyatý</th>
+                    <th> ÃœrÃ¼n AdÄ±</th>
+                    <th> ÃœrÃ¼n Adedi</th>
+                    <th> ÃœrÃ¼n FiyatÄ±</th>
                     <th> Toplam Fiyat</th>
-                    <th> Sepetten Çýkar</th>
+                    <th> Sepetten Ã‡Ä±kar</th>
                 </tr>
-
             </thead>
             <tbody>
                 @foreach (Menu menu in Model.menus)
@@ -88,27 +80,22 @@
                             <button class="btn btn-danger" onclick="DeleteMenu(@menu.Id)">Remove</button>
                         </td>
                     </tr>
-
-
                 }
-
             </tbody>
-
         </table>
-
     }
     else
     {
-        <h2>Sepetinizde hem menü hem product var</h2>
+        <h2>Sepetinizde hem menÃ¼ hem Ã¼rÃ¼n var</h2>
         <hr />
         <table class="table table-bordered">
             <thead>
-            <th> </th>
-            <th> Ürün Adý</th>
-            <th> Ürün Adedi</th>
-            <th> Ürün Fiyatý</th>
-            <th> Toplam Fiyat</th>
-            <th> Sepetten Çýkar</th>
+                <th> </th>
+                <th> ÃœrÃ¼n AdÄ±</th>
+                <th> ÃœrÃ¼n Adedi</th>
+                <th> ÃœrÃ¼n FiyatÄ±</th>
+                <th> Toplam Fiyat</th>
+                <th> Sepetten Ã‡Ä±kar</th>
             </thead>
             <tbody>
                 @foreach (Menu menu in Model.menus)
@@ -119,7 +106,7 @@
                         <td>
                             <button class="btn btn-secondary" onclick="ChangeQuantityMenu(@menu.Id, -1)">-</button>
                             <span id="quantity_@menu.Id">@menu.Quantity</span>
-                            <button class="btn btn-secondary" onclick="ChangeQuantity(@menu.Id, 1)">+</button>
+                            <button class="btn btn-secondary" onclick="ChangeQuantityMenu(@menu.Id, 1)">+</button>
                         </td>
                         <td>@menu.Price</td>
                         <td>@(menu.Price * menu.Quantity)</td>
@@ -127,8 +114,6 @@
                             <button class="btn btn-danger" onclick="DeleteMenu(@menu.Id)">Remove</button>
                         </td>
                     </tr>
-
-
                 }
                 @foreach (Product product in Model.products)
                 {
@@ -146,15 +131,8 @@
                             <button class="btn btn-danger" onclick="DeleteProduct(@product.Id)">Remove</button>
                         </td>
                     </tr>
-
-
                 }
-
             </tbody>
-
         </table>
     }
-
-
 </div>
-
