@@ -10,21 +10,21 @@ using WA_HamburgerProjesiMVC_100124.Models;
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
     [Authorize(Roles = "Standard User")]
-    
+
     public class HomeController : Controller
     {
-      
+
         private readonly ILogger<HomeController> logger;
         private readonly MenuService menuService;
         private readonly ProductService productService;
         private readonly UserManager<AppUser> userManager;
         private readonly MessageService messageService;
-		private readonly SignInManager<AppUser> signInManager;
+        private readonly SignInManager<AppUser> signInManager;
         private readonly OrderService orderService;
 
         //sipariş oluşturmadan önce
-        public static List<Menu>onaylanmayanMenuler = new List<Menu>();
-        public static List<Product>onaylanmayanUrunler=new List<Product>();
+        public static List<Menu> onaylanmayanMenuler = new List<Menu>();
+        public static List<Product> onaylanmayanUrunler = new List<Product>();
 
         // Layout olacak 
         // Navbar Profil  -  Burger Menu (�izgi)  -  Search butonu  -  
@@ -33,11 +33,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService, SignInManager<AppUser> signInManager , OrderService orderService)
+        public HomeController(ILogger<HomeController> logger, MenuService menuService, ProductService productService, UserManager<AppUser> userManager, MessageService messageService, SignInManager<AppUser> signInManager, OrderService orderService)
         {
             this.userManager = userManager;
             this.messageService = messageService;
-			this.signInManager = signInManager;
+            this.signInManager = signInManager;
             this.orderService = orderService;
             this.logger = logger;
             this.menuService = menuService;
@@ -58,15 +58,15 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             return View();
         }
         public async Task<IActionResult> Contact()
-        { 
+        {
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             ContactVm contactVm = new ContactVm();
-           if (user!=null)
+            if (user != null)
             {
                 contactVm.User = user;
             }
-             
-           return View(contactVm);  
+
+            return View(contactVm);
         }
 
 
@@ -76,18 +76,18 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             Message message = new Message()
             {
-               
+
                 Name = contactVm.Message.Name,
                 Content = contactVm.Message.Content
 
             };
 
-            if(contactVm.User != null)
+            if (contactVm.User != null)
             {
-                message.UserId= contactVm.User.Id.ToString();
+                message.UserId = contactVm.User.Id.ToString();
             }
 
-           messageService.Save(message);
+            messageService.Save(message);
 
 
             return RedirectToAction("Contact");
@@ -112,24 +112,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult GetSnacks()
         {
             List<Product> snacks = productService.GetSnacks();
-            
+
             return PartialView("_GetProducts", snacks);
         }
         public IActionResult GetDrinks()
         {
-            List<Product> drinks= productService.GetBeverages();
+            List<Product> drinks = productService.GetBeverages();
             return PartialView("_GetProducts", drinks);
         }
         public IActionResult AddMenuToCard(int id)
         {
-            Menu addMenu=menuService.GetMenuById(id);
+            Menu addMenu = menuService.GetMenuById(id);
             onaylanmayanMenuler.Add(addMenu);
             return RedirectToAction("Order");
 
         }
         public IActionResult AddProductToCard(int id)
         {
-            
+
             Product product = productService.GetProductById(id);
             onaylanmayanUrunler.Add(product);
             return RedirectToAction("Order");
@@ -183,23 +183,23 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
         public IActionResult ChangeQuantity(int id, int newQuantity)
         {
-            
+
             Product product = productService.GetProductById(id);
-           
+
 
             if (product != null)
             {
 
                 product.Quantity = newQuantity;
                 productService.UpdateChanges(product);
-                UpdateProductInList( id, newQuantity);
+                UpdateProductInList(id, newQuantity);
                 return Json("ok");
             }
-           
+
 
             return Json("error");
         }
-        private void UpdateProductInList( int productId, int newQuantity)
+        private void UpdateProductInList(int productId, int newQuantity)
         {
             Product productInList = onaylanmayanUrunler.FirstOrDefault(p => p.Id == productId);
 
@@ -212,7 +212,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             Menu menu = menuService.GetMenuById(id);
 
-             if (menu != null)
+            if (menu != null)
             {
                 menu.Quantity = newQuantity;
                 menuService.UpdateChanges(menu);
@@ -224,7 +224,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
         private void UpdateMenuInList(int menuId, int newQuantity)
         {
-            Menu menuInList = onaylanmayanMenuler.FirstOrDefault(m=>m.Id==menuId);
+            Menu menuInList = onaylanmayanMenuler.FirstOrDefault(m => m.Id == menuId);
 
             if (menuInList != null)
             {
@@ -233,66 +233,67 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         }
 
 
-        public async Task<IActionResult> Bilgiler( )
-         {
+        public async Task<IActionResult> Bilgiler()
+        {
             // Kullanıcı bilgileri burada yer alacak. Kullanıcının adını ,  mail adresini ,  şifresini güncelleyebildiği ekran olacak
             // UserVM login yapılan kullanıcıya eşitlenecek.
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
-            UserVM userVM = new UserVM(){
+            UserVM userVM = new UserVM()
+            {
                 EMail = user.Email,
-                Name= user.FirstName,
+                Name = user.FirstName,
                 SurName = user.LastName,
-                
+
             };
 
             // Password change butonu olacak Account/Update yönlendirilecek.            
             return View(userVM);
-         }
-         public async Task<IActionResult> OncekiSiparisler( )
-         {
+        }
+        public async Task<IActionResult> OncekiSiparisler()
+        {
             // Admin onayından geçen siparişler teslim edildi olduktan sonra burada göster Liste şeklinde. Tarih ve sipariş bbilgisi lazım
-            
+
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             if (user.Id != null)
             {
-            return View(orderService.GetOrderListByUserId(user.Id));
+                return View(orderService.GetOrderListByUserId(user.Id));
             }
             else
             {
                 return View();
             }
-            
-            
-         }
 
-         public async Task<IActionResult> Sepetim( )
-         {
-            
+
+        }
+
+        public async Task<IActionResult> Sepetim()
+        {
+
             //Quantity kısmı statik olarak viewde güncellenicek.
-                SiparisVM siparisVM = new SiparisVM()
-                {
-                    menus = onaylanmayanMenuler,
-                    products = onaylanmayanUrunler,
-                };
-                return View(siparisVM);
-       
-           
-         }
-         [HttpPost]
-         public async Task<IActionResult> Sepetim(List<Menu> menus )
-         {
+            SiparisVM siparisVM = new SiparisVM()
+            {
+                menus = onaylanmayanMenuler,
+                products = onaylanmayanUrunler,
+            };
+            return View(siparisVM);
+
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Sepetim(List<Menu> menus)
+        {
             Order order = new Order();
             order.Menus.AddRange(menus);
             orderService.SaveOrders(order);
-            return RedirectToAction("Index");        
-         }
+            return RedirectToAction("Index");
+        }
 
 
-         public async Task<IActionResult> CikisYap( )
-         {
+        public async Task<IActionResult> CikisYap()
+        {
 
-            return RedirectToAction("Logout" , "Account");
-         }
+            return RedirectToAction("Logout", "Account");
+        }
 
 
 

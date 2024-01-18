@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Repositories and services injected into the container
 
+
 builder.Services.AddTransient<IMessageRepository, MessageRepository>();
 builder.Services.AddTransient<ICategoryRepository , CategoryRepository>();
 builder.Services.AddTransient<IMenuRepository , MenuRepository>();
@@ -25,6 +26,7 @@ builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<PasswordHasher<AppUser>>();
 builder.Services.AddTransient<MessageService>();
+builder.Services.AddTransient<OrderService>();
 
 
 // Add services to the container.

@@ -37,7 +37,7 @@
                             <button class="btn btn-secondary" onclick="ChangeQuantity(@product.Id, 1)">+</button>
                         </td>
                         <td class="price">@product.Price</td>
-                        <td class="total"><span id="totalAmount_@product.Id">@product.Price * product.Quantity</span></td>
+                        <td class="total"><span id="totalAmount_@product.Id">@product.Price * @product.Quantity</span></td>
                         <td>
                             <button class="btn btn-danger" onclick="DeleteProduct(@product.Id)">Remove</button>
                         </td>
