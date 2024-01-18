@@ -60,13 +60,19 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
 
                         }
+						else
+						{
+                            ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
+                            return View(login);
+                        }
                     }
 					else
 					{
                         ModelState.AddModelError(("Deleted"), "Login failed : User is deleted.");
+                        return View(login);
                     }
 
-                    return View(login);
+                    
                 }
 
 				ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
