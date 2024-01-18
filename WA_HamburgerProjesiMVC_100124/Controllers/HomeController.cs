@@ -8,7 +8,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-    [Authorize(Roles = "Standard User")]
+    [Authorize(Roles = "Standard User, admin")]
     
     public class HomeController : Controller
     {
