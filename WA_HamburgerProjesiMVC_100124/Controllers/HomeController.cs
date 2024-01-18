@@ -19,9 +19,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly MessageService messageService;
 		private readonly SignInManager<AppUser> signInManager;
+        private readonly OrderService orderService;
 
-		//sipariş oluşturmadan önce
-		public static List<Menu>onaylanmayanMenuler = new List<Menu>();
+        //sipariş oluşturmadan önce
+        public static List<Menu>onaylanmayanMenuler = new List<Menu>();
         public static List<Product>onaylanmayanUrunler=new List<Product>();
 
         // Layout olacak 
@@ -31,12 +32,13 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
 
 
-        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService, SignInManager<AppUser> signInManager)
+        public HomeController(ILogger<HomeController> logger,MenuService menuService,ProductService productService , UserManager<AppUser> userManager,MessageService messageService, SignInManager<AppUser> signInManager , OrderService orderService)
         {
             this.userManager = userManager;
             this.messageService = messageService;
 			this.signInManager = signInManager;
-			this.logger = logger;
+            this.orderService = orderService;
+            this.logger = logger;
             this.menuService = menuService;
             this.productService = productService;
         }
@@ -239,20 +241,27 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 EMail = user.Email,
                 Name= user.FirstName,
                 SurName = user.LastName,
-                Password = user.PasswordHash
                 
             };
 
-            // Password farklı şekilde yazdırılabilir. Ona sonra bak.
-            
-            
+            // Password change butonu olacak Account/Update yönlendirilecek.            
             return View(userVM);
          }
          public async Task<IActionResult> OncekiSiparisler( )
          {
-            
             // Admin onayından geçen siparişler teslim edildi olduktan sonra burada göster Liste şeklinde. Tarih ve sipariş bbilgisi lazım
-            return View();
+            
+            AppUser user = await userManager.GetUserAsync(HttpContext.User);
+            if (user.Id != null)
+            {
+            return View(orderService.GetOrderListByUserId(user.Id));
+            }
+            else
+            {
+                return View();
+            }
+            
+            
          }
 
          public async Task<IActionResult> Sepetim( )
