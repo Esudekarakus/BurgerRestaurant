@@ -36,7 +36,7 @@ namespace BLL.Services
 
         public async Task<IList<AppUser>> GetAllStandartUsers()
         {
-            return await userManager.GetUsersInRoleAsync("Standart User");
+            return await userManager.GetUsersInRoleAsync("Standard User");
         }
 
         public async Task<AppUser> GetUserByEmail(string email)
