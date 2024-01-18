@@ -11,6 +11,7 @@ namespace DAL.Repositories.Abstract
 	{
 		Product GetByIdIncludeCategory(int id);
 		IEnumerable<Product> GetAllIncludeCategory();
+		IEnumerable<Product> GetAllIncludeCategoryFromSearch(string search);
 		Product GetByIdIncludeMenu(int id);
 		IEnumerable<Product> GetAllIncludeMenu();
 		Product GetByIdIncludeAll(int id);

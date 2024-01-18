@@ -11,7 +11,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-    [Authorize(Roles ="admin")]
+    //[Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private readonly AdminService adminService;
@@ -53,17 +53,26 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             dashboardVM.ProductCount = adminService.GetTotalActiveProductCount();
             return View(dashboardVM);
         }
-        public IActionResult Menus()
+        public IActionResult Menus(string? search)
         {
             // Butun menulerin listesi 
             // Menu ekle butonu 
             // Update butonu 
             // Delete butonu
 
-            List<Menu> menuList = new List<Menu>();
-            menuList = adminService.GetAllMenus().ToList();
+            if(search == null)
+            {
+                List<Menu> menuList = new List<Menu>();
+                menuList = adminService.GetAllMenus().ToList();
 
-            return View(menuList);
+                return View(menuList);
+            }
+            else
+            {
+                List<Menu> menuListSearch = adminService.GetAllMenusFromSearch(search).ToList();
+                return View(menuListSearch);
+            }
+          
         }
         public IActionResult CreateMenu()
         {
@@ -333,7 +342,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             adminService.UpdateMenu(menu);
             return RedirectToAction("Menus");
         }
-        public IActionResult Products()
+        public IActionResult Products(string? search)
         {
 
             // Butun urunlerin listesi 
@@ -341,10 +350,19 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Update butonu 
             // Delete butonu
 
-            List<Product> productList = new List<Product>();
-            productList = adminService.GetAllProductsCategories().ToList();
+            if(search == null)
+            {
+                List<Product> productList = new List<Product>();
+                productList = adminService.GetAllProductsCategories().ToList();
+                return View(productList);
+            }
+            else
+            {
+                IEnumerable<Product> productListSearch = adminService.GetAllProductsCategoriesFromSearch(search);
+                return View(productListSearch);
+            }
 
-            return View(productList);
+           
         }
         public IActionResult CreateProduct()
         {

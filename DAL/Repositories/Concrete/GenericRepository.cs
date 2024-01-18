@@ -55,7 +55,7 @@ namespace DAL.Repositories.Concrete
 			return dbContext.Set<T>();
 		}
 
-		public T GetById(int id)
+        public T GetById(int id)
 		{
 			return dbContext.Set<T>().Find(id);
 		}

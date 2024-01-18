@@ -19,5 +19,7 @@ namespace DAL.Repositories.Abstract
         decimal GetTotalPaymentFromProducts();
         int GetTotalOrderCount();
         decimal GetTotalPayment();
+        IEnumerable<decimal> GetDailyRevenues();
+        IEnumerable<int> GetDailyOrderCounts();
     }
 }

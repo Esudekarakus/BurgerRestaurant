@@ -8,7 +8,7 @@ $(function() {
       labels: ["01", "02", "03", "04", "05", "06"],
     datasets: [{
       label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
+      data: [15, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -123,7 +123,7 @@ $(function() {
     }
   };
   var areaData = {
-    labels: ["2013", "2014", "2015", "2016", "2017"],
+    labels: ["2013", "2014", "2015", "2016", "2023"],
     datasets: [{
       label: '# of Votes',
       data: [12, 19, 3, 5, 2, 3],
