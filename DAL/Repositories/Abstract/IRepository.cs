@@ -18,5 +18,7 @@ namespace DAL.Repositories.Abstract
 		T FirstOrDefault(Expression<Func<T, bool>> expression);
 
 		IEnumerable<T> GetWhereList(Expression<Func<T, bool>> expression);
+
+
 	}
 }

@@ -28,8 +28,13 @@ namespace DAL.Repositories.Concrete
 		{
 			return dbContext.Products.Include(a => a.Category).ToList();
 		}
+        public IEnumerable<Product> GetAllIncludeCategoryFromSearch(string search)
+        {
+            return dbContext.Products.Include(a => a.Category).Where(x=> x.Name.Contains(search)).ToList();
+        }
 
-		public IEnumerable<Product> GetAllIncludeMenu()
+
+        public IEnumerable<Product> GetAllIncludeMenu()
 		{
 			return dbContext.Products.Include(a => a.Menu).ToList();
 		}

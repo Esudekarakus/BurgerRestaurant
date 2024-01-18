@@ -71,5 +71,40 @@ namespace DAL.Repositories.Concrete
 
             return (decimal)total;
         }
+
+        public IEnumerable<decimal> GetDailyRevenues()
+        {
+            DateTime startDate = DateTime.Now.Date.AddDays(-7);
+            DateTime endDate = DateTime.Now.Date;
+
+            var dailyRevenues = Enumerable.Range(0, 7)
+                .Select(offset => startDate.AddDays(offset))
+                .Select(date => new
+                {
+                    Date = date,
+                    TotalRevenue = dbContext.Orders
+                        .Where(order => order.CreatedDate.Date == date)
+                        .Sum(order => order.TotalPrice)
+                })
+                .ToList();
+            return (IEnumerable<decimal>)dailyRevenues;
+        }
+
+        public IEnumerable<int> GetDailyOrderCounts()
+        {
+            DateTime startDate = DateTime.Now.Date.AddDays(-7);
+            DateTime endDate = DateTime.Now.Date;
+
+            var dailyOrderCounts = Enumerable.Range(0, 7)
+                .Select(offset => startDate.AddDays(offset))
+                .Select(date => new
+                {
+                    Date = date,
+                    OrderCount = dbContext.Orders
+                        .Count(order => order.CreatedDate.Date == date)
+                })
+                .ToList();
+            return (IEnumerable<int>)dailyOrderCounts;
+        }
     }
 }

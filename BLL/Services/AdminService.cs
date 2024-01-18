@@ -77,6 +77,10 @@ namespace BLL.Services
         public IEnumerable<Menu> GetAllMenus() 
         {
             return menuRepository.GetAll();
+        } 
+        public IEnumerable<Menu> GetAllMenusFromSearch(string search) 
+        {
+            return menuRepository.GetWhereList(x=> x.Name.Contains(search));
         }
 
         public Menu GetMenuById(int id)
@@ -107,6 +111,10 @@ namespace BLL.Services
         public IEnumerable<Product> GetAllProductsCategories()
         {
             return productRepository.GetAllIncludeCategory();
+        }
+        public IEnumerable<Product> GetAllProductsCategoriesFromSearch(string search)
+        {
+            return productRepository.GetAllIncludeCategoryFromSearch(search);
         }
 
         public IEnumerable<Product> GetAllBurgers()
