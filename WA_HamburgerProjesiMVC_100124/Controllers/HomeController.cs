@@ -268,7 +268,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
          public async Task<IActionResult> Sepetim( )
          {
             
-            
+            //Quantity kısmı statik olarak viewde güncellenicek.
                 SiparisVM siparisVM = new SiparisVM()
                 {
                     menus = onaylanmayanMenuler,
