@@ -324,6 +324,28 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             Menu menu = adminService.GetMenuByIdIncludeProducts(id);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             if (menu.Products.Count() > 0 || menu.Products != null)
             {
                 List<Product> emptyProdList = new List<Product>();
