@@ -41,33 +41,43 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 				{
 					if (appuser.isDeleted == false)
 					{
-                        await signInManager.SignOutAsync();
-                        Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appuser, login.Password, false, false);
-                        if (result.Succeeded)
-                        {
-                            bool isUser = await userManager.IsInRoleAsync(appuser, "Standard User");
-                            bool isAdmin = await userManager.IsInRoleAsync(appuser, "admin");
-
-                            if (isUser)
+						if (appuser.Status == Domain.Enums.Status.Active)
+						{
+                            await signInManager.SignOutAsync();
+                            Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appuser, login.Password, false, false);
+                            if (result.Succeeded)
                             {
-                                if (Url.IsLocalUrl(login.ReturnUrl))
+                                bool isUser = await userManager.IsInRoleAsync(appuser, "Standard User");
+                                bool isAdmin = await userManager.IsInRoleAsync(appuser, "admin");
+
+                                if (isUser)
                                 {
-                                    return Redirect(login.ReturnUrl);
+                                    if (Url.IsLocalUrl(login.ReturnUrl))
+                                    {
+                                        return Redirect(login.ReturnUrl);
+                                    }
+                                }
+
+                                if (isAdmin)
+                                {
+                                    return RedirectToAction("Dashboard", "Admin");
                                 }
                             }
 
-                            if (isAdmin)
+                            else
                             {
-                                return RedirectToAction("Dashboard", "Admin");
+                                ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
+                                return View(login);
                             }
 
-
                         }
+
 						else
 						{
-                            ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
-                            return View(login);
+							ModelState.AddModelError(("Inactive"), "Login failed : Account is not active.");
+
                         }
+						
                     }
 					else
 					{
@@ -77,8 +87,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                     
                 }
-
-				ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
+				else
+				{
+                    ModelState.AddModelError(nameof(login.UserName), "Login failed : username or password is wrong.");
+                }
+				
             }
 
 			return View(login);
