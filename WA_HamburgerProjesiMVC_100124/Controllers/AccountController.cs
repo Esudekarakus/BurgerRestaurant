@@ -50,7 +50,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                             if (isUser)
                             {
-                                return RedirectToAction("Index", "Home");
+                                if (Url.IsLocalUrl(login.ReturnUrl))
+                                {
+                                    return Redirect(login.ReturnUrl);
+                                }
                             }
 
                             if (isAdmin)
@@ -84,7 +87,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
-			return RedirectToAction("Index");
+			return RedirectToAction("Index", "Home");
 		}
 
 		public IActionResult AccessDenied()
