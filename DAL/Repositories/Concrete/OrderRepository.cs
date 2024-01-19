@@ -33,6 +33,10 @@ namespace DAL.Repositories.Concrete
         {
            return dbContext.Orders.Include(x => x.Menus).FirstOrDefault(x => x.Id == id);
         }
+        public Order GetByIdIncludeMenusWithProducts(int id)
+        {
+            return dbContext.Orders.Include(x => x.Menus).ThenInclude(x=>x.Products).FirstOrDefault(x => x.Id == id);
+        }
         public IEnumerable<Order> GetAllIncludeMenusIncludeUsers()
         {
             return dbContext.Orders.Include(x => x.Menus).Include(x => x.AppUser);
