@@ -204,12 +204,12 @@
                         <div class="form-group row">
                             <label for="Image" class="col-sm-3 col-form-label"> Image </label>
                             <div class="col-sm-1"></div>
-                            <img src="/@Model.ImagePath" alt="Current Image" class="img-thumbnail col-sm-6 " /><br />
+                            <img id="currentImage" src="/@Model.ImagePath" alt="Current Image" class="img-thumbnail col-sm-6 " /><br />
                         </div>
                         <div class="form-group row">
                             <label asp-for="ImageFile" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="file" asp-for="ImageFile" accept="image/*" class="form-control" />
+                                <input type="file" asp-for="ImageFile" accept="image/*" class="form-control" onchange="updateCurrentImage(this)" />
                             </div>
                             <span asp-validation-for="ImageFile" class="text-danger"></span>
                         </div>
@@ -223,4 +223,6 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/LayoutScripts.js" asp-append-version="true"></script>
 
