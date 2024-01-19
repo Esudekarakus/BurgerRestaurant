@@ -322,10 +322,23 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen menu silinecek.
 
-            Menu menu = adminService.GetMenuById(id);
-            bool isDeleted = adminService.DeleteMenu(menu);
-            if (isDeleted)
-                return RedirectToAction("Menus");
+            Menu menu = adminService.GetMenuByIdIncludeProducts(id);
+
+            if (menu.Products.Count() > 0 || menu.Products != null)
+            {
+                List<Product> emptyProdList = new List<Product>();
+
+                
+
+                menu.Products = emptyProdList;
+                menu.Order = null;
+                
+                adminService.UpdateMenu(menu);
+            }
+
+            
+
+            adminService.DeleteMenu(menu);
 
             return RedirectToAction("Menus");
         }
