@@ -10,7 +10,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
 
-    [Authorize(Roles = "Standard User, admin")]
+    
 
 
     public class HomeController : Controller
@@ -59,6 +59,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Standard User, admin")]
         public async Task<IActionResult> Contact()
         {
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
@@ -234,7 +235,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Standard User, admin")]
         public async Task<IActionResult> Bilgiler()
         {
             // Kullanıcı bilgileri burada yer alacak. Kullanıcının adını ,  mail adresini ,  şifresini güncelleyebildiği ekran olacak
@@ -268,6 +269,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
 
+        [Authorize(Roles = "Standard User, admin")]
         public async Task<IActionResult> Sepetim()
         {
 
