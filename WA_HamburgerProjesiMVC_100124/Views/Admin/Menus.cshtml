@@ -11,6 +11,14 @@
     <a class="btn btn-light btn-rounded btn-fw" asp-action="CreateMenu">Create New Menu</a>
 </p> *@
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <text> @TempData["message"] </text>
+    </div>
+}
+
+
 <div class="row">
     <div class="d-flex justify-content-between">
         <span>

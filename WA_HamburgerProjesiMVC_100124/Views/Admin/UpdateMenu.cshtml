@@ -8,6 +8,13 @@
 
 <h1>Update Menu</h1>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <text> @TempData["message"] </text>
+    </div>
+}
+
 
 <hr />
 @* <div class="row">

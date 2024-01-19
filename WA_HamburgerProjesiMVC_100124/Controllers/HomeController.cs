@@ -263,7 +263,6 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 return View();
             }
 
-
         }
 
         public async Task<IActionResult> Sepetim()

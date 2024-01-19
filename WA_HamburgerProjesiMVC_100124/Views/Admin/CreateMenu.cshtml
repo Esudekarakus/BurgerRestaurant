@@ -11,6 +11,14 @@
 <h4>Create New Menu</h4>
 
 <hr />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <text> @TempData["message"] </text>
+    </div>
+}
+
 <div class="container">
 
     <div class="row justify-content-center">
@@ -55,7 +63,7 @@
                         <div class="form-group row">
                             <label asp-for="CondimentIds" class="col-sm-3 col-form-label">Condiments</label>
                             <div class="col-sm-9">
-                                @Html.DropDownListFor(model => model.BeverageIds, new MultiSelectList(Model.Beverages, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
+                                @Html.DropDownListFor(model => model.Condiments, new MultiSelectList(Model.Condiments, "Id", "Name"), new {@class = "form-control", multiple = "multiple"})
                             </div>
                             <span asp-validation-for="CondimentIds" class="text-danger"></span>
                         </div>

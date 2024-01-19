@@ -19,14 +19,16 @@ namespace BLL.Services
         private readonly IMenuRepository menuRepository;
         private readonly IProductRepository productRepository;
         private readonly UserManager<AppUser> userManager;
+        private readonly IMessageRepository messageRepository;
 
-        public AdminService(IOrderRepository orderRepository, ICategoryRepository categoryRepository, IMenuRepository menuRepository, IProductRepository productRepository, UserManager<AppUser> userManager)
+        public AdminService(IOrderRepository orderRepository, ICategoryRepository categoryRepository, IMenuRepository menuRepository, IProductRepository productRepository, UserManager<AppUser> userManager, IMessageRepository messageRepository)
         {
             this.orderRepository = orderRepository;
             this.categoryRepository = categoryRepository;
             this.menuRepository = menuRepository;
             this.productRepository = productRepository;
             this.userManager = userManager;
+            this.messageRepository = messageRepository;
         }
 
         public List<AppUser> GetAllUsers()
@@ -43,10 +45,14 @@ namespace BLL.Services
         {
             return await userManager.FindByEmailAsync(email);
         }
+        public async Task<AppUser> GetUserById(string id)
+        {
+            return await userManager.FindByIdAsync(id);
+        }
 
         public async Task<IdentityResult> UpdateUser(AppUser user)
         {
-             return await userManager.UpdateAsync(user);
+            return await userManager.UpdateAsync(user);
         }
 
         public decimal GetTotalPaymentFromProducts()
@@ -74,31 +80,31 @@ namespace BLL.Services
             return productRepository.GetTotalActiveProductCount();
         }
 
-        public IEnumerable<Menu> GetAllMenus() 
+        public IEnumerable<Menu> GetAllMenus()
         {
             return menuRepository.GetAll();
-        } 
-        public IEnumerable<Menu> GetAllMenusFromSearch(string search) 
+        }
+        public IEnumerable<Menu> GetAllMenusFromSearch(string search)
         {
-            return menuRepository.GetWhereList(x=> x.Name.Contains(search));
+            return menuRepository.GetWhereList(x => x.Name.Contains(search));
         }
 
         public Menu GetMenuById(int id)
         {
-           return menuRepository.GetById(id);
+            return menuRepository.GetById(id);
         }
 
         public Menu GetMenuByIdIncludeProducts(int id)
         {
             return menuRepository.GetByIdIncludeProducts(id);
         }
-        public void AddMenu(Menu menu)
+        public bool AddMenu(Menu menu)
         {
-            menuRepository.Add(menu);
+            return menuRepository.Add(menu);
         }
-        public void UpdateMenu(Menu menu)
+        public bool UpdateMenu(Menu menu)
         {
-            menuRepository.Update(menu);
+            return menuRepository.Update(menu);
         }
         public bool DeleteMenu(Menu menu)
         {
@@ -166,27 +172,55 @@ namespace BLL.Services
         {
             return categoryRepository.GetById(id);
         }
-        public void AddCategory(Category category)
+        public bool AddCategory(Category category)
         {
-            categoryRepository.Add(category);
+            return categoryRepository.Add(category);
         }
-        public void UpdateCategory(Category category)
+        public bool UpdateCategory(Category category)
         {
-            categoryRepository.Update(category);
+            return categoryRepository.Update(category);
         }
-        public void DeleteCategory(Category category)
+        public bool DeleteCategory(Category category)
         {
-            categoryRepository.Delete(category);
+            return categoryRepository.Delete(category);
         }
 
         public IEnumerable<Order> GetAllOrdersWithUsers()
         {
             return orderRepository.GetAllIncludeMenusIncludeUsers();
         }
-       public IEnumerable<Order> GetAllOrdersByUserId(string id)
+        public IEnumerable<Order> GetAllOrdersByUserId(string id)
         {
             return orderRepository.GetAllByUserId(id);
         }
 
+        public Order GetOrderById(int id)
+        {
+            return orderRepository.GetById(id);
+        }
+
+        public Order GetByIdIncludeMenusWithProducts(int id)
+        {
+            return orderRepository.GetByIdIncludeMenusWithProducts(id);
+        }
+        public bool UpdateOrder(Order order)
+        {
+            return orderRepository.Update(order);
+        }
+
+        public IEnumerable<Order> GetByUserIdIncludeMenusOrderByCreatedDate(string id)
+        {
+            return orderRepository.GetByUserIdIncludeMenusOrderByCreatedDate(id);
+        }
+
+        public IEnumerable<Message> GetAllMessages()
+        {
+            return messageRepository.GetAll();  
+        }
+
+        public Message GetMessageById(int id)
+        {
+            return messageRepository.GetById(id);
+        }
     }
 }

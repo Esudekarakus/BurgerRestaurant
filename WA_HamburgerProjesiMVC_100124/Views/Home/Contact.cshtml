@@ -57,6 +57,7 @@
         else
         {
             <form class="form-group" asp-action="Contact" method="post">
+                <input asp-for="User.Id"  hidden />
                 <label asp-for="User.Email"></label>
                 <input class="form-control" asp-for="User.Email" value="@Model.User.Email" readonly />
                 <label asp-for="Message.Name">Başlık</label>
