@@ -348,44 +348,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             Menu menu = adminService.GetMenuByIdIncludeProducts(id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             if (menu.Products.Count() > 0 || menu.Products != null)
             {
                 List<Product> emptyProdList = new List<Product>();
 
-                
 
                 menu.Products = emptyProdList;
                 menu.Order = null;
                 
                 adminService.UpdateMenu(menu);
+              
             }
 
-            
 
-            adminService.DeleteMenu(menu);
-
+            bool isDeleted = adminService.DeleteMenu(menu);
+            string result = string.Empty;
+            if (isDeleted) result = " Menu deleted successfully!";
+            else result = " Something went wrong while delete the menu.";
+            TempData["message"] = result;
             return RedirectToAction("Menus");
         }
         public IActionResult MenuChangeStatus(int id)

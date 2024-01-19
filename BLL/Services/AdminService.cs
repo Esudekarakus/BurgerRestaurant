@@ -194,46 +194,6 @@ namespace BLL.Services
             return orderRepository.GetAllByUserId(id);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public Menu GetMenuByIdIncludeAll(int id)
         {
             return menuRepository.GetByIdIncludeProductsAndOrder(id);
