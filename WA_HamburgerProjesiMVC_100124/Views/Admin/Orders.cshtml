@@ -24,31 +24,40 @@
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AppUserId)
+                @Html.DisplayNameFor(model => model.OrderStatus)
             </th>
             <th>Process</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppUserId)
-            </td>
-         
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                </td>
+                <td>
+                    <span class="d-flex justify-content-center align-items-center">
+                        <a asp-action="OrderDetails" asp-route-id="@item.Id"> <i class="mdi mdi-information-outline icon-md text-success"></i></a>
+                        &nbsp;&nbsp;&nbsp
+                        <a asp-action="ChangeOrderStatus" asp-route-id="@item.Id"> <i class="mdi mdi mdi-chevron-double-right icon-md text-success"></i></a>
+                        &nbsp;&nbsp;&nbsp
+                        <a asp-action="CancelOrder" asp-route-id="@item.Id"> <i class="mdi mdi mdi-block-helper icon-md text-danger"></i></a>
+                    </span>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

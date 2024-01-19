@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 
 namespace WA_HamburgerProjesiMVC_100124.Models
 {
@@ -9,8 +10,6 @@ namespace WA_HamburgerProjesiMVC_100124.Models
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string AppUserId { get; set; }
-        public ICollection<Menu> Menus { get; set; }
-
+        public OrderStatus? OrderStatus { get; set; }
     }
 }

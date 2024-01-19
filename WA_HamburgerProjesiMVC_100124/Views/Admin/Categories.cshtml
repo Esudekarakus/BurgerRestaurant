@@ -7,6 +7,13 @@
 
 <h1>Categories</h1>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <text> @TempData["message"] </text>
+    </div>
+}
+
 <p>
     <a class="btn btn-light btn-rounded btn-fw" asp-action="CreateCategory">Create New Category</a>
 </p>

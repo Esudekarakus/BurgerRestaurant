@@ -266,7 +266,6 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 return View();
             }
 
-
         }
 
         [Authorize(Roles = "Standard User, admin")]

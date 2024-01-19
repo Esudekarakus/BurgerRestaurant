@@ -166,13 +166,22 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                 // Servisten metot cagirip menu databaseye eklenecek. 
 
-                adminService.AddMenu(menu);
-
-                return RedirectToAction("Menus");
+                bool isAdded = adminService.AddMenu(menu);
+                string result = string.Empty;
+                if (isAdded)
+                {
+                    result = " New menu added successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Menus");
+                }
+                else
+                {
+                    result = " Something went wrong while add a new menu.";
+                    TempData["message"] = result;
+                    return View();
+                }
+               
             }
-
-
-
 
             return View(model);
         }
@@ -290,9 +299,24 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                  
 
-                adminService.UpdateMenu(menu);
+                bool isUpdated = adminService.UpdateMenu(menu);
+                string result = string.Empty;
+                if (isUpdated)
+                {
+                    result = " Menu updated successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Menus");
+                }
+                else
+                {
+                    result = " Something went wrong while update the menu.";
+                    TempData["message"] = result;
+                    return View();
+                }
+                
+               
 
-                return RedirectToAction("Menus");
+                
             }
 
             // Servisten metot cagirip databaseden gelen menu guncellenip tekrar databaseye gonderilecek.
@@ -323,6 +347,28 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Servisten metot cagirip databaseden gelen menu silinecek.
 
             Menu menu = adminService.GetMenuByIdIncludeProducts(id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             if (menu.Products.Count() > 0 || menu.Products != null)
             {
@@ -421,16 +467,32 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                     productVM.ImagePath = Path.Combine(relativePath, uniqueFileName);
                 }
-            }
 
-            Product product = new Product();
-            product.Name = productVM.Name;
-            product.Price = productVM.Price;
-            product.CategoryId = productVM.CategoryId;
-            product.ImagePath = productVM.ImagePath;
-            adminService.AddProduct(product);
-            return RedirectToAction("Products");
-            
+                Product product = new Product();
+                product.Name = productVM.Name;
+                product.Price = productVM.Price;
+                product.CategoryId = productVM.CategoryId;
+                product.ImagePath = productVM.ImagePath;
+                bool isAdded = adminService.AddProduct(product);
+                string result = string.Empty;
+                if (isAdded)
+                {
+                    result = " New product added successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Products");
+                }
+                else
+                {
+                    result = " Something went wrong while add a new product.";
+                    TempData["message"] = result;
+                    return View();
+                }
+
+            }
+            List<Category> categories = adminService.GetAllCategories().ToList();
+            productVM.Categories = new SelectList(categories, "Id", "Name");
+            return View(productVM);
+
         }
         public IActionResult UpdateProduct(int id)
         {
@@ -482,19 +544,29 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
                     productVM.ImagePath = Path.Combine(relativePath, uniqueFileName);
                 }
-            }
-            Product product = adminService.GetProductById(productVM.Id);
-            product.Name = productVM.Name;
-            product.Price = productVM.Price;
-            product.CategoryId = productVM.CategoryId;
-            product.ImagePath = productVM.ImagePath;
-            bool isUpdated = adminService.UpdateProduct(product);
+                Product product = adminService.GetProductById(productVM.Id);
+                product.Name = productVM.Name;
+                product.Price = productVM.Price;
+                product.CategoryId = productVM.CategoryId;
+                product.ImagePath = productVM.ImagePath;
+                bool isUpdated = adminService.UpdateProduct(product);
+                string result = string.Empty;
+                if (isUpdated)
+                {
+                    result = " Product updated successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Products");
+                }
+                else
+                {
+                    result = " Something went wrong while update the product.";
+                    TempData["message"] = result;
+                    return View();
+                }
 
-            if (isUpdated)
-            {
-                return RedirectToAction("Products");
             }
-            else return View();
+            return View();
+
 
         }
         public IActionResult DeleteProduct(int id)
@@ -503,10 +575,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             Product product = adminService.GetProductById(id);
             bool isDeleted = adminService.DeleteProduct(product);
-            if (isDeleted)
-            {
-                return RedirectToAction("Products");
-            }
+            string result = string.Empty;
+            if (isDeleted) result = " Product deleted successfully!";
+            else result = " Something went wrong while delete the product.";
+            TempData["message"] = result;
 
             return RedirectToAction("Products");
         }
@@ -547,11 +619,28 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public IActionResult CreateCategory(CreateCategoryVM categoryVM)
         {
             // Servisten metot cagirip kategori databaseye eklenecek. 
-            Category category = new Category();
-            category.Name = categoryVM.Name;
-            adminService.AddCategory(category);
+            if (ModelState.IsValid)
+            {
+                Category category = new Category();
+                category.Name = categoryVM.Name;
+                bool isAdded = adminService.AddCategory(category);
+                string result = string.Empty;
+                if (isAdded)
+                {
+                    result = " New category added successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Categories");
+                }
+                else
+                {
+                    result = " Something went wrong while add a new category.";
+                    TempData["message"] = result;
+                    return View();
+                }
+            }
 
-            return RedirectToAction("Categories");
+            return View();
+
         }
         public IActionResult UpdateCategory(int id)
         {
@@ -569,20 +658,38 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             // Servisten metot cagirip databaseden gelen kategori guncellenip tekrar databaseye gonderilecek.
 
-            Category category = adminService.GetCategoryById(categoryVM.Id);
-            category.Name = categoryVM.Name;
-            adminService.UpdateCategory(category);
+            if (ModelState.IsValid)
+            {
+                Category category = adminService.GetCategoryById(categoryVM.Id);
+                category.Name = categoryVM.Name;
+                bool isUpdated = adminService.UpdateCategory(category);
+                string result = string.Empty;
+                if (isUpdated)
+                {
+                    result = " Category updated successfully!";
+                    TempData["message"] = result;
+                    return RedirectToAction("Categories");
+                }
+                else
+                {
+                    result = " Something went wrong while update the school.";
+                    TempData["message"] = result;
+                    return View();
+                }
 
-            return RedirectToAction("Categories");
-
+            }
+            return View();
         }
         public IActionResult DeleteCategory(int id)
         {
             // Servisten metot cagirip databaseden gelen product silinecek.
 
             Category category = adminService.GetCategoryById(id);
-            adminService.DeleteCategory(category);
-
+            bool isDeleted = adminService.DeleteCategory(category);
+            string result = string.Empty;
+            if (isDeleted) result = " Category deleted successfully!";
+            else result = " Something went wrong while delete the category.";
+            TempData["message"] = result;
             return RedirectToAction("Categories");
         }
         public async Task<IActionResult> Users()
@@ -602,7 +709,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             AppUser user = await adminService.GetUserByEmail(email);
 
-            IEnumerable<Order> orders = adminService.GetAllOrdersByUserId(user.Id);
+            IEnumerable<Order> orders = adminService.GetByUserIdIncludeMenusOrderByCreatedDate(user.Id);
             UserDetailsVM userDetailsVM = new UserDetailsVM();
             userDetailsVM.FirstName = user.FirstName;
             userDetailsVM.LastName = user.LastName;
@@ -631,11 +738,67 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             return View(mapper.Map<List<OrderListVM>>(orderList));
         }
-        public IActionResult Messages()
+
+        public IActionResult OrderDetails(int id)
+        {
+            Order order = adminService.GetByIdIncludeMenusWithProducts(id);
+
+            return View(mapper.Map<OrderDetailsVM>(order));
+        }
+
+        public IActionResult ChangeOrderStatus(int id)
+        {
+            Order order = adminService.GetOrderById(id);
+            switch (order.OrderStatus)
+            {
+                case Domain.Enums.OrderStatus.Received:
+                    order.OrderStatus = Domain.Enums.OrderStatus.InProgress;
+                    break;
+                case Domain.Enums.OrderStatus.InProgress:
+                    order.OrderStatus = Domain.Enums.OrderStatus.ReadyForPickup;
+                    break;
+                case Domain.Enums.OrderStatus.ReadyForPickup:
+                    order.OrderStatus = Domain.Enums.OrderStatus.OnTheWay;
+                    break;
+                case Domain.Enums.OrderStatus.OnTheWay:
+                    order.OrderStatus = Domain.Enums.OrderStatus.Delivered;
+                    break;
+                default:
+                    break;
+            }
+
+            adminService.UpdateOrder(order);
+            return RedirectToAction("Orders");
+
+        }
+
+        public IActionResult CancelOrder(int id)
+        {
+            Order order = adminService.GetOrderById(id);
+            order.OrderStatus = Domain.Enums.OrderStatus.Canceled;
+            adminService.UpdateOrder(order);
+            return RedirectToAction("Orders");
+        }
+        public async Task<IActionResult> Messages()
         {
             // Kullanicilardan gelen mesajlarin goruntulenebildigi ekran 
 
-            return View();
+            List<Message> messages = adminService.GetAllMessages().ToList();
+            List<ContactVm> contactVmList = new List<ContactVm>();
+            foreach (Message item in messages)
+            {
+                ContactVm contactVm = new ContactVm();
+                contactVm.Message = item;
+                contactVm.User = await adminService.GetUserById(item.UserId);
+                contactVmList.Add(contactVm);
+            }
+            return View(contactVmList);
+        }
+
+        public IActionResult MessageDetails(int id)
+        {
+            Message message = adminService.GetMessageById(id);
+            return View(message);
         }
     }
 }
