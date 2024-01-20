@@ -94,6 +94,12 @@
                     <div class="card-body">
                         <h5 class="card-title">@menu.Name</h5>
                         <p class="card-text">@menu.Description</p>
+                        <p class="card-text">@menu.Price Tl</p>
+                        <p class="card-text"><b> Ürünler:</b> </p>
+                        @foreach(Product product in menu.Products)
+                        {
+                            <p class="card-text">@product.Name</p>
+                        }
       
                         <div class="overlay">
                             <a class="btn btn-dark" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
