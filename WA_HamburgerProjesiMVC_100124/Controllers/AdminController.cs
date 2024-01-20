@@ -11,7 +11,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly AdminService adminService;
@@ -44,6 +44,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             // Toplam ciro
             // Toplam menu miktari
             // Toplam urun miktari
+
+            ViewBag.DailyRevenues = adminService.GetDailyRevenues().ToList();
+            ViewBag.DailyOrderCounts = adminService.GetDailyOrderCounts().ToList();
 
             DashboardVM dashboardVM = new DashboardVM();
             dashboardVM.UserCount = ((List<AppUser>)await adminService.GetAllStandartUsers()).Count;

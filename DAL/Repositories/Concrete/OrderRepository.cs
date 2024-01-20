@@ -83,15 +83,12 @@ namespace DAL.Repositories.Concrete
 
             var dailyRevenues = Enumerable.Range(0, 7)
                 .Select(offset => startDate.AddDays(offset))
-                .Select(date => new
-                {
-                    Date = date,
-                    TotalRevenue = dbContext.Orders
-                        .Where(order => order.CreatedDate.Date == date)
-                        .Sum(order => order.TotalPrice)
-                })
+                .Select(date => dbContext.Orders
+                    .Where(order => order.CreatedDate.Date == date)
+                    .Sum(order => (decimal?)order.TotalPrice) ?? 0)
                 .ToList();
-            return (IEnumerable<decimal>)dailyRevenues;
+
+            return dailyRevenues;
         }
 
         public IEnumerable<int> GetDailyOrderCounts()
@@ -101,14 +98,11 @@ namespace DAL.Repositories.Concrete
 
             var dailyOrderCounts = Enumerable.Range(0, 7)
                 .Select(offset => startDate.AddDays(offset))
-                .Select(date => new
-                {
-                    Date = date,
-                    OrderCount = dbContext.Orders
-                        .Count(order => order.CreatedDate.Date == date)
-                })
+                .Select(date => dbContext.Orders
+                    .Count(order => order.CreatedDate.Date == date))
                 .ToList();
-            return (IEnumerable<int>)dailyOrderCounts;
+
+            return dailyOrderCounts;
         }
     }
 }
