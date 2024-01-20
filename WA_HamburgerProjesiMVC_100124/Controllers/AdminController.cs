@@ -217,6 +217,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                Menu menu = adminService.GetMenuByIdIncludeProducts((int)model.Id);
+
                 if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
                     if (!model.ImageFile.ContentType.StartsWith("image"))
@@ -241,8 +244,13 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                     model.ImagePath = Path.Combine(relativePath, uniqueFileName);
                 }
 
+                else
+                {
+                    model.ImagePath = menu.ImagePath;
+                }
 
-                Menu menu = adminService.GetMenuByIdIncludeProducts((int)model.Id);
+
+                
 
                 menu.Name = model.Name;
                 menu.Description = model.Description;
@@ -321,7 +329,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             // Servisten metot cagirip databaseden gelen menu guncellenip tekrar databaseye gonderilecek.
 
-            
+            model.Burgers = adminService.GetAllBurgers().ToList();
+            model.Desserts = adminService.GetAllDesserts().ToList();
+            model.Snacks = adminService.GetAllSnacks().ToList();
+            model.Beverages = adminService.GetAllBeverages().ToList();
+            model.Condiments = adminService.GetAllCondiments().ToList();
 
             return View(model);
         }
