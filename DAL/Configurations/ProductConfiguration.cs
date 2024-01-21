@@ -16,12 +16,12 @@ namespace DAL.Configurations
             builder.HasKey(p => p.Id);
             builder.ToTable("Products");
             builder.HasData(
-                new Product { Id=1, CategoryId=4, Name = "Gurme Patates", Price = 100.00, ImagePath = "GuncelResimler/patates1.png" },
-                new Product { Id=2, CategoryId=4,Name="Gurme Soğan Halkası", Price=85.00, ImagePath = "GuncelResimler/onion.png" },
+                new Product { Id=1, CategoryId=4, Name = "Gurme Patates", Price = 100.00, ImagePath = "GuncelResimler/patates1.png",MenuId=1 },
+                new Product { Id=2, CategoryId=4,Name="Gurme Soğan Halkası", Price=85.00, ImagePath = "GuncelResimler/onion.png",MenuId=2 },
                 new Product { Id=3,CategoryId=4,Name="Gurme Nugget",Price=30, ImagePath = "GuncelResimler/Nugget1.png" },
-                new Product { Id=4, CategoryId=5, Name="Sufle", Price=25, ImagePath= "GuncelResimler/sufle.png" },
-                new Product { Id = 5, CategoryId = 5, Name = "Çilekli Dondurma", Price = 20, ImagePath = "GuncelResimler/Sundae1.png" },
-                 new Product { Id = 6, CategoryId = 5, Name = "Elmalı Çıtır", Price = 20, ImagePath = "GuncelResimler/tatlıelma.png" }
+                new Product { Id=4, CategoryId=5, Name="Sufle", Price=25, ImagePath= "GuncelResimler/sufle.png",MenuId=3 },
+                new Product { Id = 5, CategoryId = 5, Name = "Çilekli Dondurma", Price = 20, ImagePath = "GuncelResimler/Sundae1.png",MenuId=7},
+                 new Product { Id = 6, CategoryId = 5, Name = "Elmalı Çıtır", Price = 20, ImagePath = "GuncelResimler/tatlıelma.png", MenuId = 8 }
                 );
 
                 

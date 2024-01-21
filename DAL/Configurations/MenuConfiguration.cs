@@ -24,7 +24,11 @@ namespace DAL.Configurations
                      new Menu { Id = 3, Name = "Gurme Mini Chicken Burger", Price = 100.00, ImagePath = "GuncelResimler/ChickenBurger2.png" },
                     new Menu { Id = 4, Name = "Gurme Classic Burger", Price = 85.00, ImagePath = "GuncelResimler/MarulBurger.png" },
                      new Menu { Id = 5, Name = "Gurme Cheddar Burger", Price = 100.00, ImagePath = "GuncelResimler/MiniCheeseBurger.png" },
-                    new Menu { Id = 6, Name = "Gurme Kofte Burger", Price = 85.00, ImagePath = "GuncelResimler/MiniKofteBurger.png" }
+                    new Menu { Id = 6, Name = "Gurme Kofte Burger", Price = 85.00, ImagePath = "GuncelResimler/MiniKofteBurger.png" },
+                    new Menu { Id = 7, Name = "Çilek Rüyası Lezzetleri", Price = 20.00, ImagePath = "GuncelResimler/Sundae1.png" },
+                   
+                     new Menu { Id = 8, Name = "Elma Rüyası Lezzetleri", Price = 20.00, ImagePath = "GuncelResimler/tatlıelma.png" }
+
 
 
                 );
