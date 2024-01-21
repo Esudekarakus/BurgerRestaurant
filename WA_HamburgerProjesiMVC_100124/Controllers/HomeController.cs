@@ -1,3 +1,4 @@
+
 using BLL.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ using WA_HamburgerProjesiMVC_100124.Models;
 namespace WA_HamburgerProjesiMVC_100124.Controllers
 {
 
-    
+
 
 
     public class HomeController : Controller
@@ -29,10 +30,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         public static List<Product> onaylanmayanUrunler = new List<Product>();
 
         // Layout olacak 
-        // Navbar Profil  -  Burger Menu (�izgi)  -  Search butonu  -  
-        // Profil (Bilgiler  -  �nceki sipari�ler  -  Sepetim  -  ��k�� )
-        // Hamburger Menu (Ana sayfa  -  Hakk�m�zda  -  �leti�im  -  Sipari� ver  )
-        // Uygulama a��ld���nda giri� ekran� kar��las�n. Giri� yapmadan devam edilmesin.
+        // Navbar Profil  -  Burger Menu ( izgi)  -  Search butonu  -  
+        // Profil (Bilgiler  -   nceki sipari ler  -  Sepetim  -    k   )
+        // Hamburger Menu (Ana sayfa  -  Hakk m zda  -   leti im  -  Sipari  ver  )
+        // Uygulama a  ld   nda giri  ekran  kar  las n. Giri  yapmadan devam edilmesin.
 
 
         public HomeController(ILogger<HomeController> logger, MenuService menuService, ProductService productService, UserManager<AppUser> userManager, MessageService messageService, SignInManager<AppUser> signInManager, OrderService orderService)
@@ -243,8 +244,6 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             UserVM userVM = new UserVM()
             {
-                Id = user.Id,
-                UserName = user.UserName,
                 EMail = user.Email,
                 Name = user.FirstName,
                 SurName = user.LastName,
@@ -285,10 +284,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Sepetim(List<Menu> menus)
+        public async Task<IActionResult> ApproveOrder(SiparisVM menus)
         {
             Order order = new Order();
-            order.Menus.AddRange(menus);
+            order.Menus = menus.menus;
             orderService.SaveOrders(order);
             return RedirectToAction("Index");
         }
@@ -302,10 +301,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
 
 
-        //public async Task<IActionResult> BilgileriGuncelle()
-        //{
-        //    return RedirectToAction("Update", "Account");
-        //}
+
 
     }
 }
