@@ -36,7 +36,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 //ConStr adını herkes kendi adıyla değiştirmesi yeterli
 
 
-builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Harun")));
+builder.Services.AddDbContext<AppDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("Sude")));
 
 
 builder.Services.AddIdentity<AppUser , IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
