@@ -117,5 +117,32 @@ function UpdateTotalAmount() {
     });
 
     // Toplam ücreti ekrana yazdır
-    $("#totalAmount").text(totalAmount.toFixed(2));
+    $("#totalAmount").text(totalAmount.toFixed());
+}
+
+function ApproveCart(menuList) {
+    // menuList parametresi, JSON formatında bir dizi olarak gelecek
+
+    // Sepeti onaylamak için AJAX isteği gönder
+    $.ajax({
+        url: '@Url.Action("ApproveOrder", "Home")',
+        type: 'POST',
+        dataType: 'json',
+        traditional: true, // Gelen verinin geleneksel formatta olmasını sağlar
+        contentType: 'application/json',
+        data: { menus: menuList }, // Menü listesini JSON formatına çevirmeden gönder
+        success: function (result) {
+            if (result.success) {
+                // Sepet başarıyla onaylandı, sayfayı yenile
+                location.reload();
+            } else {
+                // Onaylama başarısız oldu, hata mesajını göster
+                $('#error').text('Sepeti onaylama sırasında bir hata oluştu.');
+            }
+        },
+        error: function () {
+            // İsteğin gönderilmesi sırasında bir hata oluştu
+            $('#error').text('İstek gönderilirken bir hata oluştu.');
+        }
+    });
 }

@@ -283,10 +283,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Sepetim(List<Menu> menus)
+        public async Task<IActionResult> ApproveOrder(SiparisVM menus)
         {
             Order order = new Order();
-            order.Menus.AddRange(menus);
+            order.Menus = menus.menus;
             orderService.SaveOrders(order);
             return RedirectToAction("Index");
         }
