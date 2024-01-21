@@ -1,8 +1,23 @@
 ﻿@using Domain.Entities
 @model List<Menu>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "HomeLayout";
+}
 
-<head>
+@* <!DOCTYPE html>
+<html lang="en"> *@
+@* <head> *@
+    @* <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,800,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GurmeBurger</title> *@
+    @* <link rel="stylesheet/less" type="text/css" href="/css/style1.less" /> *@
+    @* <link href="~/css/style1.css" rel="stylesheet/less" /> *@
+
+
+    @*  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boş Şablon - GurmeBurger</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -10,112 +25,457 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="~/js/script.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            color: #333;
+    body {
+    background-color: #f8f9fa;
+    color: #333;
+    }
+
+    header {
+    background-color: #343a40;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    }
+
+    main {
+    padding: 20px;
+    }
+
+    footer {
+    background-color: #343a40;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    }
+
+    .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    }
+
+    .menu-list li {
+    margin-right: 20px; /* Menü öğeleri arasındaki boşluğu belirler */
+    }
+
+    .menu-list li:last-child {
+    margin-right: 0; /* Son menü öğesi için boşluk olmasın */
+    }
+
+    .menu-list a {
+    text-decoration: none;
+    color: black; /* Link rengini belirler */
+    }
+
+    .menu-list a:hover {
+    text-decoration: underline; /* Mouse hover olduğunda altı çizili olmasını sağlar */
+    }
+    </style> *@
+   @*  <style>
+        /* Orange text gradient only for Webkit (Chrome and Safari) */
+        .webkit #our-team h4.sub-title, .webkit #foods h4.sub-title {
+            background: #ef9e10; /* Old browsers */
+            background: -moz-linear-gradient(left, #ef9e10 40%, #ef6910 60%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(40%,#ef9e10), color-stop(60%,#ef6910)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, #ef9e10 40%,#ef6910 60%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, #ef9e10 40%,#ef6910 60%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, #ef9e10 40%,#ef6910 60%); /* IE10+ */
+            background: linear-gradient(to right, #ef9e10 40%,#ef6910 60%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ef9e10', endColorstr='#ef6910',GradientType=1 ); /* IE6-9 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        header {
-            background-color: #343a40;
-            padding: 10px;
-            text-align: center;
-            color: #fff;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        footer {
-            background-color: #343a40;
-            padding: 10px;
-            text-align: center;
-            color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .menu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-            .menu-list li {
-                margin-right: 20px; /* Menü öğeleri arasındaki boşluğu belirler */
-            }
-
-                .menu-list li:last-child {
-                    margin-right: 0; /* Son menü öğesi için boşluk olmasın */
-                }
-
-            .menu-list a {
-                text-decoration: none;
-                color: black; /* Link rengini belirler */
-            }
-
-                .menu-list a:hover {
-                    text-decoration: underline; /* Mouse hover olduğunda altı çizili olmasını sağlar */
-                }
     </style>
-   
-</head>
-<body>
 
-    <header>
-        @* <h2>Title</h2> *@
-        <nav>
-            <ul class="menu-list">
-                <li><a href="#" class="text-light" onclick="ListMenus()">Menüler</a></li>
-                <li><a href="#" class="text-light" onclick="ListDesserts()">Tatlılar</a></li>
-                <li><a href="#" class="text-light" onclick="ListSnacks()">Atıştırmalıklar</a></li>
-                <li><a href="#" class="text-light" onclick="ListDrinks()">İçecekler</a></li>
-            </ul>
+    <!-- Option for Less JS -->
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments",
+            relativeUrls: false
+        };
+    </script>
+    <script type="text/javascript" src="~/js/less.min.js"></script>
+    <script type="text/javascript" src="~/js/retina.min.js"></script>
+    <script type="text/javascript" src="~/js/modernizr.custom.71422.js"></script> *@
+@* </head>
+<body> *@
 
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="searchButton" id="searchInput">
-                <button class="btn btn-primary" type="button" id="searchButton" onclick="SearchItems()">Search</button>
-            </div>
-        </nav>
+    @* <header>
+    <h2>Title</h2>
+    <nav>
+    <ul class="menu-list">
+    <li><a href="#" class="text-light" onclick="ListMenus()">Menüler</a></li>
+    <li><a href="#" class="text-light" onclick="ListDesserts()">Tatlılar</a></li>
+    <li><a href="#" class="text-light" onclick="ListSnacks()">Atıştırmalıklar</a></li>
+    <li><a href="#" class="text-light" onclick="ListDrinks()">İçecekler</a></li>
+    </ul>
+
+    <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="searchButton" id="searchInput">
+    <button class="btn btn-primary" type="button" id="searchButton" onclick="SearchItems()">Search</button>
+    </div>
+    </nav>
 
     </header>
 
     <main class="container-fluid" id="mainContainer">
-        <div class="card-group">
-        @foreach(Menu menu in Model)
-        {
-                <div class="card" data-search="@menu.Name.ToLower()">
-                    <div class="image-container">
-                        <img src="/@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important" ; alt="...">
-                        
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@menu.Name</h5>
-                        <p class="card-text">@menu.Description</p>
-                        <p class="card-text">@menu.Price Tl</p>
-                        <p class="card-text"><b> Ürünler:</b> </p>
-                        @foreach(Product product in menu.Products)
-                        {
-                            <p class="card-text">@product.Name</p>
-                        }
-      
-                        <div class="overlay">
-                            <a class="btn btn-dark" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
-                        </div>
-                        
-                    </div>
-                </div>
-         
-        }
-        </div>
+    <div class="card-group">
+    @foreach(Menu menu in Model)
+    {
+    <div class="card" data-search="@menu.Name.ToLower()">
+    <div class="image-container">
+    <img src="/@menu.ImagePath" class="card-img-top vw-25" style="width:auto !important" ; alt="...">
 
-        
-        
+    </div>
+    <div class="card-body">
+    <h5 class="card-title">@menu.Name</h5>
+    <p class="card-text">@menu.Description</p>
+    <p class="card-text">@menu.Price Tl</p>
+    <p class="card-text"><b> Ürünler:</b> </p>
+    @foreach(Product product in menu.Products)
+    {
+    <p class="card-text">@product.Name</p>
+    }
+
+    <div class="overlay">
+    <a class="btn btn-dark" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+    </div>
+
+    </div>
+    </div>
+
+    }
+    </div>
+
+
+
     </main>
     <div id="error"></div>
+    *@
+
+    <!-- Menu -->
+   @*  <nav class="menu menu-left">
+        <div class="close-menu-btn icon-menu active">&nbsp;</div>
+        <ul>
+            <li class="active"><a asp-action="Index">Home</a></li>
+            <li><a asp-action="Order">Our Food</a></li>
+            <li><a asp-action="About">About Us</a></li>
+            <li><a asp-action="Contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="menu-btn"><span class="icon-menu">&nbsp;</span>Menu</div>
 
 
-   
-</body>
+    <!-- Site Overlay -->
+    <div class="site-overlay"></div>
+
+    <!-- Your Content -->
+    <div id="container">
+
+        <div class="container">
+            <div class="main-container row">
+                <div id="logo">
+                    <a asp-action="Index">
+                        <div class="logo-icon"><img src="~/img/logo.png" /></div>
+                        <div class="logo-type">Gurme Burger</div>
+                        <div class="logo-slogan">Gurme Burger, lezzetli burgerleriyle sizi agırlamaktan mutluluk duyar.</div>
+                    </a>
+                </div>
+            </div>
+        </div> *@
+
+        <div id="full-width-header" class="full-width">
+            <div class="triangle top"></div>
+            <div class="inner">
+                <div class="slide">
+                    <div class="inner-slide">
+                        <img src="~/img/single/food.jpg" width="1980" height="560">
+                    </div>
+                </div>
+            </div>
+            <div class="triangle bottom"></div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="container full-page">
+            <div id="our-food" class="main-container">
+                <div class="row">
+                    <div class="main-content col">
+                        <div class="title">
+                    <h1></h1>
+                        </div>
+                        <div class="intro">
+                             <h2>Gurme Dünyasında Benzersiz Bir Lezzet Yolculuğu: Elit Mutfak Deneyimimiz!"</h2>
+                        </div>
+                        <div class="content">
+                             <p>Perspektiflerden ötesinde, nefes kesici bir lezzet deneyimi sizi bekliyor. Ürünlerimizdeki doğal hatanın içindeki zevkleri ve acıları keşfedin. Her biri özenle seçilmiş malzemelerle hazırlanan ürünlerimiz, sizi lezzet yolculuğuna davet ediyor. En taze ve kaliteli malzemelerle üretilen ürünlerimiz, damaklarınıza unutulmaz bir tat sunuyor. Sizi eşsiz bir gastronomik serüvene davet ediyoruz. Şimdi, lezzet dolu anlara adım atın!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div id="filter-foods">
+                    <div class="filter button .grey-button" data-filter="all">Tüm Ürünler</div>
+                    <div class="filter button .grey-button" data-filter=".burgers">Burgerler</div>
+                    <div class="filter button .grey-button" data-filter=".beverages">İçecekler</div>
+                    <div class="filter button .grey-button" data-filter=".condiments">Ekstra Malzemeler</div>
+                    <div class="filter button .grey-button" data-filter=".snacks">Atıştırmalıklar</div>
+                    <div class="filter button .grey-button" data-filter=".desserts">Tatlılar</div>
+                </div>
+                <div class="clear"></div>
+                <div class="row">
+                    <div id="foods">
+                        @foreach (Menu menu in Model)
+                        {
+
+                            if (menu.Products.Any(x => x.CategoryId == 2))
+                            {
+                                <div class="food mix col beverages">
+                                    <div class="food-picture">
+                                        <img src="~/@menu.ImagePath" />
+                                    </div>
+                                    <div class="food-name">
+                                        <h3>@menu.Name</h3>
+                                        <h4 class="sub-title">@menu.Price &nbsp; &#x20BA;</h4>
+                                    </div>
+                                    <div style="margin-left:70px">
+                                        <a class="button white-button" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+                                    </div>
+                                </div>
+                            }
+                            else if (menu.Products.Any(x => x.CategoryId == 3))
+                            {
+                                <div class="food mix col condiments">
+                                    <div class="food-picture">
+                                        <img src="~/@menu.ImagePath" />
+                                    </div>
+                                    <div class="food-name">
+                                        <h3>@menu.Name</h3>
+                                        <h4 class="sub-title">@menu.Price &nbsp; &#x20BA;</h4>
+                                    </div>
+                                    <div style="margin-left:70px">
+                                        <a class="button white-button" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+                                    </div>
+                                </div>
+                            }
+                            else if (menu.Products.Any(x => x.CategoryId == 4))
+                            {
+                                <div class="food mix col snacks">
+                                    <div class="food-picture">
+                                        <img src="~/@menu.ImagePath" />
+                                    </div>
+                                    <div class="food-name">
+                                        <h3>@menu.Name</h3>
+                                        <h4 class="sub-title">@menu.Price &nbsp; &#x20BA;</h4>
+                                    </div>
+                                    <div style="margin-left:70px">
+                                        <a class="button white-button" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+                                    </div>
+                                </div>
+                            }
+                            else if (menu.Products.Any(x => x.CategoryId == 5))
+                            {
+                                <div class="food mix col desserts">
+                                    <div class="food-picture">
+                                        <img src="~/@menu.ImagePath" />
+                                    </div>
+                                    <div class="food-name">
+                                        <h3>@menu.Name</h3>
+                                        <h4 class="sub-title">@menu.Price &nbsp; &#x20BA;</h4>
+                                    </div>
+                                    <div style="margin-left:70px">
+                                        <a class="button white-button" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="food mix col burgers">
+                                    <div class="food-picture">
+                                        <img src="~/@menu.ImagePath" />
+                                    </div>
+                                    <div class="food-name">
+                                        <h3>@menu.Name</h3>
+                                        <h4 class="sub-title">@menu.Price &nbsp; &#x20BA;</h4>
+                                    </div>
+                                    <div style="margin-left:70px">
+                                        <a class="button white-button" asp-action="AddMenuToCard" asp-route-id="@menu.Id">Sepete Ekle</a>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+
+                        @* <div class="food mix col burgers">
+                        <div class="food-picture">
+                        <img src="~/img/food/2.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>Nemo enim ipsam</h3>
+                        <h4 class="sub-title">$6.00</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col burgers">
+                        <div class="food-picture">
+                        <img src="~/img/food/3.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>quia voluptas</h3>
+                        <h4 class="sub-title">$3.00</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sets">
+                        <div class="food-picture">
+                        <img src="~/img/food/4.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>aspernatur aut odit</h3>
+                        <h4 class="sub-title">$5.50</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/5.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>voluptatem sequi</h3>
+                        <h4 class="sub-title">$2.50</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col burgers">
+                        <div class="food-picture">
+                        <img src="~/img/food/6.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>Neque porro</h3>
+                        <h4 class="sub-title">$3.50</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/7.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>quisquam est</h3>
+                        <h4 class="sub-title">$4.00</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/8.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>qui dolorem ipsum</h3>
+                        <h4 class="sub-title">$2.50</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/9.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>quia dolor sit amet</h3>
+                        <h4 class="sub-title">$5.00</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/10.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>quaerat voluptatem</h3>
+                        <h4 class="sub-title">$5.00</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/11.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>Quis autem vello</h3>
+                        <h4 class="sub-title">$3.50</h4>
+                        </div>
+                        </div>
+                        <div class="food mix col sandwiches">
+                        <div class="food-picture">
+                        <img src="~/img/food/12.jpg" />
+                        </div>
+                        <div class="food-name">
+                        <h3>corporis suscipit</h3>
+                        <h4 class="sub-title">$4.50</h4>
+                        </div>
+                        </div> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear space-area"></div>
+
+        @* <div class="triangle top footer"></div>
+        <div class="container footer">
+            <div id="footer" class="main-container">
+                <div class="footer-top row">
+                    <div class="footer-info col">
+                        <div class="footer-logo">
+                            <div class="logo-icon"><img src="~/img/footer-logo.png" /></div>
+                        </div>
+                        <div class="footer-address">
+                            Company name</br>523 Avenue Street, New York
+                        </div>
+                        <div class="footer-contact">
+                            (432) 421 693 812<br /><a href="#">office@companyname.com</a>
+                        </div>
+                    </div>
+                    <div class="footer-newsletter col">
+                        <div class="footer-newsletter-container">
+                            <form id="subscribe-newsletter">
+                                <input type="email" class="footer-input-text" placeholder="Enter your email to join newsletter..." />
+                                <input type="submit" class="button grey-button footer-input-submit" value="Subscribe" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="footer-bottom row">
+                    <div class="footer-copyright col">
+                        <div class="footer-copyright-text">Copyright 2014 Company name. Designed by Themezy. All rights reserved.</div>
+                    </div>
+                    <div class="footer-social-media col">
+                        <div class="social-media-icon">
+                            <span class="icon-social-media icon-facebook">&nbsp;</span>
+                            <span class="icon-social-media icon-twitter">&nbsp;</span>
+                            <span class="icon-social-media icon-google">&nbsp;</span>
+                            <span class="icon-social-media icon-pinterest">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div> *@
+
+    @* </div> *@
+
+@* 
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/pushy.js"></script>
+    <script type="text/javascript" src="~/js/slider.js"></script>
+    <script type="text/javascript" src="~/js/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="~/js/browser.selector.js"></script>
+    <script type="text/javascript" src="~/js/fastclick.js"></script>
+    <script type="text/javascript" src="~/js/script1.js"></script>
+    <script type="text/javascript">
+        $('#foods').mixItUp();
+    </script> *@
+@* </body> *@

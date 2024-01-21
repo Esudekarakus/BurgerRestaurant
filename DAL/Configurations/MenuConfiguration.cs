@@ -19,9 +19,14 @@ namespace DAL.Configurations
           
 
             builder.HasData(
-                    new Menu { Id = 1, Name = "Meat Burger", Price = 100.00, ImagePath = "img/burgers/hamburger1kofte.png" },
-                    new Menu { Id = 2, Name = "Chicken Burger", Price = 85.00, ImagePath = "img/burgers/chickenburger.png" },
-                    new Menu { Id = 3, Name = "Çilekli Milkshake", Price = 30, ImagePath = "img/beverages/milkshake.jpg" }
+                    new Menu { Id = 1, Name = "Gurme Meat Burger", Price = 100.00, ImagePath = "img/GuncelResimler/BigKingKucuk.png" },
+                    new Menu { Id = 2, Name = "Gurme Chicken Burger", Price = 85.00, ImagePath = "img/GuncelResimler/ChickenBurger.png" },
+                     new Menu { Id = 3, Name = "Gurme Mini Chicken Burger", Price = 100.00, ImagePath = "img/GuncelResimler/ChickenBurger2.png" },
+                    new Menu { Id = 4, Name = "Gurme Classic Burger", Price = 85.00, ImagePath = "img/GuncelResimler/MarulBurger.png" },
+                     new Menu { Id = 5, Name = "Gurme Cheddar Burger", Price = 100.00, ImagePath = "img/GuncelResimler/MiniCheeseBurger.png" },
+                    new Menu { Id = 6, Name = "Gurme Kofte Burger", Price = 85.00, ImagePath = "img/GuncelResimler/MiniKofteBurger.png" }
+
+
                 );
         }
     }

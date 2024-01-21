@@ -227,5 +227,15 @@ namespace BLL.Services
         {
             return messageRepository.GetById(id);
         }
+
+        public IEnumerable<decimal> GetDailyRevenues()
+        {
+            return orderRepository.GetDailyRevenues();
+        }
+
+        public IEnumerable<int> GetDailyOrderCounts()
+        {
+            return orderRepository.GetDailyOrderCounts();
+        }
     }
 }

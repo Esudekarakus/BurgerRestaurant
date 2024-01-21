@@ -23,7 +23,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
                 <a class="sidebar-brand brand-logo" asp-action="Dashboard" asp-controller="Admin"><img src="../../assets/images/gurme-burger-white-transparent.png" alt="logo" /></a>
-                <a class="sidebar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/gurme-burger-favicon-white.png" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo-mini" asp-action="Dashboard" asp-controller="Admin"><img src="../../assets/images/gurme-burger-favicon-white.png" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item profile">
@@ -40,7 +40,7 @@
                         </div>
                         <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
                         <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                            <a href="#" class="dropdown-item preview-item">
+                           @*  <a href="#" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-settings text-primary"></i>
@@ -49,9 +49,9 @@
                                 <div class="preview-item-content">
                                     <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
                                 </div>
-                            </a>
+                            </a> *@
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item preview-item">
+                            <a asp-action="Update" asp-controller="Account" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-onepassword  text-info"></i>
@@ -61,7 +61,7 @@
                                     <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
                                 </div>
                             </a>
-                            <div class="dropdown-divider"></div>
+                           @*  <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
@@ -72,7 +72,7 @@
                                     <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
                                 </div>
                             </a>
-                        </div>
+                        </div> *@
                     </div>
                 </li>
                 <li class="nav-item nav-category">
@@ -148,13 +148,13 @@
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                         <span class="mdi mdi-menu"></span>
                     </button>
-                    <ul class="navbar-nav w-100">
+                   @*  <ul class="navbar-nav w-100">
                         <li class="nav-item w-100">
                             <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
                                 <input type="text" class="form-control" placeholder="Search products">
                             </form>
                         </li>
-                    </ul>
+                    </ul> *@
                     <ul class="navbar-nav navbar-nav-right">
                         @*  <li class="nav-item dropdown d-none d-lg-block">
                         <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create New Project</a>
@@ -198,7 +198,7 @@
                         </div>
                         </li> *@
                         <li class="nav-item nav-settings d-none d-lg-block">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" asp-action="Dashboard" asp-controller="Admin">
                                 <i class="mdi mdi-view-grid"></i>
                             </a>
                         </li>
@@ -299,9 +299,9 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                                <h6 class="p-3 mb-0">Profile</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
+                               @*  <h6 class="p-3 mb-0">Profile</h6>
+                                <div class="dropdown-divider"></div> *@
+                                @* <a class="dropdown-item preview-item"> *@
                                     @*   <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                     <i class="mdi mdi-settings text-success"></i>
@@ -318,14 +318,15 @@
                                     <i class="mdi mdi-logout text-danger"></i>
                                     </div>
                                     </div> *@
-                                    <div class="preview-item-content">
-                                        @* <p class="preview-subject mb-1">Log out</p> *@
+                                  @*   <div class="preview-item-content">
+                                        <p class="preview-subject mb-1">Log out</p>
 
-                                        <a class="btn btn-danger preview-subject mb-1" asp-action="Logout" asp-controller="Account">Logout</a>
-                                    </div>
-                                </a>
+                                 
+                                    </div> *@
+                                @* </a> *@
                                 @*  <div class="dropdown-divider"></div>
                                 <p class="p-3 mb-0 text-center">Advanced settings</p> *@
+                                <a class="btn btn-danger preview-subject mb-1" asp-action="Logout" asp-controller="Account">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -367,7 +368,8 @@
  @*    <script src="~/js/chart.js"></script>
     <script src="~/js/Chart1.min.js"></script> *@
     <script src="~/js/todolist.js"></script>
-    <script src="../../assets/js/chart.js"></script>
+   
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="../../assets/js/chart.js?v=4"></script>
 </body>
 </html>

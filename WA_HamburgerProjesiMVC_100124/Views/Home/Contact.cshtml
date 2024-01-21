@@ -1,7 +1,24 @@
 ﻿@using Domain.Entities
 @model ContactVm
-<head>
+
+<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "HomeLayout";
+}
+
+@* <head> *@
+    @*  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda - GurmeBurger</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,800,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GurmeBurger</title> *@
+    @* <link rel="stylesheet/less" type="text/css" href="/css/style1.less" /> *@
+    @* <link href="~/css/style1.css" rel="stylesheet/less" /> *@
+   @*  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boş Şablon - GurmeBurger</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,11 +48,45 @@
             bottom: 0;
             width: 100%;
         }
-    </style>
-</head>
-<body>
+    </style> *@
+     @* <script>
+      less = {
+        env: "development",
+        async: false,
+        fileAsync: false,
+        poll: 1000,
+        functions: {},
+        dumpLineNumbers: "comments",
+        relativeUrls: false
+      };
+    </script>
+    <script type="text/javascript" src="~/js/less.min.js"></script>
+    <script type="text/javascript" src="~/js/retina.min.js"></script>
+	<script type="text/javascript" src="~/js/modernizr.custom.71422.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+    function initialize() {
+      //add cordinate here http://www.mapcoordinates.net/en
+      var myLatlng = new google.maps.LatLng(40.7389348,-73.7008329);
+      var mapOptions = {
+        zoom: 15,
+        center: myLatlng
+      }
 
-    <header>
+      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'Company Name'
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script> *@
+@* </head>
+<body> *@
+
+   @*  <header>
         <h2>Bizimle İletişime Geç</h2>
         
     </header>
@@ -76,6 +127,157 @@
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
 
-</body>
+    @*  <nav class="menu menu-left">
+        <div class="close-menu-btn icon-menu active">&nbsp;</div>    
+        <ul>
+            <li class="active"><a asp-action="Index">Home</a></li>
+            <li><a asp-action="Order">Our Food</a></li>
+            <li><a asp-action="About">About Us</a></li>
+            <li><a asp-action="Contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="menu-btn"><span class="icon-menu">&nbsp;</span>Menu</div>
+
+    
+    <!-- Site Overlay -->
+    <div class="site-overlay"></div>
+
+    <!-- Your Content -->
+    <div id="container">
+
+        <div class="container">
+            <div class="main-container row">
+                <div id="logo">
+                    <a asp-action="Index">
+                        <div class="logo-icon"><img src="~/img/logo.png" /></div>
+                        <div class="logo-type">Gurme Burger</div>
+                        <div class="logo-slogan">Gurme Burger, lezzetli burgerleriyle sizi agırlamaktan mutluluk duyar.</div>
+                    </a>
+                </div>
+            </div>
+        </div> *@
+
+        <div id="full-width-header" class="full-width">
+            <div class="triangle top"></div>
+            <div class="inner">
+                <div class="slide">
+                    <div class="inner-slide">
+                        <div id="map-canvas"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="triangle bottom"></div>
+        </div>
+        
+        <div class="clear"></div>
+
+        <div class="container full-page">
+            <div id="contact-us" class="main-container">
+                <div class="row">
+                    <div class="main-content col">
+                        <div class="title">
+                            <h1>Contact</h1>
+                        </div>
+                        <div class="intro">
+                            <h2>Neque porro quisquam est, qui dolorem ipsum quia dolor.</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="contact-address col">
+                        <div class="contact-address-container">
+                            <span class="dot dot-left-top">&nbsp;</span><span class="dot dot-right-top">&nbsp;</span><span class="dot dot-left-bottom">&nbsp;</span><span class="dot dot-right-bottom">&nbsp;</span>
+                            Company name<br/>
+                            523 Avenue Street, New York<br/><br/>
+                            (432) 421 693 812<br/>
+                            office@companyname.com<br/>
+                        </div>
+                    </div>
+                     <form class="form-group" asp-action="Contact" method="post">
+                    <input asp-for="User.Id" hidden />
+                    <div class="contact-form-input-data col">
+                        <div class="contact-form-input-container">
+                            <div class="contact-form-input-icon"><span class="input-icon icon-name">&nbsp;</span></div>
+                            <input value="@Model.User.FirstName @Model.User.LastName " readonly type="text" class="contact-form-input-text"  />
+                        </div>
+                        <div class="contact-form-input-container">
+                            <div class="contact-form-input-icon"><span class="input-icon icon-email">&nbsp;</span></div>
+                            <input asp-for="User.Email" value="@Model.User.Email" readonly class="contact-form-input-text"  />
+                        </div>
+                        <div class="contact-form-input-container">
+                            <div class="contact-form-input-icon"><span class="input-icon icon-website">&nbsp;</span></div>
+                            <input asp-for="Message.Name"  type="text" class="contact-form-input-text" placeholder="Title..." />
+                        </div>
+                    </div>
+                    <div class="contact-form-input-message col">
+                        <div class="contact-form-input-container">
+                            <div class="contact-form-input-icon"><span class="input-icon icon-message">&nbsp;</span></div>
+                            <textarea asp-for="Message.Content" placeholder=" Message..." class="contact-form-input-text"></textarea>
+                        </div>
+                        <div class="button-container">
+                            <input type="submit" value="Send Message" class="button grey-button contact-form-input-submit"/>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="clear space-area"></div>
+        
+       @*  <div class="triangle top footer"></div>
+        <div class="container footer">
+            <div id="footer" class="main-container">
+                <div class="footer-top row">
+                    <div class="footer-info col">
+                        <div class="footer-logo">
+                            <div class="logo-icon"><img src="~/img/footer-logo.png" /></div>
+                        </div>
+                        <div class="footer-address">
+                            Company name</br>523 Avenue Street, New York
+                        </div>
+                        <div class="footer-contact">
+                            (432) 421 693 812<br/><a href="#">office@companyname.com</a>
+                        </div>
+                    </div>
+                    <div class="footer-newsletter col">
+                        <div class="footer-newsletter-container">
+                            <form id="subscribe-newsletter">
+                                <input type="email" class="footer-input-text" placeholder="Enter your email to join newsletter..."/>
+                                <input type="submit" class="button grey-button footer-input-submit" value="Subscribe"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="footer-bottom row">
+                    <div class="footer-copyright col">
+                        <div class="footer-copyright-text">Copyright 2014 Company name. Designed by Themezy. All rights reserved.</div>
+                    </div>
+                    <div class="footer-social-media col">
+                        <div class="social-media-icon">
+                            <span class="icon-social-media icon-facebook">&nbsp;</span>
+                            <span class="icon-social-media icon-twitter">&nbsp;</span>
+                            <span class="icon-social-media icon-google">&nbsp;</span>
+                            <span class="icon-social-media icon-pinterest">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div> *@
+       
+    @* </div> *@
+
+
+   @*  <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/pushy.js"></script>
+    <script type="text/javascript" src="~/js/slider.js"></script>
+    <script type="text/javascript" src="~/js/fastclick.js"></script>
+    <script type="text/javascript" src="~/js/script.js"></script> *@
+
+@* </body> *@
