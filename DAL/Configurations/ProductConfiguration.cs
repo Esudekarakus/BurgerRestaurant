@@ -21,7 +21,7 @@ namespace DAL.Configurations
                 new Product { Id=3,CategoryId=4,Name="Gurme Nugget",Price=30, ImagePath = "GuncelResimler/Nugget1.png" },
                 new Product { Id=4, CategoryId=5, Name="Sufle", Price=25, ImagePath= "GuncelResimler/sufle.png",MenuId=3 },
                 new Product { Id = 5, CategoryId = 5, Name = "Çilekli Dondurma", Price = 20, ImagePath = "GuncelResimler/Sundae1.png",MenuId=7},
-                 new Product { Id = 6, CategoryId = 5, Name = "Elmalı Çıtır", Price = 20, ImagePath = "GuncelResimler/tatlıelma.png", MenuId = 8 }
+                 new Product { Id = 6, CategoryId = 5, Name = "Elmalı Çıtır", Price = 20, ImagePath = "GuncelResimler/elma.png", MenuId = 8 }
                 );
 
                 
