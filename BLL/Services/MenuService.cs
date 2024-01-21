@@ -47,5 +47,10 @@ namespace BLL.Services
         {
            return menuRepository.GetById(id);
         }
+
+        public Menu GetMenuByIdIncludeProducts(int id)
+        {
+            return menuRepository.GetByIdIncludeProducts(id);
+        }
     }
 }

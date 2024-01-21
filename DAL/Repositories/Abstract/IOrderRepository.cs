@@ -13,6 +13,8 @@ namespace DAL.Repositories.Abstract
         Order GetByIdIncludeMenus(int id);
         Order GetByIdIncludeMenusWithProducts(int id);
         Order GetByUserIdIncludeMenus(string id);
+
+        Order GetByIdIncludeUsersAndMenusAndProducts(int id);
         IEnumerable<Order> GetAllIncludeMenusIncludeUsers();
         IEnumerable<Order> GetAllOrderByCreatedDate();
         IEnumerable<Order> GetByUserIdOrderByCreatedDate(string id);

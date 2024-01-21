@@ -167,42 +167,59 @@ Sepetim.cshtml
         }
         @* <a class="btn btn-outline-success" onclick="ApproveCart(@Json.Serialize(Model.menus))">Sepeti Onayla</a> *@
     </div>
+
+    @foreach (Menu menu in Model.menus)
+    {
+        <input type="hidden" name="menuIds" value="@menu.Id" />
+    }
+
+    <input type="hidden" name="userId" value="@Model.UserId" />
+
     <button id="approveOrderBtn" class="btn btn-outline-success" type="submit" asp-action="ApproveOrder">
         Sepeti
         Onayla
     </button>
 </form>
 
-<script>
-    $(document).ready(function () {
-        $("#approveOrderBtn").click(function () {
-            // Trigger form submission
-            $("#approveOrderForm").submit();
-        });
+@* <script>
+    $("#approveOrderForm").submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
 
-        // Optional: Handle form submission using AJAX (if needed)
-        $("#approveOrderForm").submit(function (event) {
-            event.preventDefault(); // Prevent default form submission
+        // Serialize form data with the correct syntax for arrays
+        var formData = $(this).serializeArray();
 
-            // Serialize form data
-            var formData = $(this).serialize();
+        // Convert serialized array to an object with 'menus' property
+        var dataObject = {};
+        for (var i = 0; i < formData.length; i++) {
+            var name = formData[i].name;
+            var value = formData[i].value;
 
-            // AJAX request
-            $.ajax({
-                type: "POST",
-                url: $(this).attr("action"),
-                data: formData,
-                success: function (data) {
-                    // Handle success
-                    console.log("İşlem başarılı");
-                },
-                error: function (error) {
-                    // Handle error
-                    console.error("Hata oluştu", error);
-                }
-            });
+            // Check if the property name ends with '[]'
+            if (name.endsWith("[]")) {
+                // Remove the '[]' and convert to camelCase (if needed)
+                name = name.slice(0, -2);
+            }
+
+            // Add the property to the object
+            dataObject[name] = value;
+        }
+
+        // AJAX request
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            contentType: "application/json",
+            data: JSON.stringify(dataObject), // Convert the object to JSON
+            success: function (data) {
+                // Handle success
+                console.log("İşlem başarılı");
+            },
+            error: function (error) {
+                // Handle error
+                console.error("Hata oluştu", error);
+            }
         });
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="@Url.Content("~/js/sepetJs.js")"></script>
+<script src="@Url.Content("~/js/sepetJs.js")"></script> *@

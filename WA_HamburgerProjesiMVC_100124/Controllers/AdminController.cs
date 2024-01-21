@@ -731,14 +731,42 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
             List<Order> orderList = adminService.GetAllOrdersWithUsers().ToList();
 
-            return View(mapper.Map<List<OrderListVM>>(orderList));
+            List<OrderListVM> vmList = new List<OrderListVM>();
+
+            foreach (Order order in orderList)
+            {
+                OrderListVM orderListVM = new OrderListVM();
+                orderListVM.Id = order.Id;
+                orderListVM.CreatedDate = order.CreatedDate;
+                orderListVM.OrderStatus = order.OrderStatus;
+                orderListVM.TotalPrice = order.TotalPrice;
+                orderListVM.Quantity = order.Quantity;
+                
+                vmList.Add(orderListVM);
+            }
+
+            return View(vmList);
         }
 
         public IActionResult OrderDetails(int id)
         {
-            Order order = adminService.GetByIdIncludeMenusWithProducts(id);
+            Order order = adminService.GetOrderByIdIncludeUsersAndMenus(id);
 
-            return View(mapper.Map<OrderDetailsVM>(order));
+            OrderDetailsVM detailsVM = new OrderDetailsVM()
+            {
+                AppUser = order.AppUser,
+                AppUserId = order.AppUserId,
+
+            };
+
+            List<Menu> menus = new List<Menu>();
+
+            foreach (Menu menu in order.Menus)
+            {
+                menus.Add(menu);
+            }
+            detailsVM.Menus = menus;
+            return View(detailsVM);
         }
 
         public IActionResult ChangeOrderStatus(int id)

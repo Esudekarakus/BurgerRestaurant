@@ -244,9 +244,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             UserVM userVM = new UserVM()
             {
+                UserName = user.UserName,
                 EMail = user.Email,
                 Name = user.FirstName,
                 SurName = user.LastName,
+                Id = user.Id,
 
             };
 
@@ -272,10 +274,11 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
         [Authorize(Roles = "Standard User, admin")]
         public async Task<IActionResult> Sepetim()
         {
-
+            AppUser user = await userManager.GetUserAsync(HttpContext.User);
             //Quantity kısmı statik olarak viewde güncellenicek.
             SiparisVM siparisVM = new SiparisVM()
             {
+                UserId = user.Id,
                 menus = onaylanmayanMenuler,
                 products = onaylanmayanUrunler,
             };
@@ -284,10 +287,27 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> ApproveOrder(SiparisVM menus)
+        public async Task<IActionResult> ApproveOrder(List<int> menuIds, string userId)
         {
+            List<Menu> menus = new List<Menu>();
+            foreach (int id in menuIds)
+            {
+                Menu menu = menuService.GetMenuByIdIncludeProducts(id);
+                menus.Add(menu);
+            }
+
+            AppUser user = await userManager.FindByIdAsync(userId);
+            decimal totalPrice = 0;
+
+            foreach (Menu menu in menus)
+            {
+                totalPrice += (decimal)menu.Price;
+            }
+
             Order order = new Order();
-            order.Menus = menus.menus;
+            order.Menus = menus;
+            order.AppUser = user;
+            order.TotalPrice = totalPrice;
             orderService.SaveOrders(order);
             return RedirectToAction("Index");
         }

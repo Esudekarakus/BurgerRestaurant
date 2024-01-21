@@ -39,7 +39,7 @@ namespace DAL.Repositories.Concrete
         }
         public IEnumerable<Order> GetAllIncludeMenusIncludeUsers()
         {
-            return dbContext.Orders.Include(x => x.Menus).Include(x => x.AppUser);
+            return dbContext.Orders.Include(x => x.Menus).ThenInclude(x => x.Products).Include(x => x.AppUser);
         }
 
         public Order GetByUserIdIncludeMenus(string id)
@@ -103,6 +103,11 @@ namespace DAL.Repositories.Concrete
                 .ToList();
 
             return dailyOrderCounts;
+        }
+
+        public Order GetByIdIncludeUsersAndMenusAndProducts(int id)
+        {
+            return dbContext.Orders.Include(x => x.AppUser).Include(x => x.Menus).ThenInclude(x => x.Products).FirstOrDefault(x => x.Id == id);
         }
     }
 }

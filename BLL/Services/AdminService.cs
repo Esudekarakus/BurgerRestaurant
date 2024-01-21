@@ -204,6 +204,11 @@ namespace BLL.Services
             return orderRepository.GetById(id);
         }
 
+        public Order GetOrderByIdIncludeUsersAndMenus(int id)
+        {
+            return orderRepository.GetByIdIncludeUsersAndMenusAndProducts(id);
+        }
+
         public Order GetByIdIncludeMenusWithProducts(int id)
         {
             return orderRepository.GetByIdIncludeMenusWithProducts(id);
