@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240118094548_init2345234")]
-    partial class init2345234
+    [Migration("20240121165252_3215")]
+    partial class _3215
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,7 @@ namespace DAL.Migrations
                         {
                             Id = "df5a9b38-18e8-48b7-97bf-ad4a9b4afe0e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "964203bb-9f24-49d6-8f07-9621c7f76088",
+                            ConcurrencyStamp = "f812bb76-6180-461c-a33c-1902a3f155d2",
                             Email = "admin@contoso.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -115,7 +115,7 @@ namespace DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CONTOSO.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIycomDKeaLAH5R7QlLGVn5wXHKFwKiyISd/mDfjN2oN8Jalv6S3MIIuBIMF9EefPw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEQ62vIr7svsYZA9YxDrYwa9x609E4sj7t910KaPDdJ7ddrHZww+D8vXsFaEDGrpvA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 1,
@@ -157,35 +157,35 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6134),
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5275),
                             Name = "Burger",
                             Status = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6146),
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5287),
                             Name = "Beverages",
                             Status = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6147),
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5288),
                             Name = "Condiments",
                             Status = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6147),
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5289),
                             Name = "Snacks",
                             Status = 1
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6148),
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5290),
                             Name = "Desserts",
                             Status = 1
                         });
@@ -243,9 +243,9 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6607),
-                            ImagePath = "img/burgers/hamburger1kofte.png",
-                            Name = "Meat Burger",
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5760),
+                            ImagePath = "GuncelResimler/BigKingKucuk.png",
+                            Name = "Gurme Meat Burger",
                             Price = 100.0,
                             Quantity = 1,
                             Size = 0,
@@ -254,9 +254,9 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6612),
-                            ImagePath = "img/burgers/chickenburger.png",
-                            Name = "Chicken Burger",
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5766),
+                            ImagePath = "GuncelResimler/ChickenBuger.png",
+                            Name = "Gurme Chicken Burger",
                             Price = 85.0,
                             Quantity = 1,
                             Size = 0,
@@ -265,10 +265,65 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6613),
-                            ImagePath = "img/beverages/milkshake.jpg",
-                            Name = "Çilekli Milkshake",
-                            Price = 30.0,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5767),
+                            ImagePath = "GuncelResimler/ChickenBurger2.png",
+                            Name = "Gurme Mini Chicken Burger",
+                            Price = 100.0,
+                            Quantity = 1,
+                            Size = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5768),
+                            ImagePath = "GuncelResimler/MarulBurger.png",
+                            Name = "Gurme Classic Burger",
+                            Price = 85.0,
+                            Quantity = 1,
+                            Size = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5769),
+                            ImagePath = "GuncelResimler/MiniCheeseBurger.png",
+                            Name = "Gurme Cheddar Burger",
+                            Price = 100.0,
+                            Quantity = 1,
+                            Size = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5770),
+                            ImagePath = "GuncelResimler/MiniKofteBurger.png",
+                            Name = "Gurme Kofte Burger",
+                            Price = 85.0,
+                            Quantity = 1,
+                            Size = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5771),
+                            ImagePath = "GuncelResimler/Sundae1.png",
+                            Name = "Çilek Rüyası Lezzetleri",
+                            Price = 20.0,
+                            Quantity = 1,
+                            Size = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5771),
+                            ImagePath = "GuncelResimler/elma.png",
+                            Name = "Elma Rüyası Lezzetleri",
+                            Price = 20.0,
                             Quantity = 1,
                             Size = 0,
                             Status = 1
@@ -335,6 +390,9 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -408,10 +466,11 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6522),
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5662),
+                            ImagePath = "GuncelResimler/patates1.png",
                             MenuId = 1,
-                            Name = "Meat Burger",
+                            Name = "Gurme Patates",
                             Price = 100.0,
                             Quantity = 1,
                             Status = 1
@@ -419,10 +478,11 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6524),
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5664),
+                            ImagePath = "GuncelResimler/onion.png",
                             MenuId = 2,
-                            Name = "Chicken Burger",
+                            Name = "Gurme Soğan Halkası",
                             Price = 85.0,
                             Quantity = 1,
                             Status = 1
@@ -430,11 +490,47 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 3,
-                            CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 1, 18, 12, 45, 47, 717, DateTimeKind.Local).AddTicks(6525),
-                            MenuId = 3,
-                            Name = "Çilekli Milkshake",
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5666),
+                            ImagePath = "GuncelResimler/Nugget1.png",
+                            Name = "Gurme Nugget",
                             Price = 30.0,
+                            Quantity = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5666),
+                            ImagePath = "GuncelResimler/sufle.png",
+                            MenuId = 3,
+                            Name = "Sufle",
+                            Price = 25.0,
+                            Quantity = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5667),
+                            ImagePath = "GuncelResimler/Sundae1.png",
+                            MenuId = 7,
+                            Name = "Çilekli Dondurma",
+                            Price = 20.0,
+                            Quantity = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 1, 21, 19, 52, 51, 813, DateTimeKind.Local).AddTicks(5668),
+                            ImagePath = "GuncelResimler/elma.png",
+                            MenuId = 8,
+                            Name = "Elmalı Çıtır",
+                            Price = 20.0,
                             Quantity = 1,
                             Status = 1
                         });
@@ -470,14 +566,14 @@ namespace DAL.Migrations
                         new
                         {
                             Id = "f6040633-db1b-4a48-be54-9f214e77ac9d",
-                            ConcurrencyStamp = "275e48c8-23a4-488d-8c1f-fea1aed3dd9a",
+                            ConcurrencyStamp = "c3594a21-0fdf-4a67-b8b0-70215323ab48",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f8e90030-9160-4282-97e6-cbdb017e6f6c",
-                            ConcurrencyStamp = "c18e4010-e95b-4540-9988-6d917868c10b",
+                            Id = "c072f0c0-d576-4097-9791-a6937dcba74f",
+                            ConcurrencyStamp = "32728ffc-40f2-48b7-85c8-20c79b30a62f",
                             Name = "Standard User",
                             NormalizedName = "STANDARD USER"
                         });

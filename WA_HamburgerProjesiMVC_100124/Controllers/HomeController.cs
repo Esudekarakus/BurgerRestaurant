@@ -243,6 +243,8 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             UserVM userVM = new UserVM()
             {
+                Id = user.Id,
+                UserName = user.UserName,
                 EMail = user.Email,
                 Name = user.FirstName,
                 SurName = user.LastName,
@@ -300,7 +302,10 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
 
 
-
+        //public async Task<IActionResult> BilgileriGuncelle()
+        //{
+        //    return RedirectToAction("Update", "Account");
+        //}
 
     }
 }
