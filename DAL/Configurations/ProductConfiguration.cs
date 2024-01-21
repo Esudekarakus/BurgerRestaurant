@@ -16,9 +16,9 @@ namespace DAL.Configurations
             builder.HasKey(p => p.Id);
             builder.ToTable("Products");
             builder.HasData(
-                new Product { Id = 1, CategoryId=1, Name = "Meat Burger", Price = 100.00,MenuId=1},
-                new Product { Id=2, CategoryId=1,Name="Chicken Burger", Price=85.00,MenuId = 2},
-                new Product { Id=3,CategoryId=5,Name="Çilekli Milkshake",Price=30,MenuId=3}
+                new Product { Id=1, CategoryId=4, Name = "Gurme Patates", Price = 100.00, ImagePath = "img/GuncelResimler/patates1.png" },
+                new Product { Id=2, CategoryId=4,Name="Gurme Soğan Halkası", Price=85.00, ImagePath = "img/GuncelResimler/onion.png" },
+                new Product { Id=3,CategoryId=4,Name="Gurme Nugget",Price=30, ImagePath = "img/GuncelResimler/Nugget1.png" }
                 );
 
                 
