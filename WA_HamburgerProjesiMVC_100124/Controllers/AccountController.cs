@@ -221,7 +221,7 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 					IdentityResult result = await userManager.UpdateAsync(user);
 					if (result.Succeeded)
 					{
-						return RedirectToAction("Index");
+						return RedirectToAction("Bilgiler", "Home");
 					}
 					else
 					{
