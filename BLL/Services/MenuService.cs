@@ -22,7 +22,7 @@ namespace BLL.Services
         //orderid si null olanlar
         public List<Menu>GetMenusIncludeProducts()
         {
-            return menuRepository.GetAllIncludeProducts().Where(o=>o.OrderId==null).ToList();
+            return menuRepository.GetAllIncludeProducts().ToList();
         }
         public void UpdateChanges(Menu menu)
         {

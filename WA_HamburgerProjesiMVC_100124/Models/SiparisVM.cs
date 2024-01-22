@@ -14,5 +14,6 @@ namespace WA_HamburgerProjesiMVC_100124.Models
 
         public List<Menu> menus {  get; set; }
         public List<Product> products { get; set; }
+        public List<MenuSiparisVM> Sepet { get; set; }
     }
 }

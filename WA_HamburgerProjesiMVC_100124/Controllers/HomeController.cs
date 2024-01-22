@@ -141,7 +141,9 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
 
         }
 
-        public IActionResult GetShoppingCard()
+        List<MenuSiparisVM> sepetVMs;
+
+        public async Task<IActionResult> GetShoppingCard()
         {
 
             SiparisVM siparisVM = new SiparisVM()
@@ -149,6 +151,33 @@ namespace WA_HamburgerProjesiMVC_100124.Controllers
                 menus = onaylanmayanMenuler,
                 products = onaylanmayanUrunler,
             };
+
+            
+
+            foreach (Menu menu in onaylanmayanMenuler)
+            {
+                MenuSiparisVM vm = new MenuSiparisVM()
+                {
+                    Id = menu.Id,
+                    Quantity = menu.Quantity,
+
+                };
+
+                sepetVMs.Add(vm);
+            }
+
+            foreach (Product product in onaylanmayanUrunler)
+            {
+                MenuSiparisVM vm = new MenuSiparisVM()
+                {
+                    Id = product.Id,
+                    Quantity = product.Quantity
+                };
+                sepetVMs.Add(vm );
+            }
+
+            siparisVM.Sepet = sepetVMs;
+
             return PartialView("_ShoppingCardPartialView", siparisVM);
 
         }
